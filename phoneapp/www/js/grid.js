@@ -22,7 +22,7 @@ var checkLogin = function() {
         showLoginPage();
     } else {
         $("#footing").show();
-        $("#head-title-text").show();
+        $("#headtitle").show();
         showGridPage();
     }
 }
@@ -107,8 +107,6 @@ var employeeData = {"employees":[
 ]};
 
 var loginPage = function() {
-    $("#head-title-text").hide();
-
     toToPage("login-page")
 }
 
@@ -133,6 +131,7 @@ var showSwapPage = function() {
 var showLoginPage = function() {
     goToPage("login-page");
     $("#footing").hide();
+    $("#headtitle").hide();
 }
 
 var loadSwapPage = function(time, date, partner) {

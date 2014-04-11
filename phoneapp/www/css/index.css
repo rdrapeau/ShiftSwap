@@ -186,8 +186,28 @@ hr{
     color:white;
 }
 
+#loginlogo{
+    max-width:300px;
+    margin-top:50px;
+}
+
+#enter-key{
+    color:#14FFB1;
+    min-width:100px;
+}
+
+#login{
+    margin-top:50px;
+}
+
+#login-box{
+    width:300px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 #login-page{
-    background-image:url('../img/logo-small.png');
+    text-align:center;
 }
 
 #settingbox1{
