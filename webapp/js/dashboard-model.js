@@ -138,7 +138,7 @@ function Calendar(dom, data, vm) {
 		console.log(selection);
 		vm.showSelected(false);
 		vm.selectedStart("");
-		vm.selectedEnd("");	
+		vm.selectedEnd("");
 		$('#add-assignment-modal').unbind('shown.bs.modal');
 		vm.editAssignmentFrom(get12HourTime(selection[0].data('minutes')));
 		vm.editAssignmentTo(get12HourTime(selection[selection.length - 1].data('minutes')));
@@ -185,6 +185,7 @@ function Calendar(dom, data, vm) {
 					selection[j].addClass('perm-selected');
 					selection[j].click(function() {
 						if(!$('#add-assignment-modal').hasClass('in')) {
+							vm.loadUsers(assignments);
 							editSelection(selection);
 						}
 					});

@@ -20,15 +20,24 @@ var DashViewModel = function(data) {
 	self.selectedEnd = new ko.observable("");
 	self.showSelected = new ko.observable(false);
 
+	self.userOptions = new ko.observableArray();
+	self.assignmentUsers = new ko.observableArray();
+
 	self.name = data.username;
 	self.users = new ko.observableArray();
 
 	transferArray(self.users, data.users);
-
+	for(var i = 0; i < self.users().length; i ++) {
+		self.userOptions.push(self.users()[i].name);
+	}
 
 	self.selectedTimeRange = new ko.computed(function() {
 		return self.selectedStart() + ":" + self.selectedEnd();
 	});
+
+	self.loadUsers = function(assignments) {
+
+	}
 
 	self.nextWeek = function() {
 

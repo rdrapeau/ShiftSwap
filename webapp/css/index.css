@@ -125,6 +125,10 @@ h1, h2, p {
     background: rgba(255,255,255,.2);
 }
 
+.edit-assignment-info-block {
+    margin-bottom: 20px;
+}
+
 img::selection {
     background: 0 0;
 }

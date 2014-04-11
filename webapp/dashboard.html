@@ -109,11 +109,14 @@
 								<h4 class="modal-title" id="myModalLabel">Assignment Details</h4>
 							</div>
 							<div class="modal-body">
-								<div><strong>From:</strong> <span data-bind="text: editAssignmentFrom"></span></div>
-								<div><strong>To:</strong> <span data-bind="text: editAssignmentTo"></span></div>
+								<div class="edit-assignment-info-block">
+									<div><strong>From:</strong> <span data-bind="text: editAssignmentFrom"></span></div>
+									<div><strong>To:</strong> <span data-bind="text: editAssignmentTo"></span></div>
+								</div>
 
+								<div><span class="glyphicon glyphicon-user"></span> <strong>Assigned</strong><div>
 								<form id="edit-assignment-form">
-									<select multiple class="form-control" data-bind="foreach: userOptions, selectedOptions: assignmentUsers">
+									<select multiple class="form-control" data-bind="options: userOptions, selectedOptions: assignmentUsers">
 									</select>
 								</form>
 							</div>
