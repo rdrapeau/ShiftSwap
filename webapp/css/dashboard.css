@@ -1,6 +1,7 @@
 body {
 	color: white;
 	background: black;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
 .nav-tabs {
@@ -27,9 +28,41 @@ body {
 	border-radius: 0;
 	color: #FFCC00;
 }
+.nav-tabs>li>a>span {
+	margin-right: 10px;
+}
 
 a {
 	color: #FFCC00;
+}
+
+h1, h2 {
+	color: #FFCC00;
+}
+
+.btn-info {
+	background: #FFCC00;
+	border: none;
+	color: white;
+}
+
+.btn-info:hover, .btn-info:active, .btn-info:focus {
+	background: #EE9900;
+	border: none;
+	color: white;
+}
+
+#prev-week {
+	float: left;
+}
+
+#next-week {
+	float: right;
+}
+
+.arrow-buttons {
+	margin-top: 20px;
+	clear: both;
 }
 
 .logo-small {
@@ -46,7 +79,7 @@ a {
 	color: white;
 }
 
-.btn-warn:hover {
+.btn-warn:hover, .btn-warn:active, .btn-info:focus {
 	background-color: #C13030;
 	color: white;
 }
@@ -62,6 +95,12 @@ a {
 
 .calendar {
 	width: 100%;
+	table-layout:fixed;
+	margin-top: 10px;
+}
+
+.calendar th {
+	text-align: center;
 }
 
 .cal-row {
@@ -70,10 +109,32 @@ a {
 	border-bottom: 1px white solid;
 }
 
+.modal {
+	color: black;
+}
+
 .cal-filler.selected, .cal-filler.perm-selected {
 	background-color: #71C837;
 }
 
 .cal-filler.no-go {
 	background-color: #C13030;
+}
+
+.marker {
+	display: none;
+	position: absolute;
+	top:0; left:0;
+	color: black;
+	padding: 10px;
+	width: 150px;
+	height: 40px;
+	background: white;
+	display: block;
+	z-index: 200;
+	font-weight: bold;
+}
+
+#users {
+	margin-top: 20px;
 }

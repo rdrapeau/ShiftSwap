@@ -1,4 +1,4 @@
-function Calendar(dom, data) {
+function Calendar(dom, data, vm) {
 	var cals = $(dom);
 	var granularity = 4 * 24; // 15 minutes
 	var minutesPer = Math.floor((24.0 / granularity) * 60);
@@ -94,11 +94,30 @@ function Calendar(dom, data) {
 		for(var i = 0; i < selection.length; i++) {
 			selection[i].addClass(okay ? 'selected' : 'no-go');
 		}
+		if(selection.length > 0) {
+			vm.showSelected(true);
+			vm.selectedStart(get12HourTime(selection[0].data('minutes')));
+			vm.selectedEnd(get12HourTime(selection[selection.length - 1].data('minutes')));
+		} else {
+			vm.showSelected(false);
+			vm.selectedStart("");
+			vm.selectedEnd("");			
+		}
+
+		return selection;
 	};
 
-	var saveSelection = function() {
+	var sameSelection = function(one, two) {
+		return one[0] == two[0];
+	}
+
+
+	var saveSelection = function(selection) {
 		if($('.no-go').length > 0) {
 			$('.cal-filler').removeClass('no-go');
+			vm.showSelected(false);
+			vm.selectedStart("");
+			vm.selectedEnd("");		
 		} else {
 			$('.cal-filler.selected').each(function () {
 				$(this).removeClass('selected');
@@ -106,27 +125,67 @@ function Calendar(dom, data) {
 				$(this).data('selected-index', selectIndex);
 			});
 			selectIndex++;
-			$('#add-assignment-modal').modal(options)
+			editSelection(selection);
 		}
 	}
 
+	var editSelection = function(selection) {
+		vm.showSelected(false);
+		vm.selectedStart("");
+		vm.selectedEnd("");	
+		$('#add-assignment-modal').unbind('shown.bs.modal');
+		vm.editAssignmentFrom(get12HourTime(selection[0].data('minutes')));
+		vm.editAssignmentTo(get12HourTime(selection[selection.length - 1].data('minutes')));
+		$('#add-assignment-modal').on('shown.bs.modal', function() {
+			for(var i = 0; i < selection.length; i++) {
+				selection[i].click(function() {
+					console.log("EDIT");
+				});
+			}
+			$('#add-assignment-modal').find('.modal-close, .close, .modal-confirm').unbind('click');
+			$('#add-assignment-modal').find('.modal-close, .close').click(function() {
+				for(var i = 0; i < selection.length; i++) {
+					selection[i].removeClass('perm-selected');
+				}
+				vm.showSelected(false);
+				vm.selectedStart("");
+				vm.selectedEnd("");		
+				return true;
+			});
+			$('#add-assignment-modal').find('.modal-confirm').click(function() {
+				for(var i = 0; i < selection.length; i++) {
+					selection[i].click(function() {
+						if(!$('#add-assignment-modal').hasClass('in')) {
+							editSelection(selection);
+						}
+					});
+				}
+				return true;
+			});
+		});
+		$('#add-assignment-modal').modal('show');
+	}
+
 	$('.cal-filler').mousedown(function(e) {
-		console.log('mouse down');
 		start = $(this);
 		e.preventDefault();
 	});
 
 	$('.cal-filler').mouseenter(function() {
-		console.log('mouse enter');
 		if(start != null) {
 			handleSelection(start, $(this));
 		}
 	});
 
 	$('.cal-filler').mouseup(function() {
-		console.log('mouse up');
-		handleSelection(start, $(this));
-		saveSelection();
+		if (sameSelection(start, $(this))) {
+			start = null;
+			$('.cal-filler').removeClass('selected');
+			return true;
+		}
+		var selection = handleSelection(start, $(this));
 		start = null;
+		if(selection.length > 0)
+			saveSelection(selection);
 	});
 }
