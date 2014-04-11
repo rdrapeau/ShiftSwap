@@ -97,6 +97,10 @@ function Calendar(dom, data) {
 	};
 
 	var saveSelection = function() {
+		if($('.no-go').length > 0) {
+			$('.cal-filler').removeClass('no-go');
+			return;
+		}
 		$('.cal-filler.selected').each(function () {
 			$(this).removeClass('selected');
 			$(this).addClass('perm-selected');
