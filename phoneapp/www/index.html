@@ -18,23 +18,25 @@
         <div id="grid-page">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="#" class="ui-btn-active ui-state-persist">Daily View</a></li>
-                    <li><a href="#">Weekly View</a></li>
+                    <li><a id="daily-view-button" href="#" class="ui-btn-active ui-state-persist">Daily View</a></li>
+                    <li><a id="weekly-view-button" href="#">Weekly View</a></li>
                 </ul>
             </div>
 
             <div id="day-view">
                 <div class="ui-grid-b">
-                    <div id="daytitle"><strong>Mon</strong></div>
+                    <div id="daytitle"><strong id="daily-title">Mon</strong></div>
                     <hr />
-                    <p class="daycontent">Time:</p>
-                    <p class="daycontent">Notes:</p>
+                    <p class="daycontent">
+                        Time(s):
+                        <ul id="daily-times" data-role="listview"></ul>
+                    </p>
+                    <p class="daycontent">Notes: <span id="daily-notes"></span></p>
                 </div>
             </div>
 
            <div id="week-view">
-                <ul id="schedule-list" data-role="listview" class="ui-shadow">
-                </ul>
+                <ul id="schedule-list" data-role="listview" class="ui-shadow"></ul>
            </div>
         </div>
 

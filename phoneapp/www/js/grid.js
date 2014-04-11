@@ -1,7 +1,9 @@
 $(document).ready(function() {
-    $("#employees-page").hide();
     $(".grid-link").click(showGridPage);
     $(".employees-link").click(showEmployeePage);
+
+    $("#daily-view-button").click(showDailyGrid);
+    $("#weekly-view-button").click(showWeeklyGrid);
     showGridPage();
 });
 
@@ -76,7 +78,7 @@ var employeeData = {"employees":[
 
 var showGridPage = function() {
     goToPage("grid-page");
-    // showWeeklyGrid();
+    showDailyGrid();
 }
 
 var showEmployeePage = function() {
@@ -161,14 +163,39 @@ var showEmployeeSchedule = function() {
     }
 }
 
+var showDailyGrid = function () {
+    $("#week-view").hide();
+    $("#day-view").show();
+    $("#daily-times").empty();
+    $("#daily-view-button").addClass("ui-btn-active ui-state-persist");
+    $("#weekly-view-button").removeClass("ui-btn-active ui-state-persist");
+
+    var currentDay = scheduleData.schedule[0];
+    $("#daily-title").text(getDateString(currentDay.date));
+
+    var head = document.getElementById("daily-times");
+
+    for (var i = 0; i < currentDay.shifts.length; i++) {
+        var shift = document.createElement("li");
+        shift.className = "ui-li-static ui-body-inherit";
+        var text = get12HourTime(currentDay.shifts[i].startTime) + " - " + get12HourTime(currentDay.shifts[i].endTime);
+        shift.appendChild(document.createTextNode(text));
+
+        head.appendChild(shift);
+    }
+
+    $("#daily-notes").text(currentDay.notes ? currentDay.notes : "None");
+}
+
 var showWeeklyGrid = function() {
+    $("#day-view").hide();
+    $("#week-view").show();
     $("#schedule-list").empty();
     var head = document.getElementById("schedule-list");
 
     for (var i = 0; i < scheduleData.schedule.length; i++) {
         var day = document.createElement("li");
-        var date = new Date(scheduleData.schedule[i].date);
-        day.appendChild(document.createTextNode(date.toDateString()));
+        day.appendChild(document.createTextNode(getDateString(scheduleData.schedule[i].date)));
         day.className = "ui-li-divider ui-bar-inherit";
         day.setAttribute("data-role", "list-divider");
         head.appendChild(day);
@@ -188,6 +215,11 @@ var showWeeklyGrid = function() {
                 head.appendChild(shift);
         }
     }
+}
+
+var getDateString = function(dateString) {
+    var date = new Date(dateString);
+    return date.toDateString();
 }
 
 var get24HourTime = function(minutesSinceMidnight) {
