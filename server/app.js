@@ -53,10 +53,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 // sign up a user
-app.post('/user/signup', managerUser.user.add);
+app.post('/user/signup', managerUser.addEmployee);
 
 // login the user
-app.post('/user/signin', managerUser.user.signin);
+app.post('/user/signin', managerUser.signinEmployee);
 
 // sign up a manager
 app.post('/manager/signup', managerUser.signup);
@@ -65,7 +65,7 @@ app.post('/manager/signup', managerUser.signup);
 app.post('/manager/signin', managerUser.signin);
 
 // add a new schedule (group of assignments)
-app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
+//app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
 
 // generate a new schedule based on users of a manager
 //app.post('/manager/generateschedule', middleware.requiresManager, managerUser.generateSchedule);
