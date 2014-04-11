@@ -72,3 +72,18 @@ exports.signin = function(req, res) {
         }
     });
 };
+
+
+/*
+ * Sign up a user.
+ */
+exports.user.add = function(req, res){
+    //add phone user here
+};
+
+/*
+ * Sign in a user
+ */
+exports.user.signin = function(req, res) {
+    //authenticate phone user here
+};

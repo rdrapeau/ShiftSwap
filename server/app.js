@@ -54,10 +54,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 // sign up a user
-app.post('/user/signup', managerUser.userSignup);
+app.post('/user/signup', managerUser.user.add);
 
 // login the user
-app.post('/user/signin', managerUser.userSignin);
+app.post('/user/signin', managerUser.user.signin);
 
 // sign up a manager
 app.post('/manager/signup', managerUser.signup);
@@ -75,13 +75,13 @@ app.post('/manager/signin', managerUser.signin);
 //app.get('/user/schedules', middleware.requiresUser, managerUser.getSchedules);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, managerUser.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);
 
 // Adds a swap request to this user's manager
-//app.post('/user/addswap', middleware.requiresUser, manageUser.addSwap);
+//app.post('/user/addswap', middleware.requiresUser, manageUser.user.addSwap);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, managerUser.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);
 
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
