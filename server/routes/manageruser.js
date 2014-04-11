@@ -149,11 +149,3 @@ exports.signinEmployee = function(req, res) {
         }
     }
 };
-
-exports.manager.addEmployee = function(user, email){
-    var user_names = user.body.user_names;
-    var employee_email = email.body.employee_email.toLowerCase();
-    console.log('You have added' + user_names + 'with email' + employee_email);
-    ObjectId user_nameID =ObjectId.get(user_names);
-
-}
