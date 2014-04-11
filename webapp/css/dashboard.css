@@ -1,0 +1,22 @@
+.nav-tabs {
+	border: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus, .nav-tabs>li>a:hover, .nav-tabs>li>a:focus{
+	background: none;
+	border: none;
+	color: #555;
+	padding: 15px 15px;
+	display: block;
+	position: relative;
+	margin-right: 2px;
+	border-radius: 0;
+}
+
+.nav-tabs>li>a {
+	color: #FFCC00;
+}
+
+a {
+	color: #FFCC00;
+}
