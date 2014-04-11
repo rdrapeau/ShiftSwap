@@ -73,7 +73,8 @@ exports.signin = function(req, res) {
         } else {
             console.log(manager);
             // save the manager in sessions to be retrieved later
-            req.session.manager = manager;   
+            req.session.manager = manager;
+            console.log(req.session);
             // successful registration
             res.json({
                 'response': 'OK',
@@ -81,6 +82,21 @@ exports.signin = function(req, res) {
             });
         }
     });
+};
+
+exports.pingManager = function(req, res) {
+    console.log(req.session);
+    if(typeof req.session.manager != 'undefined') {
+        res.json({
+            'response': 'OK',
+            'manager': req.session.manager
+        });
+    } else {
+        res.json({
+                'response': 'FAIL',
+                'errors': ['Not logged in!']
+            });        
+    }
 };
 
 

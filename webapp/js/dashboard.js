@@ -1,31 +1,63 @@
-$(document).ready(function() {
-	var mgnObj = {
-		'_id' : '923849238492',
-		'username' : 'necha',
-		'password' : 'password',
-		'users' : [
-			{
-				'_id' : 'UNIQUECODE',
-				'name' : 'Aaron Nech',
-				'email' : 'necha@cs.washington.edu'
-			}
-		],
-		'schedules' : [
-			{
-				'start' : 9234234234,
-				'assignments' : [
-					{
-						'users' : ['list', 'of', 'unique_codes'],
-						'day' : 0,
-						'startMinute' : 15,
-						'endMinute' : 300
-					}
-				]
-			}
-		]
-	}
+(function() {
+    "use strict";
 
-	var vm = new DashViewModel(mgnObj);
+    var server = "http://localhost:3000";
 
-	ko.applyBindings(vm);
-});
+    $(document).ready(function() {
+        $("#alreadyRegistered").click(alreadyRegistered);
+        $("#remember").hide();
+        $("#register").click(register);
+        $("#login").click(login);
+    });
+
+    // Called when the user clicks the alreadyRegistered text
+    function alreadyRegistered() {
+        $("#alreadyRegistered").fadeOut("fast");
+        $("#registerForm").slideUp("slow", function() {
+            $("#loginForm").slideDown("slow");
+        $("#remember").show();    
+        });
+    }
+
+    // Called when the user clicks the register button
+    function register() {
+        var email = $("#registerEmail").val();
+        var password1 = $("#registerPassword").val();
+
+        $.post(server + '/manager/signup', {'email' : email, 'password' : password1}, function(data) {
+            if(data.response == 'OK') {
+                $.post(server + '/manager/signin', {'email' : email, 'password' : password1}, function(data) {
+                    if(data.response == 'OK') {
+                        showDash(data);
+                    } else {
+                        alert(data);
+                    }
+                });
+            } else {
+                alert(data)
+            }
+        });
+    }
+
+    function login() {
+        var email = $("#loginEmail").val();
+        var password1 = $("#loginPassword").val();
+
+        $.post(server + '/manager/signin', {'email' : email, 'password' : password1}, function(data) {
+            if(data.response == 'OK') {
+                showDash(data);
+            } else {
+                alert(data);
+            }
+        });
+    }
+
+    function showDash(data) {
+		var vm = new DashViewModel(data.manager, server);
+		ko.applyBindings(vm);
+		$('#intro').slideUp('fast', function() {
+			$('#dashboard').slideDown('fast');
+		});
+    }
+
+})();

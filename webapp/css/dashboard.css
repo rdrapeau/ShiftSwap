@@ -9,6 +9,14 @@ body {
 	font-family: comf;
 }
 
+#intro {
+	display: block;
+}
+
+#dashboard {
+	display: none;
+}
+
 .nav-tabs {
 	border: none;
 }
