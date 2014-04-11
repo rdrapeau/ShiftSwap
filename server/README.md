@@ -132,7 +132,7 @@ In case of an error:
         "response": "FAIL"
     }
 
-Response (sends email to email provided with user _id):
+Response:
 
 	{
 	    "response": "OK",
