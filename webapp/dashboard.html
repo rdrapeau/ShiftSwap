@@ -81,12 +81,13 @@
 		<div class="container tab-pane" id="shifts">
 			<div class="jumbotron">
 				<div>
-					<button class="btn btn-warn"><span class="glyphicon glyphicon-flash"></span> Shuffle</button>
+					<button class="btn btn-warn" data-bind="click: randomSchedule"><span class="glyphicon glyphicon-flash"></span> Shuffle</button>
+					<button class="btn btn-warn" data-bind="click: fiveToEight"><span class="glyphicon glyphicon-flash"></span> 5-to-8</button>
 					<button class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Publish</button>
 				</div>
 				<div class="arrow-buttons">
-					<button class="btn btn-info" id="prev-week"><span class="glyphicon glyphicon-arrow-left"></span></button>
-					<button class="btn btn-info" id="next-week"><span class="glyphicon glyphicon-arrow-right"></span></button>
+					<button class="btn btn-info" id="prev-week" data-bind="click: prevWeek"><span class="glyphicon glyphicon-arrow-left"></span></button>
+					<button class="btn btn-info" id="next-week" data-bind="click: nextWeek"><span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<table class="calendar">
 					<tr class="cal-heading">
@@ -112,8 +113,7 @@
 								<div><strong>To:</strong> <span data-bind="text: editAssignmentTo"></span></div>
 
 								<form id="edit-assignment-form">
-									<select multiple class="form-control" data-bind="foreach: users">
-										<option data-bind="text: name"></option>
+									<select multiple class="form-control" data-bind="foreach: userOptions, selectedOptions: assignmentUsers">
 									</select>
 								</form>
 							</div>

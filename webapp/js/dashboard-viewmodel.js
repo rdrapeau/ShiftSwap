@@ -1,6 +1,6 @@
 var DashViewModel = function(data) {
 	var self = this;
-	var calendar = new Calendar('.calendar', {}, self);
+	var calendar = new Calendar('.calendar', [], self);
 	$(document).on('mousemove', function(e){
 	    $('.marker').css({
 	       left:  e.pageX + 15,
@@ -29,4 +29,56 @@ var DashViewModel = function(data) {
 	self.selectedTimeRange = new ko.computed(function() {
 		return self.selectedStart() + ":" + self.selectedEnd();
 	});
+
+	self.nextWeek = function() {
+
+	};
+
+	self.prevWeek = function() {
+
+	};
+
+	self.nextWeek = function() {
+
+	};
+
+	self.randomSchedule = function() {
+		calendar = new Calendar('.calendar', data.schedules[0].assignments, self);
+	}
+
+	self.fiveToEight = function() {
+		var assignments = [
+			{
+				'users' : [],
+				'day' : 1,
+				'startMinute' : 8 * 60,
+				'endMinute' : 17 * 60
+			},
+			{
+				'users' : [],
+				'day' : 2,
+				'startMinute' : 8 * 60,
+				'endMinute' : 17 * 60
+			},
+			{
+				'users' : [],
+				'day' : 3,
+				'startMinute' : 8 * 60,
+				'endMinute' : 17 * 60
+			},
+			{
+				'users' : [],
+				'day' : 4,
+				'startMinute' : 8 * 60,
+				'endMinute' : 17 * 60
+			},
+			{
+				'users' : [],
+				'day' : 5,
+				'startMinute' : 8 * 60,
+				'endMinute' : 17 * 60
+			}
+		];
+		calendar = new Calendar('.calendar', assignments, self);
+	}
 }

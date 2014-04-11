@@ -1,4 +1,5 @@
 function Calendar(dom, data, vm) {
+	$('.cal-row').remove();
 	var cals = $(dom);
 	var granularity = 4 * 24; // 15 minutes
 	var minutesPer = Math.floor((24.0 / granularity) * 60);
@@ -53,6 +54,18 @@ function Calendar(dom, data, vm) {
 	var start = null;
 	var selectIndex = 0;
 
+	var selectionsFromRange = function(start, end) {
+		var selection = [];
+		cals.find('.cal-row').each(function() {
+			$(this).find('.cal-filler').each(function() {
+				if (inRange(start, end, $(this))) {
+					selection.push($(this));
+				}
+			});
+		});
+		return selection;
+	}
+
 	var inRange = function (start, end, suspect) {
 		// console.log(suspect.data('day') + ' >= ' + start.data('day')); 
 		// console.log(suspect.data('day') + ' <= ' + end.data('day'));
@@ -70,18 +83,10 @@ function Calendar(dom, data, vm) {
 	}
 
 	var handleSelection = function (start, end) {
-		var selection = [];
+		var selection = selectionsFromRange(start, end);
 
 		$('.cal-filler').removeClass('selected');
 		$('.cal-filler').removeClass('no-go');
-
-		cals.find('.cal-row').each(function() {
-			$(this).find('.cal-filler').each(function() {
-				if (inRange(start, end, $(this))) {
-					selection.push($(this));
-				}
-			});
-		});
 
 		var okay = true;
 		for(var i = 0; i < selection.length; i++) {
@@ -130,6 +135,7 @@ function Calendar(dom, data, vm) {
 	}
 
 	var editSelection = function(selection) {
+		console.log(selection);
 		vm.showSelected(false);
 		vm.selectedStart("");
 		vm.selectedEnd("");	
@@ -137,14 +143,10 @@ function Calendar(dom, data, vm) {
 		vm.editAssignmentFrom(get12HourTime(selection[0].data('minutes')));
 		vm.editAssignmentTo(get12HourTime(selection[selection.length - 1].data('minutes')));
 		$('#add-assignment-modal').on('shown.bs.modal', function() {
-			for(var i = 0; i < selection.length; i++) {
-				selection[i].click(function() {
-					console.log("EDIT");
-				});
-			}
 			$('#add-assignment-modal').find('.modal-close, .close, .modal-confirm').unbind('click');
 			$('#add-assignment-modal').find('.modal-close, .close').click(function() {
 				for(var i = 0; i < selection.length; i++) {
+					selection[i].unbind('click');
 					selection[i].removeClass('perm-selected');
 				}
 				vm.showSelected(false);
@@ -164,6 +166,31 @@ function Calendar(dom, data, vm) {
 			});
 		});
 		$('#add-assignment-modal').modal('show');
+	}
+
+	var loadAssignments = function(assignments) {
+		for(var i = 0; i < assignments.length; i++) {
+			var start = $('.cal-filler').filter(function() {
+				return $(this).data('minutes') == assignments[i].startMinute &&
+						$(this).data('day') == assignments[i].day;
+			});
+			var end = $('.cal-filler').filter(function() {
+				return $(this).data('minutes') == assignments[i].endMinute &&
+						$(this).data('day') == assignments[i].day;
+			});
+			//scoping
+			(function() {
+				var selection = selectionsFromRange(start, end);
+				for(var j = 0; j < selection.length; j++) {
+					selection[j].addClass('perm-selected');
+					selection[j].click(function() {
+						if(!$('#add-assignment-modal').hasClass('in')) {
+							editSelection(selection);
+						}
+					});
+				}
+			})();
+		}
 	}
 
 	$('.cal-filler').mousedown(function(e) {
@@ -188,4 +215,8 @@ function Calendar(dom, data, vm) {
 		if(selection.length > 0)
 			saveSelection(selection);
 	});
+
+	if(data.length > 0) {
+		loadAssignments(data);
+	}
 }
