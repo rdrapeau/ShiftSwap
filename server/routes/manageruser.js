@@ -147,5 +147,5 @@ exports.signinEmployee = function(req, res) {
                 'manager': manager
             });
         }
-    }
+    });
 };
