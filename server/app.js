@@ -58,10 +58,10 @@ app.post('/user/signup', user.signup);
 app.post('/user/signin', user.signin);
 
 // sign up a manager
-app.post('/manager/signup', user.signup);
+app.post('/manager/signup', manager.signup);
 
 // login the user
-app.post('/manager/signin', user.signin);
+app.post('/manager/signin', manager.signin);
 
 // add a new schedule (group of assignments)
 //app.post('/manager/addschedule', middleware.requiresManager, manager.addSchedule);
