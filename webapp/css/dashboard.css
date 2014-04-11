@@ -1,7 +1,12 @@
+@font-face {
+    font-family: comf;
+    src: url('../fonts/Comfortaa_Regular.ttf');
+}
+
 body {
 	color: white;
 	background: black;
-	font-family: 'Roboto Condensed', sans-serif;
+	font-family: comf;
 }
 
 .nav-tabs {
@@ -111,6 +116,10 @@ h1, h2 {
 
 .modal {
 	color: black;
+}
+
+.cal-filler {
+	border-right: 1px white dotted;
 }
 
 .cal-filler.selected, .cal-filler.perm-selected {

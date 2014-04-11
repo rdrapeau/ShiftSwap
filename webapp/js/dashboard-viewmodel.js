@@ -23,6 +23,9 @@ var DashViewModel = function(data) {
 	self.userOptions = new ko.observableArray();
 	self.assignmentUsers = new ko.observableArray();
 
+	self.employeeName = new ko.observable("");
+	self.employeeEmail = new ko.observable("");
+
 	self.name = data.username;
 	self.users = new ko.observableArray();
 
@@ -35,7 +38,14 @@ var DashViewModel = function(data) {
 		return self.selectedStart() + ":" + self.selectedEnd();
 	});
 
-	self.loadUsers = function(assignments) {
+	self.loadSelectionUsers = function(users) {
+		self.assignmentUsers.removeAll();
+		for(var i = 0; i < users.length; i++) {
+			self.assignmentUsers.push($('[data-id="' + users[i] + '"]').data('name'));
+		}
+	}
+
+	self.loadUserRecord = function() {
 
 	}
 

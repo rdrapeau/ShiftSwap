@@ -5,7 +5,7 @@ $(document).ready(function() {
 		'password' : 'password',
 		'users' : [
 			{
-				'code' : 'UNIQUE',
+				'_id' : 'UNIQUECODE',
 				'name' : 'Aaron Nech',
 				'email' : 'necha@cs.washington.edu'
 			}

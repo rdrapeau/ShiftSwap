@@ -135,7 +135,6 @@ function Calendar(dom, data, vm) {
 	}
 
 	var editSelection = function(selection) {
-		console.log(selection);
 		vm.showSelected(false);
 		vm.selectedStart("");
 		vm.selectedEnd("");
@@ -181,11 +180,12 @@ function Calendar(dom, data, vm) {
 			//scoping
 			(function() {
 				var selection = selectionsFromRange(start, end);
+				var usersIds = assignments[i].users;
 				for(var j = 0; j < selection.length; j++) {
 					selection[j].addClass('perm-selected');
 					selection[j].click(function() {
 						if(!$('#add-assignment-modal').hasClass('in')) {
-							vm.loadUsers(assignments);
+							vm.loadSelectionUsers(usersIds);
 							editSelection(selection);
 						}
 					});

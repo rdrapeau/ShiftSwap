@@ -47,7 +47,7 @@
 				<button class="btn btn-success" data-toggle="modal" data-target="#add-employee-modal"><span class="glyphicon glyphicon-plus"></span> Employee</button>
 
 				<div class="list-group" id="users" data-bind="foreach: users">
-					<a href="#" class="list-group-item" data-bind="text: name"></a>
+					<a href="#" class="list-group-item" data-bind="text: name, attr: {'data-id' : _id, 'data-name' : name}"></a>
 				</div>
 
 			</div>
@@ -57,12 +57,12 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+							<h4 class="modal-title" id="myModalLabel">Employee Record</h4>
 						</div>
 						<div class="modal-body">
 							<form class="form-add-employee" role="form">
-								<input type="text" class="form-control" name="name" placeholder="Employee Name" required autofocus>
-								<input type="text" class="form-control" name="email" placeholder="Employee Email" required autofocus>
+								<input type="text" class="form-control" name="name" placeholder="Employee Name" data-bind="value: employeeName" required autofocus>
+								<input type="text" class="form-control" name="email" placeholder="Employee Email" data-bind="value: employeeEmail" required autofocus>
 							</form>
 						</div>
 						<div class="modal-footer">
