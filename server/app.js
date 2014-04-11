@@ -1,7 +1,6 @@
 var express = require('express'),
     db = require('./config/db'),
     routes = require('./routes'),
-    user = require('./routes/user'),
     managerUser = require('./routes/manageruser'),
     constants = require('./config/constants'),
     http = require('http'),
