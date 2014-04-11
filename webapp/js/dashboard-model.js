@@ -99,14 +99,15 @@ function Calendar(dom, data) {
 	var saveSelection = function() {
 		if($('.no-go').length > 0) {
 			$('.cal-filler').removeClass('no-go');
-			return;
+		} else {
+			$('.cal-filler.selected').each(function () {
+				$(this).removeClass('selected');
+				$(this).addClass('perm-selected');
+				$(this).data('selected-index', selectIndex);
+			});
+			selectIndex++;
+			$('#add-assignment-modal').modal(options)
 		}
-		$('.cal-filler.selected').each(function () {
-			$(this).removeClass('selected');
-			$(this).addClass('perm-selected');
-			$(this).data('selected-index', selectIndex);
-		});
-		selectIndex++;
 	}
 
 	$('.cal-filler').mousedown(function(e) {

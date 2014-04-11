@@ -89,6 +89,28 @@
 		    				<th>Saturday</th>
 		    			</tr>
 		    		</table>
+				    <div class="modal fade" id="add-assignment-modal" tabindex="-1" role="dialog" aria-labelledby="addAssignment" aria-hidden="true">
+				    	<div class="modal-dialog">
+				    		<div class="modal-content">
+				    			<div class="modal-header">
+				    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				    				<h4 class="modal-title" id="myModalLabel">Assignment Details</h4>
+				    			</div>
+				    			<div class="modal-body">
+				    				<div>From: <span data-bind="text: currentAssignmentFrom"></span></div>
+				    				<div>To: <span data-bind="text: currentAssignmentTo"></span></div>
+				    			</div>
+				    			<div class="modal-footer">
+						            <span class="loading">
+						              <i class="fa fa-spinner fa-spin"></i>
+						            </span>
+						            <span class="status"></span>
+				    				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				    				<button type="button" class="btn btn-success" id="sign-in">Add</button>
+				    			</div>
+				    		</div><!-- /.modal-content -->
+				    	</div><!-- /.modal-dialog -->
+				    </div><!-- /.modal -->
 		    	</div>
 		    </div>
 		</div>
