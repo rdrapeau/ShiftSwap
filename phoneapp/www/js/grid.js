@@ -22,8 +22,17 @@ var checkLogin = function() {
         showLoginPage();
     } else {
         $("#footing").show();
+        $("#head-title-text").show();
         showGridPage();
     }
+}
+
+var login = function() {
+    var token = null;
+    window.localStorage.setItem("token", token);
+    // Send to server
+
+    checkLogin();
 }
 
 var dailyIndex = 0;
@@ -98,7 +107,8 @@ var employeeData = {"employees":[
 ]};
 
 var loginPage = function() {
-    $("#head-title-text").text("ShiftSwap")
+    $("#head-title-text").hide();
+
     toToPage("login-page")
 }
 
