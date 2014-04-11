@@ -54,10 +54,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 // sign up a user
-app.post('/user/signup', user.signup);
+app.post('/user/signup', managerUser.userSignup);
 
 // login the user
-app.post('/user/signin', user.signin);
+app.post('/user/signin', managerUser.userSignin);
 
 // sign up a manager
 app.post('/manager/signup', managerUser.signup);
@@ -72,16 +72,16 @@ app.post('/manager/signin', managerUser.signin);
 //app.post('/manager/generateschedule', middleware.requiresManager, managerUser.generateSchedule);
 
 // gets all the schedules for a particular user
-//app.get('/user/schedules', middleware.requiresUser, user.getSchedules);
+//app.get('/user/schedules', middleware.requiresUser, managerUser.getSchedules);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, user.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.getSwaps);
 
 // Adds a swap request to this user's manager
-//app.post('/user/addswap', middleware.requiresUser, user.addSwap);
+//app.post('/user/addswap', middleware.requiresUser, manageUser.addSwap);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, user.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.getSwaps);
 
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
