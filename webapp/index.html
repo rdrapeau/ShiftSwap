@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ShiftSwap</title>
+    <!-- <link rel="icon" href="img/favicon.png"> -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+    <section class="intro">
+        <div class="section-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Shift<span style="color: #FFCC00;">Swap</span></h1>
+                        <h2 class="intro-text">Shift management made easy!</h2>
+                    </div>
+                </div>
+
+                <div class="row" id="registerForm">
+                    <div class="col-md-4 col-md-offset-4">
+                        <form class="form-register" role="form">
+                            <div>
+                                <input type="text" class="form-control" name="emailAddress" placeholder="Email Address" autofocus id="registerEmail" />
+                                <input type="text" class="form-control" name="companyName" placeholder="Company Name" id="registerCompany" />
+                                <input type="text" class="form-control" name="password" placeholder="Password" id="registerPassword" />
+                                <input type="text" class="form-control" name="password2" placeholder="Retype Password" id="registerPassword2" />
+                                <a type="button" class="btn btn-default" id="register">Register</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row" id="loginForm" style="display: none;">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div id="welcomeText" style="display: none;">
+                                    Check Your Email
+                        </div>
+                        <form class="form-register" role="form">
+                            <div>
+                                <input type="text" class="form-control" name="emailAddress" placeholder="Email Address" autofocus />
+                                <input type="text" class="form-control" name="password" placeholder="Password" />
+                                <a type="button" class="btn btn-default" id="register">Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row" id="alreadyRegistered">
+                    <div class="col-md-4 col-md-offset-4">
+                        <a type="button" id="register">Already Registered?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript Files -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
