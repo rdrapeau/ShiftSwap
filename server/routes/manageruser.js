@@ -128,7 +128,6 @@ exports.addEmployee = function(req, res){
  */
 exports.signinEmployee = function(req, res) {
     //authenticate phone user here
-<<<<<<< HEAD
     var userId = req.body.userId;
     Manager.findOne({users: {'_id' : user_names}}, function(err, manager) {
         if (!manager) {
@@ -141,12 +140,14 @@ exports.signinEmployee = function(req, res) {
             for(var i = 0; i < manager.users; i++) {
                 if (manager.users[i]._id == userId) {
                     manager.myUser = manager.users[i];
-=======
-    var user_names = req.body;
-    for (user_names){
-        Manager.findOne({user_names: user_names})
+                }
+            }
+            res.json({
+                'response': 'OK',
+                'manager': manager
+            });
+        }
     }
-}
 };
 
 exports.manager.addEmployee = function(user, email){
