@@ -65,9 +65,15 @@ a {
 }
 
 .cal-row {
-	height: 2px;
+	height: 0.7em;
+	font-size: 0.7em;
+	border-bottom: 1px white solid;
 }
 
-.cal-filler.selected {
+.cal-filler.selected, .cal-filler.perm-selected {
 	background-color: #71C837;
+}
+
+.cal-filler.no-go {
+	background-color: #C13030;
 }

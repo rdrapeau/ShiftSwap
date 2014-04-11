@@ -39,7 +39,6 @@ function Calendar(dom, data) {
 	cals.find('.cal-time').each(function() {
 		var day = 0;
 		$(this).parent().find('.cal-filler').each(function() {
-			console.log('work');
 			$(this).data('minutes', i * minutesPer);
 			$(this).data('day', day);
 			//$(this).html(day + ',' + i * minutesPer);
@@ -52,29 +51,59 @@ function Calendar(dom, data) {
 	});
 
 	var start = null;
+	var selectIndex = 0;
 
 	var inRange = function (start, end, suspect) {
-				// console.log(suspect.data('day') + ' >= ' + start.data('day')); 
-				// console.log(suspect.data('day') + ' <= ' + end.data('day'));
-				// console.log(suspect.data('minute') + ' >= ' + start.data('minutes'));
-				// console.log(suspect.data('minute') + ' <= ' + end.data('minutes'));
+		// console.log(suspect.data('day') + ' >= ' + start.data('day')); 
+		// console.log(suspect.data('day') + ' <= ' + end.data('day'));
+		// console.log(suspect.data('minute') + ' >= ' + start.data('minutes'));
+		// console.log(suspect.data('minute') + ' <= ' + end.data('minutes'));
 		return suspect.data('day') >= start.data('day') &&
 				suspect.data('day') <= end.data('day') &&
 				suspect.data('minutes') >= start.data('minutes') &&
-				suspect.data('minutes') <= end.data('minutes');
+				suspect.data('minutes') <= end.data('minutes') &&
+				suspect.data('day') == start.data('day');
+	}
+
+	var inPerm = function (end) {
+		return end.hasClass('perm-selected');
 	}
 
 	var handleSelection = function (start, end) {
+		var selection = [];
+
 		$('.cal-filler').removeClass('selected');
+		$('.cal-filler').removeClass('no-go');
 
 		cals.find('.cal-row').each(function() {
 			$(this).find('.cal-filler').each(function() {
 				if (inRange(start, end, $(this))) {
-					$(this).addClass('selected');
+					selection.push($(this));
 				}
 			});
 		});
+
+		var okay = true;
+		for(var i = 0; i < selection.length; i++) {
+			if(selection[i].hasClass('perm-selected')) {
+				okay = false;
+				break;
+			}
+		}
+
+		for(var i = 0; i < selection.length; i++) {
+			selection[i].addClass(okay ? 'selected' : 'no-go');
+		}
 	};
+
+	var saveSelection = function() {
+		$('.cal-filler.selected').each(function () {
+			$(this).removeClass('selected');
+			$(this).addClass('perm-selected');
+			$(this).data('selected-index', selectIndex);
+		});
+		selectIndex++;
+	}
 
 	$('.cal-filler').mousedown(function(e) {
 		console.log('mouse down');
@@ -92,6 +121,7 @@ function Calendar(dom, data) {
 	$('.cal-filler').mouseup(function() {
 		console.log('mouse up');
 		handleSelection(start, $(this));
+		saveSelection();
 		start = null;
 	});
 }
