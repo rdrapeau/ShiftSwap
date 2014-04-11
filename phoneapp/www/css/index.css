@@ -119,6 +119,29 @@ h1 {
     background-color:#333333!important;
 }
 
+.arrows{
+    position:absolute; 
+    bottom:10px;
+    margin-left:10%;
+    margin-right:5%;
+    min-width:204px;
+}
+
+.ui-grid-b{
+    min-width:200px;
+}
+
+#daily-times{
+    margin-left:10px;
+    margin-right:10px;
+    border: 2px solid transparent;
+    border-radius:2.5px;
+}
+
+div.#daily-times.empty{
+    border: none;
+}
+
 #day-view{
     background-color:#14FFB1;
     border:5px solid:#14FFB1;
@@ -128,6 +151,7 @@ h1 {
     margin-top:20%;
     min-width:200px;
     height:300px;
+    position:relative;
 }
 
 #daytitle{
@@ -250,4 +274,8 @@ hr{
     background-color:black!important;
 }
 
+.ui-shadow{
+    background-color:#14FFB1;
+    color:#14FFB1;
+}
 
