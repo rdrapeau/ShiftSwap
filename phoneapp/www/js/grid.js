@@ -14,6 +14,8 @@ $(document).ready(function() {
     $("#send-swap").click(sendSwap);
     $("#send-swap-div").hide();
 
+    $("#inputsubmit").click(login);
+
     checkLogin(); // Check if the user is registered
 });
 
@@ -28,7 +30,7 @@ var checkLogin = function() {
 }
 
 var login = function() {
-    var token = null;
+    var token = $("#name").val();
     window.localStorage.setItem("token", token);
     // Send to server
 
@@ -171,6 +173,7 @@ var sendSwap = function() {
 
 var showSettingsPage = function() {
     $("#head-title-text").text("ShiftSwap");
+    $("#employeeID").text(window.localStorage.getItem("token"));
     goToPage("settings-page");
 
 }
