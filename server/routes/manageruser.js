@@ -3,6 +3,15 @@ var ObjectId = mongoose.Types.ObjectId
 var User = require('./../models/manageruser');
 var request = require('request');
 
+
+/*
+*
+*
+* MANAGER FUNCTIONS
+*
+* 
+ */
+
 /*
  * Sign up a manager.
  */
@@ -73,6 +82,16 @@ exports.signin = function(req, res) {
     });
 };
 
+
+
+/*
+*
+*
+* USER FUNCTIONS
+*
+* 
+ */
+exports.user = {};
 
 /*
  * Sign up a user.
