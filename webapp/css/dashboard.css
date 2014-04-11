@@ -17,6 +17,10 @@ body {
 	display: none;
 }
 
+#loginForm {
+	display: none;
+}
+
 .nav-tabs {
 	border: none;
 }
