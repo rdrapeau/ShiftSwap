@@ -97,6 +97,11 @@ var employeeData = {"employees":[
     }
 ]};
 
+var loginPage = function() {
+    $("#head-title-text").text("ShiftSwap")
+    toToPage("login-page")
+}
+
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
     goToPage("grid-page");

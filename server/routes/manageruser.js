@@ -128,6 +128,7 @@ exports.addEmployee = function(req, res){
  */
 exports.signinEmployee = function(req, res) {
     //authenticate phone user here
+<<<<<<< HEAD
     var userId = req.body.userId;
     Manager.findOne({users: {'_id' : user_names}}, function(err, manager) {
         if (!manager) {
@@ -140,15 +141,18 @@ exports.signinEmployee = function(req, res) {
             for(var i = 0; i < manager.users; i++) {
                 if (manager.users[i]._id == userId) {
                     manager.myUser = manager.users[i];
-                }
-            }
-            // save the manager in sessions to be retrieved later
-            req.session.user = manager;
-            // successful registration
-            res.json({
-                'response': 'OK',
-                'manager': manager
-            });
-        }
-    });
+=======
+    var user_names = req.body;
+    for (user_names){
+        Manager.findOne({user_names: user_names})
+    }
+}
+};
+
+exports.manager.addEmployee = function(user, email){
+    var user_names = user.body.user_names;
+    var employee_email = email.body.employee_email.toLowerCase();
+    console.log('You have added' + user_names + 'with email' + employee_email);
+    ObjectId user_nameID =ObjectId.get(user_names);
+
 }
