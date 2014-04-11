@@ -7,6 +7,7 @@ var express = require('express'),
     path = require('path'),
     middleware = require('./config/middleware.js'),
     app = express();
+    
 
 var app = express();
 
@@ -31,7 +32,7 @@ app.configure(function(){
     app.use(express.session({ 
         secret: 'ecoSecret'
         // store: new RedisStore({
-        //     host: 'localhost',
+        //    host: 'localhost',
         //     port: 6379,
         //     db: 2
         // }),
