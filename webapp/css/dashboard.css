@@ -1,3 +1,8 @@
+body {
+	color: white;
+	background: black;
+}
+
 .nav-tabs {
 	border: none;
 }
@@ -14,9 +19,55 @@
 }
 
 .nav-tabs>li>a {
+	border: none;
+	padding: 15px 15px;
+	display: block;
+	position: relative;
+	margin-right: 2px;
+	border-radius: 0;
 	color: #FFCC00;
 }
 
 a {
 	color: #FFCC00;
+}
+
+.logo-small {
+	margin-top: -10px;
+}
+
+.btn-success {
+	background-color: #71C837;
+}
+
+
+.btn-warn {
+	background-color: #C83737;
+	color: white;
+}
+
+.btn-warn:hover {
+	background-color: #C13030;
+	color: white;
+}
+
+.jumbotron {
+	padding-top: 89px;
+	background: #333333;
+}
+
+.form-control {
+	margin-top: 10px;
+}
+
+.calendar {
+	width: 100%;
+}
+
+.cal-row {
+	height: 2px;
+}
+
+.cal-filler.selected {
+	background-color: #71C837;
 }
