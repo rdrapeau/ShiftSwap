@@ -186,6 +186,10 @@ hr{
     color:white;
 }
 
+#login-page{
+    background-image:url('../img/logo-small.png');
+}
+
 #settingbox1{
     background-color:rgb(200,200,200);
     margin-left:15%;
