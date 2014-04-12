@@ -190,7 +190,7 @@ exports.getMySchedule = function(req, res){
             console.log(err);
             res.json({
                     'response': 'FAIL',
-                    'errors': ['User not found']
+                    'errors': err
                 });
         } else {
             var schedules = [];
@@ -262,9 +262,9 @@ exports.addSwap = function(req, res){
         });
 };
 
-/*exports.acceptSwap = function(req, res){
+exports.acceptSwap = function(req, res){
     var fromId = req.session.user._id;
     var toId = req.body.toId;
     var assignmentFrom = req.body.assignmentFrom;
     var assignmentTo = req.body.assignmentTo;
-};*/
+};
