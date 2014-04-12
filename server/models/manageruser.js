@@ -27,6 +27,10 @@ var managerUserSchema = new Schema({
     schedules : {
         type: Array,
         default: []
+    },
+    swaps : {
+        type: Array,
+        default: []
     }
 
 });

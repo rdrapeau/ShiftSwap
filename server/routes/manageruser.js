@@ -184,8 +184,6 @@ exports.addSchedule = function(req, res){
 exports.getMySchedule = function(req, res){
     //add phone user here
     var userId = req.session.user._id;
-    var startTime = req.body.startTime;
-    var assignments = req.body.assignments;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
             res.json({
@@ -208,4 +206,56 @@ exports.getMySchedule = function(req, res){
             });
         }
     });
+};
+
+exports.getSwaps = function(req, res){
+    var userId = req.session.user._id;
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        if (!manager || err) {
+            res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+        } else {
+            res.json({
+                'response': 'OK',
+                'swaps': manager.swaps,
+                'myUser' : req.session.user
+            });
+        }
+    });
+};
+
+
+exports.addSwap = function(req, res){
+    var fromId = req.session.user._id;
+    var toId = req.body.toId;
+    var assignmentFrom = req.body.assignmentFrom;
+    var assignmentTo = req.body.assignmentTo;
+    Manager.update(
+       {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
+       {
+        $push: { 
+            swaps: {
+                'fromId': fromId,
+                'toId': toId,
+                'assignmentFrom' : assignmentFrom,
+                'assignmentTo' : assignmentTo
+            }
+        } 
+       }, function(err) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+            } else {
+                res.json({
+                    'response': 'OK',
+                    'swaps': manager.swaps,
+                    'myUser' : req.session.user
+                });
+            }
+        });
 };

@@ -241,3 +241,89 @@ Response:
 	        "email": "test@test.com"
 	    }
 	}
+
+#### Get swap requests
+
+`GET /user/getswaps`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "swaps": [
+	    		{
+	        		"assignmentFrom" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"from" : "53487e5f343685a71ca1d12e",			
+	        		"assignmentTo" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"to" : "53487e5f343685a71ca1d12e"
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
+
+#### Add swap request
+
+`GET /user/getswaps`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "swaps": [
+	    		{
+	        		"assignmentFrom" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"from" : "53487e5f343685a71ca1d12e",			
+	        		"assignmentTo" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"to" : "53487e5f343685a71ca1d12e"
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
