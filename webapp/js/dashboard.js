@@ -6,7 +6,7 @@
     $(document).ready(function() {
         $("#alreadyRegistered").click(alreadyRegistered);
         $("#remember").hide();
-        $("#register").click(register, showDash);
+        $("#register").click(register);
         $("#login").click(login);
         $("#sign-in").click(sendgrid);
 
