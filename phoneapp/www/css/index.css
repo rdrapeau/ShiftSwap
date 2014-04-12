@@ -36,6 +36,8 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
+   /* font-family: comf;
+    src: url('../fonts/Comfrotaa_Regular.ttf');*/
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -154,6 +156,10 @@ div.#daily-times.empty{
     position:relative;
 }
 
+li.ui-li-static.ui-body-inherit{
+    border-bottom: 1px solid rgb(200,200,200);
+}
+
 #daytitle{
     text-align:center;
     margin-top:5px;
@@ -169,6 +175,11 @@ div.#daily-times.empty{
 
 #headtitle2{
     background-color:#FFE524;
+}
+
+#head-title-text{
+    font-weight:bold;
+    font-size:18px;
 }
 
 hr{
@@ -187,6 +198,7 @@ hr{
     border-radius:5px;
     margin-top:-10px;
 }
+
 
 #settingbox2{
     background-color:#C83737;
