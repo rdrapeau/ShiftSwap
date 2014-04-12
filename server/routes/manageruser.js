@@ -131,6 +131,7 @@ exports.addEmployee = function(req, res){
 exports.signinEmployee = function(req, res) {
     //authenticate phone user here
     var userId = req.body.userId;
+    console.log("SIGN IN EMPLOYEE: " + userId);
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
             res.json({
