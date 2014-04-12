@@ -1,4 +1,4 @@
-var DashViewModel = function(data) {
+var DashViewModel = function(data, server) {
 	var self = this;
 	var calendar = new Calendar('.calendar', [], self);
 	$(document).on('mousemove', function(e){
@@ -43,6 +43,10 @@ var DashViewModel = function(data) {
 		for(var i = 0; i < users.length; i++) {
 			self.assignmentUsers.push($('[data-id="' + users[i] + '"]').data('name'));
 		}
+	}
+
+	self.addEmployee = function() {
+		$.post(server + '/user/signup', {}, function)
 	}
 
 	self.loadUserRecord = function() {

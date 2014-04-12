@@ -287,11 +287,13 @@ Response:
 
 #### Add swap request
 
-`GET /user/getswaps`
+`POST /user/addswap`
 
 Request with:
 
-	 Nothing needed
+    toId: the id of the user that you want to swap with
+    assignmentFrom: the assignment record you wish to swap out of
+    assignmentTo: the assignment record you wish to swap to
 
 In case of an error:
 
