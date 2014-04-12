@@ -333,7 +333,7 @@ exports.hasCounterPart = function(swap, callback) {
                         'minute_end' : swap.assignmentFrom.minute_end
                     }
                 }
-            });
+            );
     Manager.findOne({
         swaps: {
             $elemMatch: {
