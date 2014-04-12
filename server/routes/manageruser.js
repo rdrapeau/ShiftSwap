@@ -321,8 +321,8 @@ exports.hasCounterPart = function(swap, callback) {
     Manager.findOne({
         swaps: {
             $elemMatch: {
-                    'fromId' : ObjectId(swap.toId),
-                    'toId' : ObjectId(swap.fromId),
+                    'fromId' : swap.toId,
+                    'toId' : swap.fromId,
                     'assignmentFrom' : {
                         $match: {
                             'day' : swap.assignmentTo.day,
