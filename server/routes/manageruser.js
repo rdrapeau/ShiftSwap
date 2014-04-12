@@ -189,7 +189,12 @@ exports.addSchedule = function(req, res){
 exports.getMySchedule = function(req, res){
     console.log(req.body);
     //add phone user here
-    var userId = req.session.user._id;
+    var userId = null;
+    if(typeof req.body.userId != 'undefined') {
+        userId = req.body.userId;
+    } else {
+        userId = req.session.user._id;
+    }
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
             console.log(manager);

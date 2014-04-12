@@ -12,12 +12,12 @@ exports.requiresManager = function (req, res, next) {
 
 
 exports.requiresUser = function (req, res, next) {
-    if (req.session.user) {
+    //if (req.session.user) {
         return next();
-    } else {
-        res.json({
-            'response': 'FAIL',
-            'errors': ['Sign in (user) required']
-        });
-    }
+    //} else {
+       // // res.json({
+       //      'response': 'FAIL',
+       //      'errors': ['Sign in (user) required']
+       //  });
+    //}
 }
