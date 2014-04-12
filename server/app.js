@@ -47,9 +47,6 @@ app.all('*', function(req, res, next) {
   next();
  });
 
-// sign up a user
-app.post('/user/signup', managerUser.addEmployee);
-
 // login the user
 app.post('/user/signin', managerUser.signinEmployee);
 
@@ -58,6 +55,9 @@ app.post('/manager/signup', managerUser.signup);
 
 // login the user
 app.post('/manager/signin', managerUser.signin);
+
+// sign up a user
+app.post('/user/signup', middleware.requiresManager, managerUser.addEmployee);
 
 // add a new schedule (group of assignments)
 app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
