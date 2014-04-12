@@ -318,22 +318,6 @@ exports.getSwaps = function(req, res){
 };
 
 exports.hasCounterPart = function(swap, callback) {
-    console.log("searching for ");
-    console.log({
-                    'fromId' : swap.toId,
-                    'toId' : swap.fromId,
-                    'assignmentFrom' : {
-                        'day' : swap.assignmentTo.day,
-                        'start_minute' : swap.assignmentTo.start_minute,
-                        'end_minute' : swap.assignmentTo.end_minute
-                    },
-                    'assignmentTo' : {
-                        'day' : swap.assignmentFrom.day,
-                        'start_minute' : swap.assignmentFrom.start_minute,
-                        'end_minute' : swap.assignmentFrom.end_minute
-                    }
-                }
-            );
     Manager.findOne({
         swaps: {
             $elemMatch: {
@@ -415,7 +399,7 @@ exports.addSwap = function(req, res){
             res.json({
                 'response': 'OK',
                 'swapHappened' : true
-            });        
+            });
         }
     });
 };
