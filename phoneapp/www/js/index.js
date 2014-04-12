@@ -16,7 +16,9 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-	init();
+        $.support.cors = true;
+        $.mobile.allowCrossDomainPages = true;
+	   init();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
