@@ -266,9 +266,4 @@ exports.addSwap = function(req, res){
 //     var toId = req.body.toId;
 //     var assignmentFrom = req.body.assignmentFrom;
 //     var assignmentTo = req.body.assignmentTo;
-// <<<<<<< HEAD
 // };
-// =======
-// };*/
-// >>>>>>> a13b459dbb0ab0c92763fa2558cc5d7f18488ab5
-// >>>>>>> 0b4012600844911ca6107ff45e88d1886dd8760f
