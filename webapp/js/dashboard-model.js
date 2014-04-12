@@ -147,8 +147,8 @@ function Calendar(dom, data, vm) {
 				var assignment = {					
 					'users' : vm.assignmentUsers(),
 					'day' : selection[0].data('day'),
-					'start-minute' : selection[0].data('minutes'),
-					'end-minute' : selection[selection.length - 1].data('minutes')
+					'start_minute' : selection[0].data('minutes'),
+					'end_minute' : selection[selection.length - 1].data('minutes')
 				};
 				vm.removeAssignment(assignment);
 				for(var i = 0; i < selection.length; i++) {
@@ -164,8 +164,8 @@ function Calendar(dom, data, vm) {
 				var assignment = {					
 					'users' : vm.assignmentUsers(),
 					'day' : selection[0].data('day'),
-					'start-minute' : selection[0].data('minutes'),
-					'end-minute' : selection[selection.length - 1].data('minutes')
+					'start_minute' : selection[0].data('minutes'),
+					'end_minute' : selection[selection.length - 1].data('minutes')
 				};
 				vm.addAssignment(assignment);
 				for(var i = 0; i < selection.length; i++) {

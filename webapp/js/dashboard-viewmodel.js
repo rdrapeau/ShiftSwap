@@ -14,6 +14,10 @@ var DashViewModel = function(data, server) {
 		}		
 	}
 
+	var now = new Date();
+	var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()));
+
 	self.editAssignmentFrom = new ko.observable("");
 	self.editAssignmentTo = new ko.observable("");
 	self.selectedStart = new ko.observable("");
@@ -52,16 +56,15 @@ var DashViewModel = function(data, server) {
 				alert("Something went wrong!");
 			} else {
 				self.users.removeAll();
+				self.userOptions.removeAll();
 				transferArray(self.users, data.manager.users);
+				transferArray(self.userOptions, data.manager.users);
 			}
 		});
 		return true;
 	};
 
 	self.submitSchedule = function() {
-		var now = new Date();
-		var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-		var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()))
 		$.post(server + '/manager/addschedule', {'startTime' : +(lastSunday), 'assignments' : self.assignments()}, function(data) {
 			if(data.response == 'FAIL') {
 				alert("Something went wrong!");
@@ -78,15 +81,13 @@ var DashViewModel = function(data, server) {
 
 	self.addAssignment = function(assignment) {
 		self.assignments.push(assignment);
-		console.log(assignment);
 	};
 
 	self.removeAssignment = function(assignment) {
-		console.log(assignment);
 		self.assignments.remove(function(item) {
 			return assignment.day == item.day &&
-					assignment['start-minute'] == item['start-minute'] &&
-					assignment['end-minute'] == item['end-minute'];
+					assignment['start_minute'] == item['start_minute'] &&
+					assignment['end_minute'] == item['end_minute'];
 		});
 	}
 
@@ -98,9 +99,6 @@ var DashViewModel = function(data, server) {
 
 	};
 
-	self.nextWeek = function() {
-
-	};
 
 	self.randomSchedule = function() {
 
