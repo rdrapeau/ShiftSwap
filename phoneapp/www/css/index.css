@@ -187,8 +187,10 @@ hr{
 }
 
 #loginlogo{
-    max-width:300px;
-    margin-top:50px;
+    width: 100%;
+    height: 100%;
+    /*max-width:300px;
+    margin-top:50px;*/
 }
 
 #login-submit{
