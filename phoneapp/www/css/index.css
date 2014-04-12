@@ -191,9 +191,20 @@ hr{
     margin-top:50px;
 }
 
+#login-submit{
+    max-width:150px;
+    max-height:20px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 #enter-key{
     color:#14FFB1;
     min-width:100px;
+}
+
+#inputsubmit{
+    color:#ACFA58;
 }
 
 #login{
@@ -201,7 +212,7 @@ hr{
 }
 
 #login-box{
-    width:300px;
+    max-width:300px;
     margin-left:auto;
     margin-right:auto;
 }
