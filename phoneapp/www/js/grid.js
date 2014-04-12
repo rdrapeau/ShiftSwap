@@ -26,6 +26,14 @@ var checkLogin = function() {
     }
 }
 
+var login = function() {
+    var token = null;
+    window.localStorage.setItem("token", token);
+    // Send to server
+
+    checkLogin();
+}
+
 var dailyIndex = 0;
 
 var scheduleData = {"schedule":[
