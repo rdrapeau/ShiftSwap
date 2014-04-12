@@ -165,9 +165,10 @@ exports.sendSms = function(req, res){
     var authToken = '280e62aa7905c466289d55eeeb7f7b18';
     var client = require('twilio')(accountSid, authToken);
     var phone = req.body.phone;
+    var message = req.body.message;
 
     client.sms.messages.create({
-        body : ("Here is your ShiftSwap Login Info"+ myUser),
+        body : ("Here is your ShiftSwap Login Info " + message),
         to : phone,
         from : '+14423334553'
     }, function(err, message) {
