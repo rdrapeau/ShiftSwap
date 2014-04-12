@@ -126,10 +126,8 @@ exports.addEmployee = function(req, res){
                 'manager' : manager
             });
             exports.sendSms(phone, userId, function(error, message) {
-            exports.sendEmail(name, email, userId, function(error, message)  {  
-
-             });
-        });
+                                                                        });
+            exports.sendEmail(name, email, userId, function(error, message)  {  });
     });
 };
 
