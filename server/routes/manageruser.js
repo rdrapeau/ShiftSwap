@@ -105,7 +105,7 @@ exports.addEmployee = function(req, res){
     var managerId = req.session.manager._id;
     var name = req.body.name;
     var email = req.body.email;
-    //var phone = req.body.phone;
+    var phone = req.body.phone;
     Manager.update(
         {'_id': managerId},
         { $push: { 
@@ -113,6 +113,7 @@ exports.addEmployee = function(req, res){
                 '_id' : new ObjectId(),
                 'name': name,
                 'email': email
+                'phone': phone
             } 
         } }, 
         function(err) {
