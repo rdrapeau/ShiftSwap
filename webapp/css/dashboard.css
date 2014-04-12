@@ -9,7 +9,10 @@ body {
 	font-family: comf;
 }
 #intro {
-    background: url(../img/intro_bg.png) no-repeat bottom center scroll;
+    /*background: url(../img/intro_bg.png) no-repeat bottom center scroll;
+	lol bandwidth
+    */
+   background: #333333;
 }
 
 #intro {
