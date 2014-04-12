@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $.support.cors = true;
     $(".grid-link").click(showGridPage);
     $(".employees-link").click(showEmployeePage);
     $(".swap-link").click(showSwapPage);
@@ -130,9 +131,9 @@ var loginPage = function() {
 
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
-            $.get(BASE_URL + "/user/getmyschedule", function(data) {
-            console.log(data.response);
-        });
+    $.get(BASE_URL + "/user/getmyschedule", function(data) {
+        console.log(data.response);
+    });
     goToPage("grid-page");
     showDailyGrid();
 }

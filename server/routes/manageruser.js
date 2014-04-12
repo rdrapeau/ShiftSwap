@@ -152,6 +152,10 @@ exports.signinEmployee = function(req, res) {
         }
     });
 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> be14f8f32c8472139f1b73476bdbfd4a1fe65b02
 
 
 exports.addSchedule = function(req, res){
