@@ -23,6 +23,7 @@ exports.signup = function(req, res){
     });
 
     console.log('signing up ' + manager.email);
+    console.log(manager.password);
 
     manager.save(function(err) {
         if (err) {
