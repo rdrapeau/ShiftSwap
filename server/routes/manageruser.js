@@ -221,18 +221,20 @@ exports.getMySchedule = function(req, res){
         } else {
             exports.getUserFromId(userId, function(user) {
                 var schedules = [];
-                for(var i = 0; i < manager.schedules.length; i++) {
-                    var scheduleIn = false;
-                    for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
-                        if(manager.schedules[i].assignments[j].users.indexOf(user.name) != -1) {
-                            if(!scheduleIn) {
-                                schedules.push(manager.schedules[i]);
-                                schedules[schedules.length - 1].assignments = [];
-                                scheduleIn = true;
-                            }
-                            schedules[schedules.length - 1].assignments.push(manager.schedules[i].assignments[j]);
+                var subSet = function(arr, callback) {
+                    var result = [];
+                    for(var i = 0; i < arr.length; i++) {
+                        if(callback(arr[i])) {
+                            result.push(arr[i]);
                         }
                     }
+                    return result;
+                };
+
+                for(var i = 0; i < manager.schedules.length; i++) {
+                    manager.schedules[i].assignments = subSet(manager.schedules[i].assignments, function(item) {
+                        return item.users.indexOf(user.name) != -1;
+                    });
                 }
                 res.json({
                     'response': 'OK',
