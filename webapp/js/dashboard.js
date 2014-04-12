@@ -14,8 +14,8 @@
     // Called when the user clicks the alreadyRegistered text
     function alreadyRegistered() {
         $("#alreadyRegistered").fadeOut("fast");
-        $("#registerForm").slideUp("slow", function() {
-            $("#loginForm").slideDown("slow");
+        $("#loginForm").slideUp("slow", function() {
+            $("#registrationForm").slideDown("slow");
         });
     }
     //sendgrid function sending data
