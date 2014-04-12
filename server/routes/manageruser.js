@@ -154,7 +154,6 @@ exports.signinEmployee = function(req, res) {
 };
 
 
-
 exports.addSchedule = function(req, res){
     //add phone user here
     var managerId = req.session.manager._id;
@@ -262,9 +261,14 @@ exports.addSwap = function(req, res){
         });
 };
 
-exports.acceptSwap = function(req, res){
-    var fromId = req.session.user._id;
-    var toId = req.body.toId;
-    var assignmentFrom = req.body.assignmentFrom;
-    var assignmentTo = req.body.assignmentTo;
-};
+// exports.acceptSwap = function(req, res){
+//     var fromId = req.session.user._id;
+//     var toId = req.body.toId;
+//     var assignmentFrom = req.body.assignmentFrom;
+//     var assignmentTo = req.body.assignmentTo;
+// <<<<<<< HEAD
+// };
+// =======
+// };*/
+// >>>>>>> a13b459dbb0ab0c92763fa2558cc5d7f18488ab5
+// >>>>>>> 0b4012600844911ca6107ff45e88d1886dd8760f

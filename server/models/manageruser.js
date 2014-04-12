@@ -20,6 +20,16 @@ var managerUserSchema = new Schema({
     password: {
         type: String
     },
+    user_names: {
+        type: String,
+
+    },
+    employees_Email: {
+        type: String,
+        unique: true, lowercase: true
+    },
+    
+=======
     users : {
         type: Array,
         default: []
