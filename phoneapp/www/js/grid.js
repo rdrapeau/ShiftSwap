@@ -15,13 +15,14 @@ $(document).ready(function() {
     $("#send-swap-div").hide();
 
     checkLogin(); // Check if the user is registered
-
-    showGridPage();
 });
 
 var checkLogin = function() {
-    if (!window.localStorage.getItem("key")) { // User is not registered
-
+    if (!window.localStorage.getItem("token")) { // User is not registered
+        showLoginPage();
+    } else {
+        $("#footing").show();
+        showGridPage();
     }
 }
 
@@ -114,6 +115,11 @@ var showSwapPage = function() {
     goToPage("swap-page");
 }
 
+var showLoginPage = function() {
+    goToPage("login-page");
+    $("#footing").hide();
+}
+
 var loadSwapPage = function(time, date, partner) {
     scheduleData = getScheduleData();
     $("#partner-name").text(partner);
@@ -190,8 +196,8 @@ var previousDay = function() {
 }
 
 var goToPage = function(page) {
-    var pages = ["grid-page", "swap-page", "employees-page", "settings-page"];
-    var domPages = [$("#grid-page"), $("#swap-page"), $("#employees-page"), $("#settings-page")];
+    var pages = ["grid-page", "swap-page", "employees-page", "settings-page", "login-page"];
+    var domPages = [$("#grid-page"), $("#swap-page"), $("#employees-page"), $("#settings-page"), $("#login-page")];
 
     var index = null;
     for (var i = 0; i < pages.length; i++) {
