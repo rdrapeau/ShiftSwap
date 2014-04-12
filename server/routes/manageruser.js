@@ -338,17 +338,7 @@ exports.hasCounterPart = function(swap, callback) {
         swaps: {
             $elemMatch: {
                     'fromId' : swap.toId,
-                    'toId' : swap.fromId,
-                    'assignmentFrom' : {
-                        'day' : swap.assignmentTo.day,
-                        'start_minute' : swap.assignmentTo.start_minute,
-                        'end_minute' : swap.assignmentTo.end_minute
-                    },
-                    'assignmentTo' : {
-                        'day' : swap.assignmentFrom.day,
-                        'start_minute' : swap.assignmentFrom.start_minute,
-                        'end_minute' : swap.assignmentFrom.end_minute
-                    }
+                    'toId' : swap.fromId
                 }
             }
         },                    
