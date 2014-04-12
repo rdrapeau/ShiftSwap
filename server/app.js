@@ -63,13 +63,13 @@ app.post('/manager/signin', managerUser.signin);
 app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
 
 // gets all the schedules for a user
-app.get('/user/getmyschedule', middleware.requiresUser, managerUser.getMySchedule);
+app.post('/user/getmyschedule', middleware.requiresUser, managerUser.getMySchedule);
 
 // gets all the schedules for a user
-app.get('/user/getallschedules', middleware.requiresUser, managerUser.getAllSchedules);
+app.post('/user/getallschedules', middleware.requiresUser, managerUser.getAllSchedules);
 
 // gets all the swap requests
-app.get('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
+app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 
 // Adds a swap request to this user's manager
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
