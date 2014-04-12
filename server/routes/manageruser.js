@@ -373,7 +373,7 @@ exports.addSwap = function(req, res){
     exports.hasCounterPart(swap, function(status) {
         if(!status) {
             Manager.update(
-               {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
+               {users: {$elemMatch: {'_id' : ObjectId(fromId)}}},
                {
                 $push: { 
                     swaps: swap
