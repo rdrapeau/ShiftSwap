@@ -324,13 +324,13 @@ exports.hasCounterPart = function(swap, callback) {
                     'toId' : swap.fromId,
                     'assignmentFrom' : {
                         'day' : swap.assignmentTo.day,
-                        'minute_start' : swap.assignmentTo.minute_start,
-                        'minute_end' : swap.assignmentTo.minute_end
+                        'start_minute' : swap.assignmentTo.start_minute,
+                        'end_minute' : swap.assignmentTo.end_minute
                     },
                     'assignmentTo' : {
                         'day' : swap.assignmentFrom.day,
-                        'minute_start' : swap.assignmentFrom.minute_start,
-                        'minute_end' : swap.assignmentFrom.minute_end
+                        'start_minute' : swap.assignmentFrom.start_minute,
+                        'end_minute' : swap.assignmentFrom.end_minute
                     }
                 }
             );
@@ -341,13 +341,13 @@ exports.hasCounterPart = function(swap, callback) {
                     'toId' : swap.fromId,
                     'assignmentFrom' : {
                         'day' : swap.assignmentTo.day,
-                        'minute_start' : swap.assignmentTo.minute_start,
-                        'minute_end' : swap.assignmentTo.minute_end
+                        'start_minute' : swap.assignmentTo.start_minute,
+                        'end_minute' : swap.assignmentTo.end_minute
                     },
                     'assignmentTo' : {
                         'day' : swap.assignmentFrom.day,
-                        'minute_start' : swap.assignmentFrom.minute_start,
-                        'minute_end' : swap.assignmentFrom.minute_end
+                        'start_minute' : swap.assignmentFrom.start_minute,
+                        'end_minute' : swap.assignmentFrom.end_minute
                     }
                 }
             }
