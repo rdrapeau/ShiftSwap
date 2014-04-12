@@ -106,11 +106,12 @@ exports.addEmployee = function(req, res){
     var name = req.body.name;
     var email = req.body.email;
     var phone = req.body.phone;
+    var userId = new ObjectId();
     Manager.update(
         {'_id': managerId},
         { $push: { 
             users: {
-                '_id' : new ObjectId(),
+                '_id' : userId,
                 'name': name,
                 'email': email,
                 'phone': phone
@@ -120,9 +121,13 @@ exports.addEmployee = function(req, res){
             if (err) console.log(err);
 
         Manager.findOne({'_id': managerId}, function(err, manager) {
-            res.json({
-                'response': 'OK',
-                'manager': manager
+            exports.sendSms(phone, userId, function(error, message) {
+                res.json({
+                    'response': 'OK',
+                    'manager': manager,
+                    'text_message' : message,
+                    'text_errors' : error
+                });
             });
         });
     });
@@ -159,7 +164,7 @@ exports.signinEmployee = function(req, res) {
     });
 };
 
-exports.sendSms = function(phone, msg){
+exports.sendSms = function(phone, msg, callback){
     console.log(req.body);
     var accountSid = 'ACa56a7bfb55a9ee865cac8a57c79168d8';
     var authToken = '280e62aa7905c466289d55eeeb7f7b18';
@@ -171,17 +176,7 @@ exports.sendSms = function(phone, msg){
         to : phone,
         from : '+14423334553'
     }, function(err, message) {
-        if(err)
-            res.json({
-                'response': 'FAIL',
-                'err' : err
-            });
-        else
-            res.json({
-                'response': 'OK',
-                'message' : message
-            });
-
+        callback(err, message);
     });
 }
 
