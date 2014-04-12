@@ -17,7 +17,7 @@
     function alreadyRegistered() {
         $("#alreadyRegistered").fadeOut("fast");
         $("#loginForm").slideUp("slow", function() {
-            $("#registrationForm").slideDown("slow");
+            $("#registerForm").slideDown("slow");
         });
     }
     //sendgrid function sending data
