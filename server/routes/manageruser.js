@@ -324,18 +324,14 @@ exports.hasCounterPart = function(swap, callback) {
                     'fromId' : swap.toId,
                     'toId' : swap.fromId,
                     'assignmentFrom' : {
-                        $match: {
-                            'day' : swap.assignmentTo.day,
-                            'minute_start' : swap.assignmentTo.minute_start,
-                            'minute_end' : swap.assignmentTo.minute_end
-                        }
+                        'day' : swap.assignmentTo.day,
+                        'minute_start' : swap.assignmentTo.minute_start,
+                        'minute_end' : swap.assignmentTo.minute_end
                     },
                     'assignmentTo' : {
-                        $match: {
-                            'day' : swap.assignmentFrom.day,
-                            'minute_start' : swap.assignmentFrom.minute_start,
-                            'minute_end' : swap.assignmentFrom.minute_end
-                        }
+                        'day' : swap.assignmentFrom.day,
+                        'minute_start' : swap.assignmentFrom.minute_start,
+                        'minute_end' : swap.assignmentFrom.minute_end
                     }
                 }
             }
