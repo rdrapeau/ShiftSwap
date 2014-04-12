@@ -23,8 +23,9 @@ app.configure(function(){
     // faux HTTP requests - PUT or DELETE
     app.use(express.methodOverride());
     app.use(express.session({
-        secret: 'my secret'
-      }));
+        secret: '1234567890QWERT',
+        cookie: {maxAge: 24*60*60*1000}
+    }));
     // invokes the routes' callbacks
     app.use(app.router);
     // every file <file> in /public is served at example.com/<file>
