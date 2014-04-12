@@ -186,9 +186,10 @@ hr{
     color:white;
 }
 
-#login-page{
-    background-image:url('../img/logo-small.png');
+#enter-key{
+    color:#14FFB1;
 }
+
 
 #settingbox1{
     background-color:rgb(200,200,200);
