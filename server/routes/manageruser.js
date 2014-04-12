@@ -129,7 +129,8 @@ exports.addEmployee = function(req, res){
                                                                         });
             exports.sendEmail(name, email, userId, function(error, message)  {  });
     });
-};
+});
+}
 
 /*
  * Sign in a user
