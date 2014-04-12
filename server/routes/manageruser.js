@@ -323,6 +323,41 @@ exports.getSwaps = function(req, res){
     });
 };
 
+exports.hasCounterPart = function(swap, callback) {
+    Manager.findOne({
+        swaps: {
+            $elemMatch: {
+                    'fromId' : ObjectId(swap.toId),
+                    'toId' : ObjectId(swap.fromId),}}},
+                    'assignmentFrom' : {
+                        $elemMatch: {
+                            'day' : swap.assignmentTo.day,
+                            'minute_start' : swap.assignmentTo.minute_start,
+                            'minute_end' : swap.assignmentTo.minute_end
+                        }
+                    },
+                    'assignmentTo' : {
+                        $elemMatch: {
+                            'day' : swap.assignmentFrom.day,
+                            'minute_start' : swap.assignmentFrom.minute_start,
+                            'minute_end' : swap.assignmentFrom.minute_end
+                        }
+                    }
+                }
+            }
+        },                    
+         function(err, manager) {
+        if (!manager || err) {
+            callback(false);
+        } else {
+            res.json({
+                'response': 'OK',
+                'swaps': manager.swaps,
+                'myUser' : req.session.user
+            });
+        }
+    });
+};
 
 exports.addSwap = function(req, res){
     console.log(req.body);
@@ -335,37 +370,44 @@ exports.addSwap = function(req, res){
     var toId = req.body.toId;
     var assignmentFrom = req.body.assignmentFrom;
     var assignmentTo = req.body.assignmentTo;
-    Manager.update(
-       {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
-       {
-        $push: { 
-            swaps: {
+
+    var swap = {
                 'fromId': fromId,
                 'toId': toId,
                 'assignmentFrom' : assignmentFrom,
                 'assignmentTo' : assignmentTo
-            }
-        } 
-       }, function(err) {
-            if (err) {
-                console.log(err);
-                res.json({
-                    'response': 'FAIL',
-                    'errors': ['User not found']
+                };
+    exports.hasCounterPart(swap, function(status) {
+        if(!status)
+            Manager.update(
+               {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
+               {
+                $push: { 
+                    swaps: swap
+                } 
+               }, function(err) {
+                    if (err) {
+                        console.log(err);
+                        res.json({
+                            'response': 'FAIL',
+                            'errors': ['User not found']
+                        });
+                    } else {
+                        res.json({
+                            'response': 'OK',
+                            'swapHappened' : false,
+                            'swaps': manager.swaps,
+                            'myUser' : req.session.user
+                        });
+                    }
                 });
-            } else {
-                res.json({
-                    'response': 'OK',
-                    'swaps': manager.swaps,
-                    'myUser' : req.session.user
-                });
-            }
-        });
+        } else {
+            res.json({
+                'response': 'OK',
+                'swapHappened' : true,
+                'swaps': manager.swaps,
+                'myUser' : req.session.user
+            });        
+        }
+    });
 };
-
-// exports.acceptSwap = function(req, res){
-//     var fromId = req.session.user._id;
-//     var toId = req.body.toId;
-//     var assignmentFrom = req.body.assignmentFrom;
-//     var assignmentTo = req.body.assignmentTo;
-// };

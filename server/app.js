@@ -65,8 +65,12 @@ app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 // Adds a swap request to this user's manager
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
+// Adds a swap request to this user's manager
+app.post('/user/agreeswap', middleware.requiresUser, managerUser.doSwap);
+
 //sending twillio sms
 app.post('/manager/sendsms',managerUser.sendSms);
+
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
