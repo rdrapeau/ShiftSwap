@@ -104,8 +104,9 @@ var showLoginPage = function() {
 var sendSwap = function() {
     if ($(".ui-radio-on.userShifts").exists()) {
         getData(function(data) {
-            var from = JSON.stringify(window.localStorage.getItem('json'));
-            var to = JSON.stringify($("#json-button").attr("data-json"));
+            var from = window.localStorage.getItem('json');
+            var to = $("#json-button").attr("data-json");
+
             var myID = window.localStorage.getItem('token');
             var toID = null;
 
@@ -116,7 +117,7 @@ var sendSwap = function() {
                     toID = users[i]._id;
                 }
             }
-            $.post(BASE_URL + "/user/addswap", {"toId": toID, "assignmentFrom": from, "assignmentTo": to, "fromId": myID}, function(data) {
+            $.post(BASE_URL + "/user/addswap", {"toId": toID, "assignmentFrom": JSON.parse(from), "assignmentTo": JSON.parse(to), "fromId": myID}, function(data) {
                 console.log(data.response);
             });
         });
@@ -268,7 +269,7 @@ var showEmployeeSchedule = function() {
                             button.appendChild(document.createTextNode(text));
                             button.onclick = swap;
                             button.value = parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * assignment.day;
-                            button.setAttribute("data-json", assignment);
+                            button.setAttribute("data-json", JSON.stringify(assignment));
                             button.id = "json-button";
                             shift.appendChild(button);
                             head.appendChild(shift);
@@ -301,7 +302,7 @@ var loadSwapPage = function(time, date, partner) {
                         var startTime = get12HourTime(days[a].start_minute);
                         var endTime = get12HourTime(days[a].end_minute);
                         $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
-                        window.localStorage.setItem('json', days[a]);
+                        window.localStorage.setItem('json', JSON.stringify(days[a]));
                     }
                 }
             }
