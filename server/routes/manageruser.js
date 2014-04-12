@@ -401,27 +401,21 @@ exports.swapsMatch = function (one, two) {
             one.assignmentTo.end_minute == two.assignmentFrom.end_minute;
 }
 
-exports.doSwaps = function(manager, allback) {
-    leftSwaps = [];
+exports.doSwaps = function(manager, callback) {
+    var happened = true;
     for(var i = 0; i < manager.swaps.length; i++) {
         for(var j = 0; j < manager.swaps.length; j++) {
             if(exports.swapsMatch(manager.swaps[i], manager.swaps[j])) {
+
                 exports.doSwap(manager.schedules, manager.swaps[i].assignmentFrom, manager.swaps[i].assignTo, manager.swaps[i].toId, manager.swaps[i].fromId, function(schedules) {
                     Manager.update({_id : manager._id}, {schedules : schedules}, function(err) {
-                        if (err) {
-                            res.json({
-                                    'response': 'FAIL'
-                                });
-                        } else {
-                            res.json({
-                                'response': 'OK',
-                            });
-                        }
+
                     });
                 });
             }
         }
     }
+     callback(happened);
 }
 
 exports.addSwap = function(req, res){
