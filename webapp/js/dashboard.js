@@ -8,6 +8,9 @@ $(document).ready(function() {
 				'name' : 'Aaron Nech'
 			}
 		]
+		'schedules' : [
+			
+		]
 	}
 
 	var vm = new DashViewModel(mgnObj);

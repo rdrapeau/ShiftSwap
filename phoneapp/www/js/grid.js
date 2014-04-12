@@ -11,6 +11,9 @@ $(document).ready(function() {
     $("#previous-day").click(previousDay);
     $("#previous-day").addClass("ui-disabled");
 
+    $("#send-swap").click(sendSwap);
+    $("#send-swap-div").hide();
+
     showGridPage();
 });
 
@@ -99,8 +102,43 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
+    // Load Swaps
     goToPage("swap-page");
+}
 
+var loadSwapPage = function(time, date, partner) {
+    scheduleData = getScheduleData();
+    $("#partner-name").text(partner);
+    $("#partner-choice-text").text(date + ": " + time);
+    $("#users-choices").empty();
+
+    var head = document.getElementById("users-choices");
+    for (var i = 0; i < scheduleData.schedule.length; i++) {
+        if (scheduleData.schedule[i].hasShift) {
+            for (var j = 0; j < scheduleData.schedule[i].shifts.length; j++) {
+                var date = scheduleData.schedule[i].date;
+                var startTime = get12HourTime(scheduleData.schedule[i].shifts[j].startTime);
+                var endTime = get12HourTime(scheduleData.schedule[i].shifts[j].endTime);
+                $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + j + "' /><label date='" + date + "' startTime='" + startTime + "' endTime='" + endTime + "' class='userShifts' for='shift-" + i + "-" + j + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+            }
+        }
+    }
+
+    $("#send-swap-div").show();
+    showSwapPage();
+}
+
+var sendSwap = function() {
+    if ($(".ui-radio-on.userShifts").exists()) {
+        console.log($(".ui-radio-on.userShifts").attr("date"));
+        console.log($(".ui-radio-on.userShifts").attr("startTime"));
+        console.log($(".ui-radio-on.userShifts").attr("endTime"));
+
+        // SEND TO SERVER
+        $("#send-swap-div").hide();
+    } else {
+        console.log("Select an element");
+    }
 }
 
 var showSettingsPage = function() {
@@ -200,8 +238,8 @@ var showEmployeeSchedule = function() {
 
             for (var z = 0; z < employeeData.employees[i].schedule.length; z++) {
                 var day = document.createElement("li");
-                var date = new Date(employeeData.employees[i].schedule[z].date);
-                day.appendChild(document.createTextNode(date.toDateString()));
+                var date = getDateString(employeeData.employees[i].schedule[z].date);
+                day.appendChild(document.createTextNode(date));
                 day.className = "ui-li-divider ui-bar-inherit";
                 day.setAttribute("data-role", "list-divider");
                 head.appendChild(day);
@@ -213,16 +251,17 @@ var showEmployeeSchedule = function() {
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
                         button.appendChild(document.createTextNode(text));
                         button.className = "ui-btn ui-btn-up-c";
+                        button.value = employeeData.employees[i].schedule[z].date;
                         button.onclick = swap;
 
                         shift.appendChild(button);
                         head.appendChild(shift);
                     }
                 } else {
-                        var shift = document.createElement("li");
-                        shift.appendChild(document.createTextNode("Nothing"));
-                        shift.className = "ui-li-static ui-body-inherit";
-                        head.appendChild(shift);
+                    var shift = document.createElement("li");
+                    shift.appendChild(document.createTextNode("Nothing"));
+                    shift.className = "ui-li-static ui-body-inherit";
+                    head.appendChild(shift);
                 }
             }
             break;
@@ -231,7 +270,11 @@ var showEmployeeSchedule = function() {
 }
 
 var swap = function() {
-    console.log(this.text);
+    var time = this.text;
+    var date = this.value;
+    var partner = $("#head-title-text").text();
+
+    loadSwapPage(time, date, partner);
 }
 
 var showDailyGrid = function () {
@@ -321,4 +364,8 @@ var get12HourTime = function(minutesSinceMidnight) {
         time[0] = padZero(parseInt(time[0]) - 12);
     }
     return time[0] + ":" + time[1] + " " + amPm;
+}
+
+$.fn.exists = function () {
+    return this.length !== 0;
 }

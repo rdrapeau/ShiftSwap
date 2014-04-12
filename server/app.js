@@ -1,7 +1,7 @@
 var express = require('express'),
     db = require('./config/db'),
     routes = require('./routes'),
-    user = require('./routes/user'),
+    managerUser = require('./routes/manageruser'),
     constants = require('./config/constants'),
     http = require('http'),
     path = require('path'),
@@ -53,34 +53,34 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 
 // sign up a user
-app.post('/user/signup', user.signup);
+app.post('/user/signup', managerUser.user.add);
 
 // login the user
-app.post('/user/signin', user.signin);
+app.post('/user/signin', managerUser.user.signin);
 
 // sign up a manager
-app.post('/manager/signup', manager.signup);
+app.post('/manager/signup', managerUser.signup);
 
 // login the user
-app.post('/manager/signin', manager.signin);
+app.post('/manager/signin', managerUser.signin);
 
 // add a new schedule (group of assignments)
-//app.post('/manager/addschedule', middleware.requiresManager, manager.addSchedule);
+//app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
 
 // generate a new schedule based on users of a manager
-//app.post('/manager/generateschedule', middleware.requiresManager, manager.generateSchedule);
+//app.post('/manager/generateschedule', middleware.requiresManager, managerUser.generateSchedule);
 
 // gets all the schedules for a particular user
-//app.get('/user/schedules', middleware.requiresUser, user.getSchedules);
+//app.get('/user/schedules', middleware.requiresUser, managerUser.getSchedules);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, user.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);
 
 // Adds a swap request to this user's manager
-//app.post('/user/addswap', middleware.requiresUser, user.addSwap);
+//app.post('/user/addswap', middleware.requiresUser, manageUser.user.addSwap);
 
 // gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, user.getSwaps);
+//app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);
 
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
