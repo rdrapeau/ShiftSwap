@@ -318,6 +318,22 @@ exports.getSwaps = function(req, res){
 };
 
 exports.hasCounterPart = function(swap, callback) {
+    console.log("searching for ");
+    console.log({
+                    'fromId' : swap.toId,
+                    'toId' : swap.fromId,
+                    'assignmentFrom' : {
+                        'day' : swap.assignmentTo.day,
+                        'minute_start' : swap.assignmentTo.minute_start,
+                        'minute_end' : swap.assignmentTo.minute_end
+                    },
+                    'assignmentTo' : {
+                        'day' : swap.assignmentFrom.day,
+                        'minute_start' : swap.assignmentFrom.minute_start,
+                        'minute_end' : swap.assignmentFrom.minute_end
+                    }
+                }
+            });
     Manager.findOne({
         swaps: {
             $elemMatch: {
