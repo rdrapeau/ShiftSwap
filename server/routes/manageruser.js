@@ -112,7 +112,7 @@ exports.addEmployee = function(req, res){
             users: {
                 '_id' : new ObjectId(),
                 'name': name,
-                'email': email
+                'email': email,
                 'phone': phone
             } 
         } }, 
