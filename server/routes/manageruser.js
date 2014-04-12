@@ -131,7 +131,7 @@ exports.signinEmployee = function(req, res) {
     //authenticate phone user here
     var userId = req.body.userId;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
-        if (!manager) {
+        if (!manager || err) {
             res.json({
                     'response': 'FAIL',
                     'errors': ['User not found']
@@ -155,6 +155,32 @@ exports.signinEmployee = function(req, res) {
 
 
 exports.addSchedule = function(req, res){
+    //add phone user here
+    var managerId = req.session.manager._id;
+    var startTime = req.body.startTime;
+    var assignments = req.body.assignments;
+    //var phone = req.body.phone;
+    Manager.update(
+        {'_id': managerId},
+        { $push: { 
+            schedules: {
+                'startTime' : startTime,
+                'assignments': assignments
+            } 
+        } }, 
+        function(err) {
+            if (err) console.log(err);
+
+        Manager.findOne({'_id': managerId}, function(err, manager) {
+            res.json({
+                'response': 'OK',
+                'manager': manager
+            });
+        });
+    });
+};
+
+exports.getMySchedule = function(req, res){
     //add phone user here
     var managerId = req.session.manager._id;
     var startTime = req.body.startTime;
