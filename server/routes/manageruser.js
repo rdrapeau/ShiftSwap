@@ -368,11 +368,7 @@ exports.hasCounterPart = function(swap, callback) {
         if (!manager || err) {
             callback(false);
         } else {
-            res.json({
-                'response': 'OK',
-                'swaps': manager.swaps,
-                'myUser' : req.session.user
-            });
+            callback(true);
         }
     });
 };
