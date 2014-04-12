@@ -20,9 +20,6 @@ var managerUserSchema = new Schema({
     password: {
         type: String
     },
-    user_names: {
-        type: String,
-    },
     users : {
         type: Array,
         default: []
