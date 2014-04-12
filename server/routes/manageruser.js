@@ -182,7 +182,7 @@ exports.sendSms = function(phone, msg, callback){
 }
 
 exports.sendEmail = function(name, email, msg, callback){
-    var sendgrid_username = 'setarehlotfi94@hotmaitl.com'
+    var sendgrid_username = 'setarah'
     var sendgrid_password = 'Classof2017'
     var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
 
