@@ -3,6 +3,7 @@
 
     $(document).ready(function() {
         $("#alreadyRegistered").click(alreadyRegistered);
+        $("#remember").hide();
         $("#register").click(register)
     });
 
@@ -11,6 +12,7 @@
         $("#alreadyRegistered").fadeOut("fast");
         $("#registerForm").slideUp("slow", function() {
             $("#loginForm").slideDown("slow");
+        $("#remember").show();    
         });
     }
 

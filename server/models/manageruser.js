@@ -19,7 +19,16 @@ var managerUserSchema = new Schema({
     },
     password: {
         type: String
-    }
+    },
+    usernames: {
+        type: String
+    },
+    employees_Email: {
+        type: String,
+        unique: true, lowercase: true
+    },
+    
+
 });
 
 managerUserSchema.plugin(uniqueValidator);

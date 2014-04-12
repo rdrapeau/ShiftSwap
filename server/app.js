@@ -65,7 +65,7 @@ app.post('/manager/signup', managerUser.signup);
 app.post('/manager/signin', managerUser.signin);
 
 // add a new schedule (group of assignments)
-//app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
+app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
 
 // generate a new schedule based on users of a manager
 //app.post('/manager/generateschedule', middleware.requiresManager, managerUser.generateSchedule);
