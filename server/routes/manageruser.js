@@ -172,10 +172,16 @@ exports.sendSms = function(req, res){
         to : phone,
         from : '+14423334553'
     }, function(err, message) {
-        res.json({
-            'response': 'OK',
-            'message': message
-        });
+        if(err)
+            res.json({
+                'response': 'FAIL',
+                'err' : err
+            });
+        else
+            res.json({
+                'response': 'OK',
+                'message' : message
+            });
 
     });
 }
