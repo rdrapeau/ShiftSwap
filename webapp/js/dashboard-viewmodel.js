@@ -59,7 +59,17 @@ var DashViewModel = function(data, server) {
 	};
 
 	self.submitSchedule = function() {
-		console.log(self.assignments());
+		var now = new Date();
+		var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+		var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()))
+		$.post(server + '/manager/addschedule', {'startTime' : +(lastSunday), 'assignments' : self.assignments()}, function(data) {
+			if(data.response == 'FAIL') {
+				alert("Something went wrong!");
+			} else {
+				alert('Schedule published!')
+			}
+		});		
+		return true;
 	};
 
 	self.loadUserRecord = function() {
