@@ -122,7 +122,7 @@
 								</span>
 								<span class="status"></span>
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-success" id="add-employee" data-bind="click: addEmployee">Add</button>
+								<button type="button" class="btn btn-success" id="add-employee" data-bind="click: addEmployee" data-dismiss="modal">Add</button>
 							</div>
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
@@ -134,7 +134,7 @@
 					<div>
 						<button class="btn btn-warn" data-bind="click: randomSchedule"><span class="glyphicon glyphicon-flash"></span> Shuffle</button>
 						<button class="btn btn-warn" data-bind="click: fiveToEight"><span class="glyphicon glyphicon-flash"></span> 5-to-8</button>
-						<button class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Publish</button>
+						<button class="btn btn-success" data-bind="click: submitSchedule"><span class="glyphicon glyphicon-send"></span> Publish</button>
 					</div>
 					<div class="arrow-buttons">
 						<button class="btn btn-info" id="prev-week" data-bind="click: prevWeek"><span class="glyphicon glyphicon-arrow-left"></span></button>

@@ -25,6 +25,7 @@ var DashViewModel = function(data, server) {
 
 	self.employeeName = new ko.observable("");
 	self.employeeEmail = new ko.observable("");
+	self.assignments = new ko.observableArray();
 
 	self.name = data.username;
 	self.users = new ko.observableArray();
@@ -55,10 +56,28 @@ var DashViewModel = function(data, server) {
 			}
 		});
 		return true;
-	}
+	};
+
+	self.submitSchedule = function() {
+
+	};
 
 	self.loadUserRecord = function() {
 
+	};
+
+	self.addAssignment = function(assignment) {
+		self.assignments.push(assignment);
+		console.log(assignment);
+	};
+
+	self.removeAssignment = function(assignment) {
+		console.log(assignment);
+		self.assignments.remove(function(item) {
+			return assignment.day == item.day &&
+					assignment['start-minute'] == item['start-minute'] &&
+					assignment['end-minute'] == item['end-minute'];
+		});
 	}
 
 	self.nextWeek = function() {
@@ -74,6 +93,7 @@ var DashViewModel = function(data, server) {
 	};
 
 	self.randomSchedule = function() {
+
 		calendar = new Calendar('.calendar', data.schedules[0].assignments, self);
 	}
 
@@ -110,6 +130,7 @@ var DashViewModel = function(data, server) {
 				'endMinute' : 17 * 60
 			}
 		];
+		self.assignments(assignments);
 		calendar = new Calendar('.calendar', assignments, self);
 	}
 }

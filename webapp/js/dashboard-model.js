@@ -144,6 +144,13 @@ function Calendar(dom, data, vm) {
 		$('#add-assignment-modal').on('shown.bs.modal', function() {
 			$('#add-assignment-modal').find('.modal-close, .close, .modal-confirm').unbind('click');
 			$('#add-assignment-modal').find('.modal-close, .close').click(function() {
+				var assignment = {					
+					'users' : vm.assignmentUsers(),
+					'day' : selection[0].data('day'),
+					'start-minute' : selection[0].data('minutes'),
+					'end-minute' : selection[selection.length - 1].data('minutes')
+				};
+				vm.removeAssignment(assignment);
 				for(var i = 0; i < selection.length; i++) {
 					selection[i].unbind('click');
 					selection[i].removeClass('perm-selected');
@@ -154,6 +161,13 @@ function Calendar(dom, data, vm) {
 				return true;
 			});
 			$('#add-assignment-modal').find('.modal-confirm').click(function() {
+				var assignment = {					
+					'users' : vm.assignmentUsers(),
+					'day' : selection[0].data('day'),
+					'start-minute' : selection[0].data('minutes'),
+					'end-minute' : selection[selection.length - 1].data('minutes')
+				};
+				vm.addAssignment(assignment);
 				for(var i = 0; i < selection.length; i++) {
 					selection[i].click(function() {
 						if(!$('#add-assignment-modal').hasClass('in')) {
