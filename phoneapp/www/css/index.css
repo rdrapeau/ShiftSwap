@@ -131,6 +131,17 @@ h1 {
     min-width:200px;
 }
 
+#daily-times{
+    margin-left:10px;
+    margin-right:10px;
+    border: 2px solid transparent;
+    border-radius:2.5px;
+}
+
+div.#daily-times.empty{
+    border: none;
+}
+
 #day-view{
     background-color:#14FFB1;
     border:5px solid:#14FFB1;
@@ -263,4 +274,8 @@ hr{
     background-color:black!important;
 }
 
+.ui-shadow{
+    background-color:#14FFB1;
+    color:#14FFB1;
+}
 
