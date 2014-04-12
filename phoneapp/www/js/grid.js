@@ -22,6 +22,7 @@ var checkLogin = function() {
         showLoginPage();
     } else {
         $("#footing").show();
+        $("#headtitle").show();
         showGridPage();
     }
 }
@@ -106,7 +107,6 @@ var employeeData = {"employees":[
 ]};
 
 var loginPage = function() {
-    $("#head-title-text").text("ShiftSwap")
     toToPage("login-page")
 }
 
@@ -131,6 +131,7 @@ var showSwapPage = function() {
 var showLoginPage = function() {
     goToPage("login-page");
     $("#footing").hide();
+    $("#headtitle").hide();
 }
 
 var loadSwapPage = function(time, date, partner) {

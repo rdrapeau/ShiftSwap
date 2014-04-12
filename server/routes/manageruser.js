@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId
-var User = require('./../models/manageruser');
+var Manager = require('./../models/manageruser');
 var request = require('request');
 
 
@@ -60,7 +60,7 @@ exports.signup = function(req, res){
  */
 exports.signin = function(req, res) {
     console.log(req);
-    var email = req.body.email.toString().toLowerCase();
+    var email = req.body.email;
     var password = req.body.password;
     console.log('signing in ' + email);
 
