@@ -104,7 +104,6 @@ var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
     // Load Swaps
     goToPage("swap-page");
-
 }
 
 var loadSwapPage = function(time, date, partner) {
@@ -117,7 +116,10 @@ var loadSwapPage = function(time, date, partner) {
     for (var i = 0; i < scheduleData.schedule.length; i++) {
         if (scheduleData.schedule[i].hasShift) {
             for (var j = 0; j < scheduleData.schedule[i].shifts.length; j++) {
-                $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + j + "' /><label for='shift-" + i + "-" + j + "'>" + scheduleData.schedule[i].date + ": " + get12HourTime(scheduleData.schedule[i].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[i].shifts[j].endTime) + "</label></div>").trigger("create");
+                var date = scheduleData.schedule[i].date;
+                var startTime = get12HourTime(scheduleData.schedule[i].shifts[j].startTime);
+                var endTime = get12HourTime(scheduleData.schedule[i].shifts[j].endTime);
+                $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + j + "' /><label date='" + date + "' startTime='" + startTime + "' endTime='" + endTime + "' class='userShifts' for='shift-" + i + "-" + j + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
             }
         }
     }
@@ -127,7 +129,16 @@ var loadSwapPage = function(time, date, partner) {
 }
 
 var sendSwap = function() {
+    if ($(".ui-radio-on.userShifts").exists()) {
+        console.log($(".ui-radio-on.userShifts").attr("date"));
+        console.log($(".ui-radio-on.userShifts").attr("startTime"));
+        console.log($(".ui-radio-on.userShifts").attr("endTime"));
 
+        // SEND TO SERVER
+        $("#send-swap-div").hide();
+    } else {
+        console.log("Select an element");
+    }
 }
 
 var showSettingsPage = function() {
@@ -353,4 +364,8 @@ var get12HourTime = function(minutesSinceMidnight) {
         time[0] = padZero(parseInt(time[0]) - 12);
     }
     return time[0] + ":" + time[1] + " " + amPm;
+}
+
+$.fn.exists = function () {
+    return this.length !== 0;
 }
