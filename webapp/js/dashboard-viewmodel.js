@@ -34,6 +34,7 @@ var DashViewModel = function(data, server) {
 
 	self.employeeName = new ko.observable("");
 	self.employeeEmail = new ko.observable("");
+	self.employeePhone = new ko.observable("");
 	self.assignments = new ko.observableArray();
 
 	self.name = data.username;
