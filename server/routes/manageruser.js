@@ -16,6 +16,7 @@ var request = require('request');
  * Sign up a manager.
  */
 exports.signup = function(req, res){
+    console.log(req.body);
     // get the form values from "name" attribute of the form
     var manager = new Manager({
         'email': req.body.email,
@@ -60,7 +61,7 @@ exports.signup = function(req, res){
  * Sign in a manager
  */
 exports.signin = function(req, res) {
-    console.log(req);
+    console.log(req.body);
     var email = req.body.email;
     var password = req.body.password;
     console.log('signing in ' + email);
@@ -99,6 +100,7 @@ exports.signin = function(req, res) {
  * Sign up a user.
  */
 exports.addEmployee = function(req, res){
+    console.log(req.body);
     //add phone user here
     var managerId = req.session.manager._id;
     var name = req.body.name;
@@ -129,6 +131,7 @@ exports.addEmployee = function(req, res){
  * Sign in a user
  */
 exports.signinEmployee = function(req, res) {
+    console.log(req.body);
     //authenticate phone user here
     var userId = req.body.userId;
     console.log("SIGN IN EMPLOYEE: " + userId);
@@ -157,6 +160,7 @@ exports.signinEmployee = function(req, res) {
 
 
 exports.addSchedule = function(req, res){
+    console.log(req.body);
     //add phone user here
     var managerId = req.session.manager._id;
     var startTime = req.body.startTime;
@@ -183,6 +187,7 @@ exports.addSchedule = function(req, res){
 };
 
 exports.getMySchedule = function(req, res){
+    console.log(req.body);
     //add phone user here
     var userId = req.session.user._id;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
@@ -212,6 +217,7 @@ exports.getMySchedule = function(req, res){
 };
 
 exports.getAllSchedules = function(req, res){
+    console.log(req.body);
     //add phone user here
     var userId = req.session.user._id;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
@@ -233,6 +239,7 @@ exports.getAllSchedules = function(req, res){
 };
 
 exports.getSwaps = function(req, res){
+    console.log(req.body);
     var userId = req.session.user._id;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
@@ -252,6 +259,7 @@ exports.getSwaps = function(req, res){
 
 
 exports.addSwap = function(req, res){
+    console.log(req.body);
     var fromId = req.session.user._id;
     var toId = req.body.toId;
     var assignmentFrom = req.body.assignmentFrom;
