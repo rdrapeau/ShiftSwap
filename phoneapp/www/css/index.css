@@ -122,7 +122,7 @@ h1 {
 }
 
 .arrows{
-    position:absolute; 
+    position:absolute;
     bottom:10px;
     margin-left:10%;
     margin-right:5%;
@@ -273,7 +273,7 @@ hr{
 }
 
 
-#company{
+#company, #employeeID{
     color:#A9D0F5;
     font-size:20px;
     text-align:center;
