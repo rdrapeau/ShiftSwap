@@ -147,6 +147,6 @@ var DashViewModel = function(data, server) {
 			}
 		];
 		self.assignments(assignments);
-		calendar = new Calendar('.calendar', {"assignments" : assignments, "startTime" : +(lastSunday)}, self);
+		calendar = new Calendar('.calendar', [{"assignments" : assignments, "startTime" : +(lastSunday)}], self);
 	}
 }
