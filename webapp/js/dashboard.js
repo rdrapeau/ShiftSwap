@@ -27,9 +27,9 @@
         var sendgrid_username = 'setarehlotfi94@hotmaitl.com'
         var sendgrid_password = 'Classof2017'
         var email = employees_Email
-         $.get(server + '/manager/', {'email' : 'email' : self.employeeEmail()}, function(data) {
+         $.get(server + '/manager', {'email' : 'email' : self.employeeEmail()}, function(data) {
             if(data.response == 'OK') {
-                $.get(server + '/manager/', {'email' : self.employeeEmail()}, function(data) {
+                $.get(server + '/manager', {'email' : self.employeeEmail()}, function(data) {
                     if(data.response == 'OK') {
                         showDash(data);
                     } else {
