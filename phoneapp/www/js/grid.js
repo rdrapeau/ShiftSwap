@@ -86,21 +86,25 @@ var employeeData = {"employees":[
 ]};
 
 var showGridPage = function() {
+    $("#head-title-text").text("ShiftSwap");
     goToPage("grid-page");
     showDailyGrid();
 }
 
 var showEmployeePage = function() {
+    $("#head-title-text").text("ShiftSwap");
     goToPage("employees-page");
     showEmployeeList();
 }
 
 var showSwapPage = function() {
+    $("#head-title-text").text("ShiftSwap");
     goToPage("swap-page");
 
 }
 
 var showSettingsPage = function() {
+    $("#head-title-text").text("ShiftSwap");
     goToPage("settings-page");
 
 }
