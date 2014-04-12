@@ -65,8 +65,6 @@ app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 // Adds a swap request to this user's manager
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
-// Adds a swap request to this user's manager
-app.post('/user/agreeswap', middleware.requiresUser, managerUser.doSwap);
 
 //sending twillio sms
 app.post('/manager/sendsms',managerUser.sendSms);

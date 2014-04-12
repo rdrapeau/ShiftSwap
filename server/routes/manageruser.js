@@ -328,7 +328,7 @@ exports.hasCounterPart = function(swap, callback) {
         swaps: {
             $elemMatch: {
                     'fromId' : ObjectId(swap.toId),
-                    'toId' : ObjectId(swap.fromId),}}},
+                    'toId' : ObjectId(swap.fromId),
                     'assignmentFrom' : {
                         $elemMatch: {
                             'day' : swap.assignmentTo.day,
@@ -378,7 +378,7 @@ exports.addSwap = function(req, res){
                 'assignmentTo' : assignmentTo
                 };
     exports.hasCounterPart(swap, function(status) {
-        if(!status)
+        if(!status) {
             Manager.update(
                {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
                {
