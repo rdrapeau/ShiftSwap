@@ -105,7 +105,17 @@ var showSettingsPage = function() {
 
 }
 
+var getEmployeeData = function() {
+    return employeeData;
+}
+
+var getScheduleData = function() {
+    return scheduleData;
+}
+
 var nextDay = function() {
+    scheduleData = getScheduleData();
+
     if (dailyIndex < scheduleData.schedule.length - 1) {
         dailyIndex++;
         $("#previous-day").removeClass("ui-disabled");
@@ -156,6 +166,8 @@ var showEmployeeList = function() {
     $("#employee-schedule-view").hide();
     var head = document.getElementById("employee-list");
 
+    employeeData = getEmployeeData();
+
     for (var i = 0; i < employeeData.employees.length; i++) {
         var employee = document.createElement("li");
         var button = document.createElement("a");
@@ -170,6 +182,10 @@ var showEmployeeList = function() {
 }
 
 var showEmployeeSchedule = function() {
+    employeeData = getEmployeeData();
+    scheduleData = getScheduleData();
+    $("#head-title-text").text(this.text);
+
     for (var i = 0; i < employeeData.employees.length; i++) {
         if (employeeData.employees[i].name.toLowerCase() == this.text.toLowerCase()) {
             $("#employee-schedule").empty();
@@ -189,9 +205,13 @@ var showEmployeeSchedule = function() {
                 if (employeeData.employees[i].schedule[z].hasShift) {
                     for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
                         var shift = document.createElement("li");
+                        var button = document.createElement("a")
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
-                        shift.appendChild(document.createTextNode(text));
-                        shift.className = "ui-li-static ui-body-inherit";
+                        button.appendChild(document.createTextNode(text));
+                        button.className = "ui-btn ui-btn-up-c";
+                        button.onclick = swap;
+
+                        shift.appendChild(button);
                         head.appendChild(shift);
                     }
                 } else {
@@ -206,12 +226,18 @@ var showEmployeeSchedule = function() {
     }
 }
 
+var swap = function() {
+    console.log(this.text);
+}
+
 var showDailyGrid = function () {
     $("#week-view").hide();
     $("#day-view").show();
     $("#daily-times").empty();
     $("#daily-view-button").addClass("ui-btn-active ui-state-persist");
     $("#weekly-view-button").removeClass("ui-btn-active ui-state-persist");
+
+    scheduleData = getScheduleData();
 
     var currentDay = scheduleData.schedule[dailyIndex];
     $("#daily-title").text(getDateString(currentDay.date));
@@ -235,6 +261,8 @@ var showWeeklyGrid = function() {
     $("#week-view").show();
     $("#schedule-list").empty();
     var head = document.getElementById("schedule-list");
+
+    scheduleData = getScheduleData();
 
     for (var i = 0; i < scheduleData.schedule.length; i++) {
         var day = document.createElement("li");
