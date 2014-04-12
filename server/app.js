@@ -12,10 +12,6 @@ var express = require('express'),
 app.configure(function(){
     // read port from .env file
     app.set('port', process.env.PORT || 3000);
-    // locate the views folder
-    app.set('views', __dirname + '/views');
-    // we are using jade templating engine
-    app.set('view engine', 'jade');
     // the favicon to use for our app
     app.use(express.favicon(path.join(__dirname, 'public/images/favicon.ico')));
     // watch network requests to express in realtime
@@ -35,11 +31,6 @@ app.configure(function(){
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
