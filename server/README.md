@@ -242,6 +242,41 @@ Response:
 	    }
 	}
 
+
+{"employees":[
+    {
+        "name": "Aaron",
+        "schedule": {"schedule":[
+            {
+            "date": "4/12/2014",
+            "shifts":[
+                {
+                    "startTime": 0,
+                    "endTime": 120
+                },
+                {
+                    "startTime": 600,
+                    "endTime": 660
+                }
+            ],
+            "notes": null
+            },
+            {
+            "date": "4/14/2014",
+            "shifts":[
+                {
+                    "startTime": 328,
+                    "endTime": 984
+                }
+            ],
+            "notes": null
+    ]};
+]};
+
+
+
+
+
 #### Get all assignments / schedules
 
 `GET /user/getallschedules`
@@ -306,7 +341,7 @@ Response:
 							'start-minute' : 15,
 							'end-minute' : 15
 						},
-					"from" : "53487e5f343685a71ca1d12e",			
+					"from" : "53487e5f343685a71ca1d12e",
 	        		"assignmentTo" : {
 							'users' : ['list', 'of', 'unique_codes'],
 							'day' : 0,
@@ -351,7 +386,7 @@ Response:
 							'start-minute' : 15,
 							'end-minute' : 15
 						},
-					"from" : "53487e5f343685a71ca1d12e",			
+					"from" : "53487e5f343685a71ca1d12e",
 	        		"assignmentTo" : {
 							'users' : ['list', 'of', 'unique_codes'],
 							'day' : 0,
