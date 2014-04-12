@@ -122,13 +122,15 @@ exports.addEmployee = function(req, res){
 
         Manager.findOne({'_id': managerId}, function(err, manager) {
             exports.sendSms(phone, userId, function(error, message) {
+            exports.sendEmail(name, email, userId, function(error, message)  {  
                 res.json({
                     'response': 'OK',
                     'manager': manager,
                     'text_message' : message,
                     'text_errors' : error
+                    });
                 });
-            });
+             });
         });
     });
 };
@@ -177,6 +179,29 @@ exports.sendSms = function(phone, msg, callback){
     }, function(err, message) {
         callback(err, message);
     });
+}
+
+exports.sendEmail = function(name, email, msg, callback){
+    var sendgrid_username = 'setarehlotfi94@hotmaitl.com'
+    var sendgrid_password = 'Classof2017'
+    var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
+
+            //subject : 'IMPORTANT: Your Login Information for ShiftSwape'
+    var email = new sendgrid.Email();
+        
+        email.to(email);
+        email.setFrom('info@ShiftSwape.com');
+        email.setsubject('IMPORTANT: Your Login Infomration with ShiftSwape');
+        email.setText('Hi' + name+', /n Here is your login information for ShiftSwape' + msg + '/nPlease download our mobile app from Android or App Store to start easily change your work schadule when you needed too!/n ShiftSwape Team', userId)
+
+        sendgrid.send(email, function(erro, json){
+            if (err) {return console.error(err);}
+            console.log(json);
+            callback(erro, json);
+        });
+    
+    }
+
 }
 
 
