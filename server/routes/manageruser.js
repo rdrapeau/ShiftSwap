@@ -374,6 +374,26 @@ exports.hasCounterPart = function(swap, callback) {
     });
 };
 
+exports.clearSwaps = function(req, res) {
+    var fromId = null;
+    if(typeof req.body.fromId != 'undefined') {
+        fromId = req.body.fromId;
+    } else {
+        fromId = req.session.user._id;
+    }
+    Manager.update({users: {$elemMatch: {'_id' : ObjectId(fromId)}}}, {swaps : []}, function(err) {
+        if (!manager || err) {
+            res.json({
+                    'response': 'FAIL'
+                });
+        } else {
+            res.json({
+                'response': 'OK',
+            });
+        }
+    });
+}
+
 exports.addSwap = function(req, res){
     console.log(req.body);
     var fromId = null;
