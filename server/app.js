@@ -65,6 +65,8 @@ app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 // Adds a swap request to this user's manager
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
+app.post('/user/clearswaps', middleware.requiresUser, managerUser.clearSwaps);
+
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
