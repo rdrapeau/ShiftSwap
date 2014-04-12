@@ -222,8 +222,14 @@ exports.getMySchedule = function(req, res){
                 var schedules = [];
                 for(var i = 0; i < manager.schedules.length; i++) {
                     for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
+                        var scheduleIn = false;
                         if(manager.schedules[i].assignments[j].users.indexOf(user.name) != -1) {
-                            schedules.push(manager.schedules[i]);
+                            if(!scheduleIn) {
+                                schedules.push(manager.schedules[i]);
+                                schedules[schedules.length - 1].assignments = [];
+                                scheduleIn = true;
+                            }
+                            schedules[schedules.length - 1].assignments.push(manager.schedules[i].assignments[j]);
                         }
                     }
                 }
