@@ -10,7 +10,8 @@
     "jade": "*",
     "mongodb": "*",
     "mongoose": "~3.8.8",
-    "connect-redis": "1.4.7",
+    "connect": "1.8.5",
+    "connect-mongo": "0.1.9",
     "newrelic": "~1.4.0",
     "request": "~2.34.0",
     "mongoose-unique-validator": "~0.3.0"

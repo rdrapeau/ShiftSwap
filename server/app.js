@@ -7,9 +7,6 @@ var express = require('express'),
     path = require('path'),
     middleware = require('./config/middleware.js'),
     app = express();
-    
-
-var app = express();
 
 // all environments
 app.configure(function(){
@@ -29,14 +26,9 @@ app.configure(function(){
     app.use(express.bodyParser());
     // faux HTTP requests - PUT or DELETE
     app.use(express.methodOverride());
-    app.use(express.session({ 
-        secret: 'ecoSecret'
-        // store: new RedisStore({
-        //    host: 'localhost',
-        //     port: 6379,
-        //     db: 2
-        // }),
-    }));
+    app.use(express.session({
+        secret: 'my secret'
+      }));
     // invokes the routes' callbacks
     app.use(app.router);
     // every file <file> in /public is served at example.com/<file>
@@ -48,6 +40,12 @@ app.configure(function(){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
 
 // serve the home
 app.get('/', routes.index);

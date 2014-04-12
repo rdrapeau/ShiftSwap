@@ -9,6 +9,18 @@ body {
 	font-family: comf;
 }
 
+#intro {
+	display: block;
+}
+
+#dashboard {
+	display: none;
+}
+
+#loginForm {
+	display: none;
+}
+
 .nav-tabs {
 	border: none;
 }
