@@ -59,7 +59,7 @@ var DashViewModel = function(data, server) {
 	};
 
 	self.submitSchedule = function() {
-
+		console.log(self.assignments());
 	};
 
 	self.loadUserRecord = function() {
