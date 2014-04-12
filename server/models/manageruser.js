@@ -28,8 +28,6 @@ var managerUserSchema = new Schema({
         type: String,
         unique: true, lowercase: true
     },
-    
-=======
     users : {
         type: Array,
         default: []
