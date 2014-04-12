@@ -186,6 +186,8 @@ exports.getMySchedule = function(req, res){
     var userId = req.session.user._id;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
+            console.log(manager);
+            console.log(err);
             res.json({
                     'response': 'FAIL',
                     'errors': ['User not found']
@@ -259,3 +261,10 @@ exports.addSwap = function(req, res){
             }
         });
 };
+
+/*exports.acceptSwap = function(req, res){
+    var fromId = req.session.user._id;
+    var toId = req.body.toId;
+    var assignmentFrom = req.body.assignmentFrom;
+    var assignmentTo = req.body.assignmentTo;
+};*/
