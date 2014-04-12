@@ -355,8 +355,8 @@ exports.hasCounterPart = function(swap, callback) {
 exports.addSwap = function(req, res){
     console.log(req.body);
     var fromId = null;
-    if(typeof req.body.userId != 'undefined') {
-        fromId = req.body.userId;
+    if(typeof req.body.fromId != 'undefined') {
+        fromId = req.body.fromId;
     } else {
         fromId = req.session.user._id;
     }
