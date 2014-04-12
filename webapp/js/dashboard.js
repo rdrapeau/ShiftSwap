@@ -6,6 +6,8 @@
 
     $(document).ready(function() {
         $("#alreadyRegistered").click(alreadyRegistered);
+        $("#registerForm").hide();
+        $("#loginForm").show();
         $("#register").click(register);
         $("#login").click(login);
 
