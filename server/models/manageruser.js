@@ -29,6 +29,11 @@ var managerUserSchema = new Schema({
         unique: true, lowercase: true
     },
     
+=======
+    users : {
+        type: Array,
+        default: []
+    }
 
 });
 

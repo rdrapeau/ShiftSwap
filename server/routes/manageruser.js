@@ -64,7 +64,7 @@ exports.signin = function(req, res) {
     var password = req.body.password;
     console.log('signing in ' + email);
 
-    User.findOne( {email: email, password : password}, function(err, manager) {
+    Manager.findOne( {email: email, password : password}, function(err, manager) {
         if (!manager) {
             res.json({
                     'response': 'FAIL',
@@ -106,7 +106,7 @@ exports.addEmployee = function(req, res){
         {'_id': managerId},
         { $push: { 
             users: {
-                '_id' : ObjectId.get(),
+                '_id' : new ObjectId(),
                 'name': name,
                 'email': email
             } 
@@ -114,7 +114,7 @@ exports.addEmployee = function(req, res){
         function(err) {
             if (err) console.log(err);
 
-        Message.findOne({'_id': managerId}, function(err, manager) {
+        Manager.findOne({'_id': managerId}, function(err, manager) {
             res.json({
                 'response': 'OK',
                 'manager': manager
@@ -129,23 +129,51 @@ exports.addEmployee = function(req, res){
 exports.signinEmployee = function(req, res) {
     //authenticate phone user here
     var userId = req.body.userId;
-    Manager.findOne({users: {'_id' : user_names}}, function(err, manager) {
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager) {
             res.json({
                     'response': 'FAIL',
                     'errors': ['User not found']
                 });
         } else {
-            console.log(manager);
-            for(var i = 0; i < manager.users; i++) {
-                if (manager.users[i]._id == userId) {
-                    manager.myUser = manager.users[i];
+            var myUser = {}
+            for(var i = 0; i < manager.users.length; i++) {
+                if (manager.users[i]._id.toString() == userId.toString()) {
+                    myUser = manager.users[i];
                 }
             }
+            req.session.user = manager;
             res.json({
                 'response': 'OK',
-                'manager': manager
+                'manager': manager,
+                'myUser' : myUser
             });
         }
     });
 };
+exports.Schadule = function(req, res){
+    signinEmployee(req, res);
+    var start = req.start
+    { $push:{
+        users: {
+            'start' = start
+            'assignments' : {
+                    '_id' = managerId;
+                    var UserNames = [] 
+                    for (i=0, i<manager.users.length; i++){
+                        queryUsers = Employee.find(users);
+                        UserNames[i]{
+                            $pull:{
+                                users:{
+                                    'name' = name;
+                                    'email' = email;
+                                }
+                            }
+                        }
+                    }                   
+
+                }
+            }
+        }
+    }}
+}

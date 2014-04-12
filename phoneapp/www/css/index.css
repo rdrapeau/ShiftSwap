@@ -186,10 +186,29 @@ hr{
     color:white;
 }
 
-#enter-key{
-    color:#14FFB1;
+#loginlogo{
+    max-width:300px;
+    margin-top:50px;
 }
 
+#enter-key{
+    color:#14FFB1;
+    min-width:100px;
+}
+
+#login{
+    margin-top:50px;
+}
+
+#login-box{
+    width:300px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#login-page{
+    text-align:center;
+}
 
 #settingbox1{
     background-color:rgb(200,200,200);
