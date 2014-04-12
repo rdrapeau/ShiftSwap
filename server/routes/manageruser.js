@@ -382,7 +382,7 @@ exports.clearSwaps = function(req, res) {
         fromId = req.session.user._id;
     }
     Manager.update({users: {$elemMatch: {'_id' : ObjectId(fromId)}}}, {swaps : []}, function(err) {
-        if (!manager || err) {
+        if (err) {
             res.json({
                     'response': 'FAIL'
                 });
