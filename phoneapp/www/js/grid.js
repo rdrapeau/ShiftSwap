@@ -87,11 +87,10 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
+    if ($("#users-choices").children().length > 0)
         $("#swap-view").css("border", "none");
     else
         $("#swap-view").css("border", "4px solid #444444");
-    // Load Swaps HERE
     goToPage("swap-page");
 }
 
@@ -181,11 +180,19 @@ var previousDay = function() {
 var goToPage = function(page) {
     var pages = ["grid-page", "swap-page", "employees-page", "settings-page", "login-page"];
     var domPages = [$("#grid-page"), $("#swap-page"), $("#employees-page"), $("#settings-page"), $("#login-page")];
+    var buttons = [$("#grid-link-button"), $("#swap-link-button"), $("#employees-link-button"), $("#settings-link-button"), null];
 
     var index = null;
     for (var i = 0; i < pages.length; i++) {
         if (pages[i] == page) {
             index = i;
+            if (i != 4) {
+                buttons[i].addClass("ui-btn-active");
+                buttons[i].addClass("ui-state-persist");
+            }
+        } else if (i != 4) {
+            buttons[i].removeClass("ui-btn-active");
+            buttons[i].removeClass("ui-state-persist");
         }
     }
 
@@ -244,6 +251,7 @@ var showEmployeeSchedule = function() {
                 if (days.length > 0) {
                     var day = document.createElement("li");
                     var date = getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k);
+
                     day.appendChild(document.createTextNode(date));
                     day.className = "ui-li-divider ui-bar-inherit";
                     day.setAttribute("data-role", "list-divider");
@@ -275,9 +283,6 @@ var showEmployeeSchedule = function() {
                             head.appendChild(shift);
                         }
                     }
-                    if (!found) {
-                        $(day).remove();
-                    }
                 }
             }
         }
@@ -287,6 +292,7 @@ var showEmployeeSchedule = function() {
 var loadSwapPage = function(time, date, partner) {
     $("#partner-name").text(partner);
     $("#partner-choice-text").text(date + ": " + time);
+    $("#users-choices").empty();
     $.post(BASE_URL + "/user/getmyschedule", {userId: window.localStorage.getItem('token')}, function(data) {
         if (data.response == 'OK') {
             var schedules = data.schedules;
@@ -301,7 +307,8 @@ var loadSwapPage = function(time, date, partner) {
                     for (var a = 0; a < days.length; a++) {
                         var startTime = get12HourTime(days[a].start_minute);
                         var endTime = get12HourTime(days[a].end_minute);
-                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+                        var x = Math.random() * 100000;
+                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + '-' + a + '-' + x + "' /><label class='userShifts' for='shift-" + i + "-" + k + '-' + a + '-' + x + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
                         window.localStorage.setItem('json', JSON.stringify(days[a]));
                     }
                 }
@@ -369,13 +376,12 @@ var showWeeklyGrid = function() {
                         return item.day == z;
                     });
 
-                    if (days.length > 0) {
-                        var day = document.createElement("li");
-                        day.appendChild(document.createTextNode(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k)));
-                        day.className = "ui-li-divider ui-bar-inherit";
-                        day.setAttribute("data-role", "list-divider");
-                        head.appendChild(day);
-                    }
+                    var day = document.createElement("li");
+                    day.appendChild(document.createTextNode(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k)));
+                    day.className = "ui-li-divider ui-bar-inherit";
+                    day.setAttribute("data-role", "list-divider");
+                    head.appendChild(day);
+
 
                     for (var a = 0; a < days.length; a++) {
                         var shift = document.createElement("li");

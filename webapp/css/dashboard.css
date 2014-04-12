@@ -32,6 +32,14 @@ body {
 	display: none;
 }
 
+#loginemail{
+	margin-top:10px;
+}
+
+#login{
+	margin-top:10px;
+}
+
 .nav-tabs {
 	border: none;
 }

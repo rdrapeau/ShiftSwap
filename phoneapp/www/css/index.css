@@ -24,7 +24,8 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
+    background-color:#111111;
+    /*background-color:#E4E4E4;*/
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -170,7 +171,7 @@ h1 {
 }
 
 li.ui-li-static.ui-body-inherit{
-    border-bottom: 2px solid #FFE524;
+    border-bottom: 3px solid #FFE524;
     border-radius:3px;
 }
 
@@ -191,7 +192,11 @@ p{
 }
 
 #headtitle{
-    background-color:#FFE524;
+    background-color:#333333;
+    height:50px;
+    margin-top:-0.8px;
+    border-bottom: 3px solid #FFE524;
+    text-align:center;
 }
 
 #headtitle2{
@@ -199,9 +204,9 @@ p{
 }
 
 #head-title-text{
-    font-weight:bold;
-    font-size:21px;
-    color:#222222;
+    width:120px;
+    height:40px;
+    margin-top:2px;
 }
 
 hr{
@@ -242,6 +247,7 @@ hr{
 }
 
 #login-page{
+    display:block;
     text-align:center;
 }
 
@@ -356,6 +362,10 @@ hr{
 
 .ui-controlgroup.ui-controlgroup-vertical.ui-corner-all{
     overflow:scroll;
+}
+
+#footing{
+    border-top: 3px solid #FFE524;
 }
 
 
