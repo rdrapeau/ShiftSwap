@@ -112,10 +112,9 @@ exports.user.signin = function(req, res) {
         Manager.findOne({user_names: user_names})
     }
 }
-
 };
 
-exports.addEmployee = function(user, email){
+exports.manager.addEmployee = function(user, email){
     var user_names = user.body.user_names;
     var employee_email = email.body.employee_email.toLowerCase();
     console.log('You have added' + user_names + 'with email' + employee_email);
@@ -124,6 +123,26 @@ exports.addEmployee = function(user, email){
 }
 
 //password rest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // password reset //
 module.exports = function(app) {
