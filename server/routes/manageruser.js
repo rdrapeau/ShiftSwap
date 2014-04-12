@@ -238,7 +238,7 @@ exports.getMySchedule = function(req, res){
                 }
                 res.json({
                     'response': 'OK',
-                    'schedules': schedules,
+                    'schedules': manager.schedules,
                     'myUser' : user
                 });
             });
