@@ -388,18 +388,14 @@ exports.addSwap = function(req, res){
                     } else {
                         res.json({
                             'response': 'OK',
-                            'swapHappened' : false,
-                            'swaps': manager.swaps,
-                            'myUser' : req.session.user
+                            'swapHappened' : false
                         });
                     }
                 });
         } else {
             res.json({
                 'response': 'OK',
-                'swapHappened' : true,
-                'swaps': manager.swaps,
-                'myUser' : req.session.user
+                'swapHappened' : true
             });        
         }
     });
