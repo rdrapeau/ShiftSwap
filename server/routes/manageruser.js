@@ -172,9 +172,10 @@ exports.sendSms = function(req, res){
         to : phone,
         from : '+14423334553'
     }, function(err, message) {
-        process.stdout.write(message.sid);
-    
-
+        res.json({
+            'response': 'OK',
+            'message': message
+        });
 
     });
 }
