@@ -11,31 +11,27 @@
     </head>
 
     <body>
-<<<<<<< HEAD
-        <div data-role="header" data-theme="a" id="headtitle"> 
-            <h1>ShiftSwap</h1> 
-        </div> 
-
-
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#" class="ui-btn-active ui-state-persist">Daily View</a></li>
-                <li><a href="#">Weekly View</a></li>
-            </ul>
+        <div data-role="header" data-theme="a" id="headtitle">
+            <h1>ShiftSwap</h1>
         </div>
-
-        <div class="day">
-            <div class="ui-grid-b">
-                <div id="daytitle"><strong>Mon</strong></div>
-                <hr />
-                <p class="daycontent">Time:</p>
-                <p class="daycontent">Notes:</p>
-            </div>
-        </div>
-
-=======
 
         <div id="grid-page">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" class="ui-btn-active ui-state-persist">Daily View</a></li>
+                    <li><a href="#">Weekly View</a></li>
+                </ul>
+            </div>
+
+            <div id="day-view">
+                <div class="ui-grid-b">
+                    <div id="daytitle"><strong>Mon</strong></div>
+                    <hr />
+                    <p class="daycontent">Time:</p>
+                    <p class="daycontent">Notes:</p>
+                </div>
+            </div>
+
            <div id="week-view">
                 <ul id="schedule-list" data-role="listview" class="ui-shadow">
                 </ul>
@@ -52,25 +48,17 @@
                 <button class="employees-link">Back</button>
             </div>
        </div>
->>>>>>> FETCH_HEAD
 
         <div id="footing" data-role="footer" data-position="fixed" data-tap-toggle="false">
             <div data-role="navbar">
                 <ul>
-<<<<<<< HEAD
-                    <li><a id="me-page-link" href="#" data-bind="click: goToMe" class="ui-btn-active ui-state-persist ui-btn-icon-top bottom-menu" data-icon="grid"></a></li>
-                    <li><a id="activity-page-link" href="#activity-page" class="ui-btn-icon-top bottom-menu" data-bind="click: goToActivity" data-icon="refresh"></a></li>
-                    <li><a id="record-page-link" href="#record-page" class="ui-btn-icon-top bottom-menu" data-bind="click: goToForms" data-icon="search"></a></li>
-                    <li><a id="record-page-link" href="#record-page" class="ui-icon-edit ui-btn-icon-top bottom-menu" data-bind="click: goToForms" data-icon="gear"></a></li>
-=======
-                    <li><a href="#grid-page" data-bind="click: goToGrid" class="grid-link ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid"></a></li>
+                    <li><a href="#grid-page" class="grid-link ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid"></a></li>
 
-                    <li><a href="#swap-page" class="swap-link ui-icon-heart ui-btn-icon-top" data-bind="click: goToSwap"></a></li>
+                    <li><a href="#swap-page" class="swap-link ui-btn-icon-top" data-icon="refresh"></a></li>
 
-                    <li><a href="#employees-page" class="employees-link ui-icon-edit ui-btn-icon-top" data-bind="click: goToEmployees"></a></li>
+                    <li><a href="#employees-page" class="employees-link ui-icon-edit ui-btn-icon-top" data-icon="search"></a></li>
 
-                    <li><a href="#settings-page" data-bind="click: goToSettings" class="settings-link ui-state-edit ui-btn-icon-top" data-icon="grid"></a></li>
->>>>>>> FETCH_HEAD
+                    <li><a href="#settings-page" class="settings-link ui-state-edit ui-btn-icon-top" data-icon="gear"></a></li>
                 </ul>
             </div>
         </div>

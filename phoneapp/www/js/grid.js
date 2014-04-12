@@ -76,7 +76,7 @@ var employeeData = {"employees":[
 
 var showGridPage = function() {
     goToPage("grid-page");
-    showWeeklyGrid();
+    // showWeeklyGrid();
 }
 
 var showEmployeePage = function() {
