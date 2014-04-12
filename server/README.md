@@ -242,6 +242,44 @@ Response:
 	    }
 	}
 
+#### Get all assignments / schedules
+
+`GET /user/getallschedules`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "schedules": [
+	    		{
+	        		"startTime" : 34934234,
+	        		"assignments" : [
+						{
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						}
+	        		]
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
+
 #### Get swap requests
 
 `GET /user/getswaps`

@@ -213,6 +213,27 @@ exports.getMySchedule = function(req, res){
     });
 };
 
+exports.getAllSchedules = function(req, res){
+    //add phone user here
+    var userId = req.session.user._id;
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        if (!manager || err) {
+            console.log(manager);
+            console.log(err);
+            res.json({
+                    'response': 'FAIL',
+                    'errors': err
+                });
+        } else {
+            res.json({
+                'response': 'OK',
+                'schedules': manager.schedules,
+                'myUser' : req.session.user
+            });
+        }
+    });
+};
+
 exports.getSwaps = function(req, res){
     var userId = req.session.user._id;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
