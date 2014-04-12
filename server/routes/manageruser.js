@@ -178,15 +178,15 @@ exports.sendSms = function(phone, msg, callback){
     });
 }
 
-exports.sendEmail = function(name, email, msg, callback){
+exports.sendEmail = function(name, address, msg, callback){
     var sendgrid_username = 'setarah'
     var sendgrid_password = 'Classof2017'
     var sendgrid = require('sendgrid')(sendgrid_username, sendgrid_password);
 
             //subject : 'IMPORTANT: Your Login Information for ShiftSwape'
-    var email = new sendgrid.Email();
+        var email = new sendgrid.Email();
         
-        email.to(email);
+        email.to(address);
         email.setFrom('info@ShiftSwape.com');
         email.setsubject('IMPORTANT: Your Login Infomration with ShiftSwape');
         email.setText('Hi' + name+', /n Here is your login information for ShiftSwape' + msg + '/nPlease download our mobile app from Android or App Store to start easily change your work schadule when you needed too!/n ShiftSwape Team', userId)
