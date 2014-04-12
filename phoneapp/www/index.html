@@ -7,26 +7,35 @@
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.min.css" />
-        <title>Hello World</title>
+        <title>ShiftSwap</title>
     </head>
     <body>
+       <div id="week-view">
+            <ul id="schedule-list" data-role="listview" class="ui-shadow">
+            </ul>
+       </div>
+
         <div id="footing" data-role="footer" data-position="fixed" data-tap-toggle="false">
             <div data-role="navbar">
                 <ul>
-                    <li><a id="me-page-link" href="#me-page" data-bind="click: goToMe" class="ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid">Me</a></li>
-                    <li><a id="activity-page-link" href="#activity-page" class="ui-icon-heart ui-btn-icon-top" data-bind="click: goToActivity">Activity</a></li>
-                    <li><a id="record-page-link" href="#record-page" class="ui-icon-edit ui-btn-icon-top" data-bind="click: goToForms">Record</a></li>
-                    <li><a id="me-page-link" href="#me-page" data-bind="click: goToMe" class="ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid">Me</a></li>
+                    <li><a id="grid-link" href="#grid-page" data-bind="click: goToGrid" class="ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid"></a></li>
+
+                    <li><a id="swap-link" href="#swap-page" class="ui-icon-heart ui-btn-icon-top" data-bind="click: goToSwap"></a></li>
+
+                    <li><a id="employees-link" href="#employees-page" class="ui-icon-edit ui-btn-icon-top" data-bind="click: goToEmployees"></a></li>
+
+                    <li><a id="settings-link" href="#settings-page" data-bind="click: goToSettings" class="ui-state-edit ui-btn-icon-top" data-icon="grid"></a></li>
                 </ul>
             </div>
         </div>
 
         <script type="text/javascript" src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
         <script src="js/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="js/knockout-3.1.0.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
         <script type="text/javascript" src="js/jcanvas.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/grid.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
