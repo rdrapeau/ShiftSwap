@@ -210,7 +210,7 @@ Response:
 
 Request with:
 
-	 : Manager unique id
+	 Nothing needed
 
 In case of an error:
 
@@ -222,19 +222,8 @@ Response:
 
 	{
 	    "response": "OK",
-	    "manager": {
-	        "__v": 0,
-	        "_id": "53487dae343685a71ca1d12d",
-	        "email": "test@test.com",
-	        "users": [
-	            {
-	                "email": "test@test.com",
-	                "name": "testing",
-	                "_id": "53487e5f343685a71ca1d12e"
-	            }
-	        ],
-	        "schedules" : [
-	        	{
+	    "schedules": [
+	    		{
 	        		"startTime" : 34934234,
 	        		"assignments" : [
 						{
@@ -246,6 +235,9 @@ Response:
 	        		]
 	        	}
 	        ]
-	        "created_at": "2014-04-11T23:41:34.575Z"
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
 	    }
 	}

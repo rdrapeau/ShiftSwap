@@ -143,7 +143,7 @@ exports.signinEmployee = function(req, res) {
                     myUser = manager.users[i];
                 }
             }
-            req.session.user = manager;
+            req.session.user = myUser;
             res.json({
                 'response': 'OK',
                 'manager': manager,
@@ -152,6 +152,7 @@ exports.signinEmployee = function(req, res) {
         }
     });
 };
+
 
 
 exports.addSchedule = function(req, res){
@@ -182,26 +183,29 @@ exports.addSchedule = function(req, res){
 
 exports.getMySchedule = function(req, res){
     //add phone user here
-    var managerId = req.session.manager._id;
+    var userId = req.session.user._id;
     var startTime = req.body.startTime;
     var assignments = req.body.assignments;
-    //var phone = req.body.phone;
-    Manager.update(
-        {'_id': managerId},
-        { $push: { 
-            schedules: {
-                'startTime' : startTime,
-                'assignments': assignments
-            } 
-        } }, 
-        function(err) {
-            if (err) console.log(err);
-
-        Manager.findOne({'_id': managerId}, function(err, manager) {
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        if (!manager || err) {
+            res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+        } else {
+            var schedules = [];
+            for(var i = 0; i < manager.schedules.length; i++) {
+                for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
+                    if(manager.schedules[i].assignments[j].users.indexOf(userId) != -1) {
+                        schedules.push(manager.schedules[i]);
+                    }
+                }
+            }
             res.json({
                 'response': 'OK',
-                'manager': manager
+                'schedules': schedules,
+                'myUser' : req.session.user
             });
-        });
+        }
     });
 };
