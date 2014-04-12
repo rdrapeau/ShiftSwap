@@ -14,8 +14,16 @@ $(document).ready(function() {
     $("#send-swap").click(sendSwap);
     $("#send-swap-div").hide();
 
+    checkLogin(); // Check if the user is registered
+
     showGridPage();
 });
+
+var checkLogin = function() {
+    if (!window.localStorage.getItem("key")) { // User is not registered
+
+    }
+}
 
 var dailyIndex = 0;
 
@@ -102,7 +110,7 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    // Load Swaps
+    // Load Swaps HERE
     goToPage("swap-page");
 }
 
