@@ -1,6 +1,15 @@
 var DashViewModel = function(data, server) {
 	var self = this;
-	var calendar = new Calendar('.calendar', [], self);
+
+	var now = new Date();
+	var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()));
+
+	var displayData = $.grep(data.schedules, function(item) {
+		return item.startTime == +(lastSunday) + "";
+	});
+
+	var calendar = new Calendar('.calendar', displayData, self);
 	$(document).on('mousemove', function(e){
 	    $('.marker').css({
 	       left:  e.pageX + 15,
@@ -13,10 +22,6 @@ var DashViewModel = function(data, server) {
 			obs.push(normal[i]);
 		}		
 	}
-
-	var now = new Date();
-	var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-	var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()));
 
 	self.editAssignmentFrom = new ko.observable("");
 	self.editAssignmentTo = new ko.observable("");

@@ -232,6 +232,6 @@ function Calendar(dom, data, vm) {
 	});
 
 	if(data.length > 0) {
-		loadAssignments(data);
+		loadAssignments(data[0].assignments);
 	}
 }

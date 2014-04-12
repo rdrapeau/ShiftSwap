@@ -21,3 +21,13 @@ exports.requiresUser = function (req, res, next) {
        //  });
     //}
 }
+
+
+function() {
+
+  for (var i = 0; i < 7; i++) {
+    $.grep(array, function(item) {
+      return item.day == i;
+    });
+  }
+}
