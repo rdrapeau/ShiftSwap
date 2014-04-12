@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    var server = "http://localhost:3000";
+    var server = "http://ec2-54-187-51-202.us-west-2.compute.amazonaws.com:3000";
 
     $(document).ready(function() {
         $("#alreadyRegistered").click(alreadyRegistered);
@@ -56,6 +56,7 @@
     }
 
     function register() {
+    	console.log()
         var email = $("#registerEmail").val();
         var password1 = $("#registerPassword").val();
 
