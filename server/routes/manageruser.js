@@ -223,8 +223,12 @@ exports.getMySchedule = function(req, res){
 
 exports.getAllSchedules = function(req, res){
     console.log(req.body);
-    //add phone user here
-    var userId = req.session.user._id;
+    var userId = null;
+    if(typeof req.body.userId != 'undefined') {
+        userId = req.body.userId;
+    } else {
+        userId = req.session.user._id;
+    }
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
             console.log(manager);
@@ -245,7 +249,12 @@ exports.getAllSchedules = function(req, res){
 
 exports.getSwaps = function(req, res){
     console.log(req.body);
-    var userId = req.session.user._id;
+    var userId = null;
+    if(typeof req.body.userId != 'undefined') {
+        userId = req.body.userId;
+    } else {
+        userId = req.session.user._id;
+    }
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         if (!manager || err) {
             res.json({
@@ -265,7 +274,12 @@ exports.getSwaps = function(req, res){
 
 exports.addSwap = function(req, res){
     console.log(req.body);
-    var fromId = req.session.user._id;
+    var fromId = null;
+    if(typeof req.body.userId != 'undefined') {
+        fromId = req.body.userId;
+    } else {
+        fromId = req.session.user._id;
+    }
     var toId = req.body.toId;
     var assignmentFrom = req.body.assignmentFrom;
     var assignmentTo = req.body.assignmentTo;

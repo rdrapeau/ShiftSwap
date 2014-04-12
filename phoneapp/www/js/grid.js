@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var init = function() {
     $.support.cors = true;
     $(".grid-link").click(showGridPage);
     $(".employees-link").click(showEmployeePage);
@@ -18,6 +18,10 @@ $(document).ready(function() {
     $("#inputsubmit").click(login);
 
     checkLogin(); // Check if the user is registered
+}
+
+$(document).ready(function() {
+    init();
 });
 
 var BASE_URL = "http://ec2-54-187-51-202.us-west-2.compute.amazonaws.com:3000";
