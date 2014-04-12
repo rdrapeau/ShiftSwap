@@ -459,12 +459,12 @@ exports.addSwap = function(req, res){
                     }
                 });
         } else {
-            exports.doSwaps(manager, swap, function(happened) {
+            //exports.doSwaps(manager, swap, function(happened) {
                 res.json({
                     'response': 'OK',
-                    'swapHappened' : happened
+                    'swapHappened' : true
                 });
-            });
+            //});
         }
     });
 };
