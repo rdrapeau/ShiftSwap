@@ -99,7 +99,7 @@ exports.signin = function(req, res) {
  */
 exports.addEmployee = function(req, res){
     //add phone user here
-    var managerId = req.body.managerId;
+    var managerId = req.session.manager._id;
     var name = req.body.name;
     var email = req.body.email;
     //var phone = req.body.phone;
@@ -150,5 +150,32 @@ exports.signinEmployee = function(req, res) {
                 'myUser' : myUser
             });
         }
+    });
+};
+
+
+exports.addSchedule = function(req, res){
+    //add phone user here
+    var managerId = req.session.manager._id;
+    var startTime = req.body.startTime;
+    var assignments = req.body.assignments;
+    //var phone = req.body.phone;
+    Manager.update(
+        {'_id': managerId},
+        { $push: { 
+            schedules: {
+                'startTime' : startTime,
+                'assignments': assignments
+            } 
+        } }, 
+        function(err) {
+            if (err) console.log(err);
+
+        Manager.findOne({'_id': managerId}, function(err, manager) {
+            res.json({
+                'response': 'OK',
+                'manager': manager
+            });
+        });
     });
 };

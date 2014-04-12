@@ -155,3 +155,97 @@ Response:
 	        "email": "test@test.com"
 	    }
 	}
+
+#### Add a schedule (for a week)
+
+`POST /manager/addschedule`
+
+Request with:
+
+	 startTime: timestamp of week start date
+	 assignments: json array of assignments (see reponse)
+
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "_id": "53487dae343685a71ca1d12d",
+	        "email": "test@test.com",
+	        "users": [
+	            {
+	                "email": "test@test.com",
+	                "name": "testing",
+	                "_id": "53487e5f343685a71ca1d12e"
+	            }
+	        ],
+	        "schedules" : [
+	        	{
+	        		"startTime" : 34934234,
+	        		"assignments" : [
+						{
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						}
+	        		]
+	        	}
+	        ]
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
+
+#### Get my assignments (only schedule records with myself included)
+
+`GET /user/getmyschedule`
+
+Request with:
+
+	 : Manager unique id
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "_id": "53487dae343685a71ca1d12d",
+	        "email": "test@test.com",
+	        "users": [
+	            {
+	                "email": "test@test.com",
+	                "name": "testing",
+	                "_id": "53487e5f343685a71ca1d12e"
+	            }
+	        ],
+	        "schedules" : [
+	        	{
+	        		"startTime" : 34934234,
+	        		"assignments" : [
+						{
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						}
+	        		]
+	        	}
+	        ]
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
