@@ -190,7 +190,7 @@ exports.getUserFromId = function(userId, callback) {
      Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
         var result = [];
         if(manager) {
-            for(var i = 0; i < manager.users; i++) {
+            for(var i = 0; i < manager.users.length; i++) {
                 if(manager.users[i]._id == userId) {
                     callback(manager.users[i]);
                     break;
