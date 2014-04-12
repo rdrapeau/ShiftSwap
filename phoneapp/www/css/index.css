@@ -36,9 +36,9 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
-   /* font-family: comf;
-    src: url('../fonts/Comfrotaa_Regular.ttf');*/
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-family: comf;
+    src: url('comfortaa/Comfrotaa_Regular.ttf');
+  /*  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
     font-size:12px;
     height:100%;
     margin:0px;
@@ -158,6 +158,7 @@ div.#daily-times.empty{
 
 li.ui-li-static.ui-body-inherit{
     border-bottom: 1px solid rgb(200,200,200);
+    border-radius:2px;
 }
 
 #daytitle{
