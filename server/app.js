@@ -47,9 +47,6 @@ app.all('*', function(req, res, next) {
   next();
  });
 
-// serve the home
-app.get('/', routes.index);
-
 // sign up a user
 app.post('/user/signup', managerUser.addEmployee);
 
