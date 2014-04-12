@@ -186,6 +186,20 @@ exports.addSchedule = function(req, res){
     });
 };
 
+exports.getUserFromId = function(userId, callback) {
+     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        var result = [];
+        if(manager) {
+            for(var i = 0; i < manager.users; i++) {
+                if(manager.users[i]._id == userId) {
+                    callback(manager.users[i]);
+                    break;
+                }
+            }
+        }
+     });
+}
+
 exports.getMySchedule = function(req, res){
     console.log(req.body);
     //add phone user here
@@ -204,18 +218,20 @@ exports.getMySchedule = function(req, res){
                     'errors': err
                 });
         } else {
-            var schedules = [];
-            for(var i = 0; i < manager.schedules.length; i++) {
-                for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
-                    if(manager.schedules[i].assignments[j].users.indexOf(userId) != -1) {
-                        schedules.push(manager.schedules[i]);
+            exports.getUserFromId(userId, function(user) {
+                var schedules = [];
+                for(var i = 0; i < manager.schedules.length; i++) {
+                    for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
+                        if(manager.schedules[i].assignments[j].users.indexOf(user.name) != -1) {
+                            schedules.push(manager.schedules[i]);
+                        }
                     }
                 }
-            }
-            res.json({
-                'response': 'OK',
-                'schedules': schedules,
-                'myUser' : req.session.user
+                res.json({
+                    'response': 'OK',
+                    'schedules': schedules,
+                    'myUser' : user
+                });
             });
         }
     });
