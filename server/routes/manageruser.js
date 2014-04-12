@@ -328,9 +328,9 @@ exports.hasCounterPart = function(swap, callback) {
         },                    
          function(err, manager) {
         if (!manager || err) {
-            callback(false);
+            callback(false, manager);
         } else {
-            callback(true);
+            callback(true, manager);
         }
     });
 };
@@ -355,6 +355,75 @@ exports.clearSwaps = function(req, res) {
     });
 }
 
+exports.assignmentsEqual = function(assignment1, assignment2) {
+    return assignment1.start_minute == assignment2.end_minute &&
+            assignment1.end_minute == assignment2.start_minute &&
+            assignment1.day == assignment2.day;
+}
+
+exports.removeElt = function(arr, elem) {
+    for(var i = arr.length - 1; i >= 0; i--) {
+        if(arr[i] === elem) {
+           arr.splice(i, 1);
+        }
+    }
+    return arr;
+}
+
+exports.doSwap = function(schedules, assignment1, assignment2, id1, id2, callback) {
+    exports.getUserFromId(id1, function(user1) {
+        exports.getUserFromId(id2, function(user2) {
+            for(var i = 0; i < schedules.length; i++) {
+                for(var j = 0; j < schedules[i].length; j++) {
+                    if((assignmentsEqual(schedules[i].assignments[j], assignment1) || 
+                        assignmentsEqual(schedules[i].assignments[j], assignment2))
+                     && schedules[i].assignments[j].users.indexOf(user1.name) != -1) {
+                        schedules[i].assignments[j].users = exports.removeElt(schedules[i].assignments[j].users, user1);
+                        schedules[i].assignments[j].users.push(user2);
+                    } else if (assignmentsEqual(schedules[i].assignments[j], assignment1) || 
+                        assignmentsEqual(schedules[i].assignments[j], assignment2)){
+                        schedules[i].assignments[j].users = exports.removeElt(schedules[i].assignments[j].users, user2);
+                        schedules[i].assignments[j].users.push(user1);
+                    }
+                }
+            }
+            callback(schedules);
+        });
+    });
+}
+
+exports.swapsMatch = function (one, two) {
+    return one.toId == two.fromId && one.fromId == two.toId &&
+            one.assignmentFrom.day == two.assignmentTo.day &&
+            one.assignmentFrom.start_minute == two.assignmentTo.start_minute &&
+            one.assignmentTo.start_minute == two.assignmentFrom.start_minute &&
+            one.assignmentFrom.end_minute == two.assignmentTo.end_minute &&
+            one.assignmentTo.end_minute == two.assignmentFrom.end_minute;
+}
+
+exports.doSwaps = function(manager, allback) {
+    leftSwaps = [];
+    for(var i = 0; i < manager.swaps.length; i++) {
+        for(var j = 0; j < manager.swaps.length; j++) {
+            if(exports.swapsMatch(manager.swaps[i], manager.swaps[j])) {
+                exports.doSwap(manager.schedules, manager.swaps[i].assignmentFrom, manager.swaps[i].assignTo, manager.swaps[i].toId, manager.swaps[i].fromId, function(schedules) {
+                    Manager.update({_id : manager._id}, {schedules : schedules}, function(err) {
+                        if (err) {
+                            res.json({
+                                    'response': 'FAIL'
+                                });
+                        } else {
+                            res.json({
+                                'response': 'OK',
+                            });
+                        }
+                    });
+                });
+            }
+        }
+    }
+}
+
 exports.addSwap = function(req, res){
     console.log(req.body);
     var fromId = null;
@@ -373,7 +442,7 @@ exports.addSwap = function(req, res){
                 'assignmentFrom' : assignmentFrom,
                 'assignmentTo' : assignmentTo
                 };
-    exports.hasCounterPart(swap, function(status) {
+    exports.hasCounterPart(swap, function(status, manager) {
         if(!status) {
             Manager.update(
                {users: {$elemMatch: {'_id' : ObjectId(fromId)}}},
@@ -396,9 +465,11 @@ exports.addSwap = function(req, res){
                     }
                 });
         } else {
-            res.json({
-                'response': 'OK',
-                'swapHappened' : true
+            exports.doSwaps(manager, swap, function(happened) {
+                res.json({
+                    'response': 'OK',
+                    'swapHappened' : happened
+                });
             });
         }
     });
