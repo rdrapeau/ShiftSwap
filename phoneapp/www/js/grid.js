@@ -19,6 +19,8 @@ $(document).ready(function() {
     checkLogin(); // Check if the user is registered
 });
 
+var BASE_URL = "http://ec2-54-187-51-202.us-west-2.compute.amazonaws.com:3000";
+
 var checkLogin = function() {
     if (!window.localStorage.getItem("token")) { // User is not registered
         showLoginPage();
@@ -31,10 +33,18 @@ var checkLogin = function() {
 
 var login = function() {
     var token = $("#name").val();
-    window.localStorage.setItem("token", token);
-    // Send to server
-
-    checkLogin();
+    $.post(BASE_URL + "/user/signin", {userId: token}, function (data) {
+        if (data.response == "OK") {
+            window.localStorage.setItem('token', data.manager._id);
+            window.localStorage.setItem('name', data.myUser.name);
+            window.localStorage.setItem('email', data.myUser.email);
+            checkLogin();
+        }
+        $("#inputsubmit").parent().removeClass("ui-disabled");
+    }).fail(function() { // Failed
+        $("#inputsubmit").parent().removeClass("ui-disabled");
+    });
+    $("#inputsubmit").parent().addClass("ui-disabled");
 }
 
 var dailyIndex = 0;
@@ -109,7 +119,7 @@ var employeeData = {"employees":[
 ]};
 
 var loginPage = function() {
-    toToPage("login-page")
+    goToPage("login-page")
 }
 
 var showGridPage = function() {
@@ -174,6 +184,12 @@ var sendSwap = function() {
 var showSettingsPage = function() {
     $("#head-title-text").text("ShiftSwap");
     $("#employeeID").text(window.localStorage.getItem("token"));
+    $("#username").text(window.localStorage.getItem("name"));
+    $("#useremail").text(window.localStorage.getItem("email"));
+    $("#settingbox2").click(function () {
+        window.localStorage.clear();
+        checkLogin();
+    });
     goToPage("settings-page");
 
 }
@@ -255,7 +271,7 @@ var showEmployeeList = function() {
 }
 
 var showEmployeeSchedule = function() {
-    employeeData = getEmployeeData();
+    employeeData = getEmployeeDatax();
     scheduleData = getScheduleData();
     $("#head-title-text").text(this.text);
 
@@ -278,7 +294,7 @@ var showEmployeeSchedule = function() {
                 if (employeeData.employees[i].schedule[z].hasShift) {
                     for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
                         var shift = document.createElement("li");
-                        var button = document.createElement("a")
+                        var button = document.createElement("a");
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
                         button.appendChild(document.createTextNode(text));
                         button.className = "ui-btn ui-btn-up-c";
