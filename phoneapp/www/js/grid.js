@@ -115,18 +115,18 @@ var showEmployeeList = function() {
         var employee = document.createElement("li");
         var button = document.createElement("a");
 
-        button.className = "ui-btn ui-btn-icon-right ui-icon-carat-r";
+        button.className = "employee ui-btn ui-btn-icon-right ui-icon-carat-r";
         button.appendChild(document.createTextNode(employeeData.employees[i].name));
-        button.onclick = showEmployeeSchedule;
 
         employee.appendChild(button);
         head.appendChild(employee);
     }
+    $(".employee").click(showEmployeeSchedule);
 }
 
 var showEmployeeSchedule = function() {
     for (var i = 0; i < employeeData.employees.length; i++) {
-        if (employeeData.employees[i].name == this.text) {
+        if (employeeData.employees[i].name.toLowerCase() == this.text.toLowerCase()) {
             $("#employee-schedule").empty();
             $("#employee-list-view").hide();
             $("#employee-schedule-view").show();
