@@ -46,7 +46,15 @@ var DashViewModel = function(data, server) {
 	}
 
 	self.addEmployee = function() {
-		$.post(server + '/user/signup', {}, function)
+		$.post(server + '/user/signup', {'name' : self.employeeName(), 'email' : self.employeeEmail()}, function(data) {
+			if(data.response == 'FAIL') {
+				alert("Something went wrong!");
+			} else {
+				self.users.removeAll();
+				transferArray(self.users, data.manager.users);
+			}
+		});
+		return true;
 	}
 
 	self.loadUserRecord = function() {
