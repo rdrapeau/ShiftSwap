@@ -33,6 +33,11 @@
                     </p>
                     <p class="daycontent">Notes: <span id="daily-notes"></span></p>
                 </div>
+
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#" id="previous-day" data-role="button" data-icon="arrow-l">Back</a>
+                    <a href="#" id="next-day" data-role="button" data-icon="arrow-r" data-iconpos="right">Next</a>
+                </div>
             </div>
 
            <div id="week-view">
@@ -54,13 +59,13 @@
         <div id="footing" data-role="footer" data-position="fixed" data-tap-toggle="false">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="#grid-page" class="grid-link ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid"></a></li>
+                    <li><a id="grid-link-button" href="#grid-page" class="grid-link ui-btn-active ui-state-persist ui-btn-icon-top" data-icon="grid"></a></li>
 
-                    <li><a href="#swap-page" class="swap-link ui-btn-icon-top" data-icon="refresh"></a></li>
+                    <li><a id="swap-link-button" href="#swap-page" class="swap-link ui-btn-icon-top" data-icon="refresh"></a></li>
 
-                    <li><a href="#employees-page" class="employees-link ui-icon-edit ui-btn-icon-top" data-icon="search"></a></li>
+                    <li><a id="employees-link-button" href="#employees-page" class="employees-link ui-icon-edit ui-btn-icon-top" data-icon="search"></a></li>
 
-                    <li><a href="#settings-page" class="settings-link ui-state-edit ui-btn-icon-top" data-icon="gear"></a></li>
+                    <li><a id="settings-link-button" href="#settings-page" class="settings-link ui-state-edit ui-btn-icon-top" data-icon="gear"></a></li>
                 </ul>
             </div>
         </div>

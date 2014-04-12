@@ -1,11 +1,20 @@
 $(document).ready(function() {
     $(".grid-link").click(showGridPage);
     $(".employees-link").click(showEmployeePage);
+    $(".swap-link").click(showSwapPage);
+    $(".settings-link").click(showSettingsPage);
 
     $("#daily-view-button").click(showDailyGrid);
     $("#weekly-view-button").click(showWeeklyGrid);
+
+    $("#next-day").click(nextDay);
+    $("#previous-day").click(previousDay);
+    $("#previous-day").addClass("ui-disabled");
+
     showGridPage();
 });
+
+var dailyIndex = 0;
 
 var scheduleData = {"schedule":[
     {
@@ -24,13 +33,13 @@ var scheduleData = {"schedule":[
         "notes": null
     },
     {
-        "date": "4/12/2014",
+        "date": "4/13/2014",
         "hasShift": false,
         "shifts":[],
         "notes": null
     },
     {
-        "date": "4/13/2014",
+        "date": "4/14/2014",
         "hasShift": true,
         "shifts":[
             {
@@ -41,7 +50,7 @@ var scheduleData = {"schedule":[
         "notes": null
     },
     {
-        "date": "4/14/2014",
+        "date": "4/15/2014",
         "hasShift": true,
         "shifts":[
             {
@@ -84,6 +93,40 @@ var showGridPage = function() {
 var showEmployeePage = function() {
     goToPage("employees-page");
     showEmployeeList();
+}
+
+var showSwapPage = function() {
+    goToPage("swap-page");
+
+}
+
+var showSettingsPage = function() {
+    goToPage("settings-page");
+
+}
+
+var nextDay = function() {
+    if (dailyIndex < scheduleData.schedule.length - 1) {
+        dailyIndex++;
+        $("#previous-day").removeClass("ui-disabled");
+    }
+
+    if (dailyIndex == scheduleData.schedule.length - 1)
+        $("#next-day").addClass("ui-disabled");
+
+    showDailyGrid();
+}
+
+var previousDay = function() {
+    if (dailyIndex >= 1) {
+        dailyIndex--;
+        $("#next-day").removeClass("ui-disabled");
+    }
+
+    if (dailyIndex == 0)
+        $("#previous-day").addClass("ui-disabled");
+
+    showDailyGrid();
 }
 
 var goToPage = function(page) {
@@ -170,7 +213,7 @@ var showDailyGrid = function () {
     $("#daily-view-button").addClass("ui-btn-active ui-state-persist");
     $("#weekly-view-button").removeClass("ui-btn-active ui-state-persist");
 
-    var currentDay = scheduleData.schedule[0];
+    var currentDay = scheduleData.schedule[dailyIndex];
     $("#daily-title").text(getDateString(currentDay.date));
 
     var head = document.getElementById("daily-times");
