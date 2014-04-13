@@ -23,12 +23,13 @@
     //sendgrid function sending data
 
     function sendgrid(){
+        console.log("Click");
         var sendgrid_username = 'setarehlotfi94@hotmaitl.com'
         var sendgrid_password = 'Classof2017'
         var email = employees_Email
-         $.get(server + '/manager/employees_Email', {'email' : email}, function(data) {
+         $.get(server + '/manager/', {'email' : 'email' : self.employeeEmail()}, function(data) {
             if(data.response == 'OK') {
-                $.get(server + '/manager/employees_Email', {'email' : email}, function(data) {
+                $.get(server + '/manager/', {'email' : self.employeeEmail()}, function(data) {
                     if(data.response == 'OK') {
                         showDash(data);
                     } else {
