@@ -202,7 +202,8 @@ exports.sendEmail = function(name, email, msg, callback){
     
     }
 
-}
+
+
 
 
 exports.addSchedule = function(req, res){
