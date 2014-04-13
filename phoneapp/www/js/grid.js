@@ -146,6 +146,11 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
+    console.log($("#users-choices").children().length);
+    if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
+        $("#swap-view").css("border", "none");
+    else
+        $("#swap-view").css("border", "4px solid #444444");
     // Load Swaps HERE
     goToPage("swap-page");
 }
@@ -160,7 +165,6 @@ var loadSwapPage = function(time, date, partner) {
     scheduleData = getScheduleData();
     $("#partner-name").text(partner);
     $("#partner-choice-text").text(date + ": " + time);
-    $("#users-choices").empty();
 
     var head = document.getElementById("users-choices");
     for (var i = 0; i < scheduleData.schedule.length; i++) {
@@ -186,11 +190,12 @@ var sendSwap = function() {
 
         // SEND TO SERVER
         $("#send-swap-div").hide();
+        $("#users-choices").empty();
     } else {
         console.log("Select an element");
     }
 
-    if ($("#pending-swaps").children().length == 0)
+    if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
         $("#swap-view").css("border", "none");
 }
 
