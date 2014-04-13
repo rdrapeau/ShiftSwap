@@ -152,7 +152,10 @@ exports.signinEmployee = function(req, res) {
         }
     });
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> be14f8f32c8472139f1b73476bdbfd4a1fe65b02
 
 
 exports.addSchedule = function(req, res){
@@ -190,7 +193,7 @@ exports.getMySchedule = function(req, res){
             console.log(err);
             res.json({
                     'response': 'FAIL',
-                    'errors': ['User not found']
+                    'errors': err
                 });
         } else {
             var schedules = [];
@@ -262,10 +265,9 @@ exports.addSwap = function(req, res){
         });
 };
 
-/*exports.acceptSwap = function(req, res){
-    var fromId = req.session.user._id;
-    var toId = req.body.toId;
-    var assignmentFrom = req.body.assignmentFrom;
-    var assignmentTo = req.body.assignmentTo;
-};*/
->>>>>>> a13b459dbb0ab0c92763fa2558cc5d7f18488ab5
+// exports.acceptSwap = function(req, res){
+//     var fromId = req.session.user._id;
+//     var toId = req.body.toId;
+//     var assignmentFrom = req.body.assignmentFrom;
+//     var assignmentTo = req.body.assignmentTo;
+// };
