@@ -112,7 +112,7 @@ exports.addEmployee = function(req, res){
             users: {
                 '_id' : new ObjectId(),
                 'name': name,
-                'email': email
+                'email': email,
                 'phone': phone
             } 
         } }, 
@@ -239,16 +239,24 @@ exports.getMySchedule = function(req, res){
         } else {
             exports.getUserFromId(userId, function(user) {
                 var schedules = [];
-                for(var i = 0; i < manager.schedules.length; i++) {
-                    for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
-                        if(manager.schedules[i].assignments[j].users.indexOf(user.name) != -1) {
-                            schedules.push(manager.schedules[i]);
+                var subSet = function(arr, callback) {
+                    var result = [];
+                    for(var i = 0; i < arr.length; i++) {
+                        if(callback(arr[i])) {
+                            result.push(arr[i]);
                         }
                     }
+                    return result;
+                };
+
+                for(var i = 0; i < manager.schedules.length; i++) {
+                    manager.schedules[i].assignments = subSet(manager.schedules[i].assignments, function(item) {
+                        return item.users.indexOf(user.name) != -1;
+                    });
                 }
                 res.json({
                     'response': 'OK',
-                    'schedules': schedules,
+                    'schedules': manager.schedules,
                     'myUser' : user
                 });
             });
