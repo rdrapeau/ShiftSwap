@@ -25,20 +25,29 @@ var checkLogin = function() {
     if (!window.localStorage.getItem("token")) { // User is not registered
         showLoginPage();
     } else {
+        login();
         $("#footing").show();
         $("#headtitle").show();
         showGridPage();
     }
+            $("#footing").show();
+        $("#headtitle").show();
+        showGridPage();
 }
 
 var login = function() {
     var token = $("#name").val();
+    if (window.localStorage.getItem("token")) {
+        token = window.localStorage.getItem("token");
+    }
     $.post(BASE_URL + "/user/signin", {userId: token}, function (data) {
         if (data.response == "OK") {
-            window.localStorage.setItem('token', data.manager._id);
+            window.localStorage.setItem('token', data.myUser._id);
             window.localStorage.setItem('name', data.myUser.name);
             window.localStorage.setItem('email', data.myUser.email);
-            checkLogin();
+            $("#footing").show();
+            $("#headtitle").show();
+            showGridPage();
         }
         $("#inputsubmit").parent().removeClass("ui-disabled");
     }).fail(function() { // Failed
@@ -124,6 +133,9 @@ var loginPage = function() {
 
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
+            $.get(BASE_URL + "/user/getmyschedule", function(data) {
+            console.log(data.response);
+        });
     goToPage("grid-page");
     showDailyGrid();
 }
@@ -188,6 +200,7 @@ var showSettingsPage = function() {
     $("#useremail").text(window.localStorage.getItem("email"));
     $("#settingbox2").click(function () {
         window.localStorage.clear();
+        $("#name").val('');
         checkLogin();
     });
     goToPage("settings-page");
@@ -271,7 +284,7 @@ var showEmployeeList = function() {
 }
 
 var showEmployeeSchedule = function() {
-    employeeData = getEmployeeDatax();
+    employeeData = getEmployeeData();
     scheduleData = getScheduleData();
     $("#head-title-text").text(this.text);
 
