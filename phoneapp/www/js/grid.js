@@ -252,10 +252,13 @@ var showEmployeeSchedule = function() {
                 if (days.length > 0) {
                     var day = document.createElement("li");
                     var date = getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k);
+
                     day.appendChild(document.createTextNode(date));
                     day.className = "ui-li-divider ui-bar-inherit";
                     day.setAttribute("data-role", "list-divider");
+                    console.log(head.children.length);
                     head.appendChild(day);
+                    console.log(head.children.length);
                 }
 
                 for (var a = 0; a < days.length; a++) {
@@ -282,9 +285,6 @@ var showEmployeeSchedule = function() {
                             shift.appendChild(button);
                             head.appendChild(shift);
                         }
-                    }
-                    if (!found) {
-                        $(day).remove();
                     }
                 }
             }
@@ -377,13 +377,12 @@ var showWeeklyGrid = function() {
                         return item.day == z;
                     });
 
-                    if (days.length > 0) {
-                        var day = document.createElement("li");
-                        day.appendChild(document.createTextNode(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k)));
-                        day.className = "ui-li-divider ui-bar-inherit";
-                        day.setAttribute("data-role", "list-divider");
-                        head.appendChild(day);
-                    }
+                    var day = document.createElement("li");
+                    day.appendChild(document.createTextNode(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k)));
+                    day.className = "ui-li-divider ui-bar-inherit";
+                    day.setAttribute("data-role", "list-divider");
+                    head.appendChild(day);
+
 
                     for (var a = 0; a < days.length; a++) {
                         var shift = document.createElement("li");
