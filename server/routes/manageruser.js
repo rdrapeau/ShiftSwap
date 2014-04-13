@@ -159,13 +159,12 @@ exports.signinEmployee = function(req, res) {
     });
 };
 
-exports.sendSms = function(req, res){
+exports.sendSms = function(phone, msg){
     console.log(req.body);
     var accountSid = 'ACa56a7bfb55a9ee865cac8a57c79168d8';
     var authToken = '280e62aa7905c466289d55eeeb7f7b18';
     var client = require('twilio')(accountSid, authToken);
-    var phone = req.body.phone;
-    var message = req.body.message;
+ 
 
     client.sms.messages.create({
         body : ("Here is your ShiftSwap Login Info " + message),

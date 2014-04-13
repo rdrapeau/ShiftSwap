@@ -66,7 +66,7 @@ app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
 //sending twillio sms
-app.post('/manager/sendsms',managerUser.sendSms);
+
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
