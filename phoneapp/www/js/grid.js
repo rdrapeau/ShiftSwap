@@ -30,9 +30,6 @@ var checkLogin = function() {
         $("#headtitle").show();
         showGridPage();
     }
-            $("#footing").show();
-        $("#headtitle").show();
-        showGridPage();
 }
 
 var login = function() {
