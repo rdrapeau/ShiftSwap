@@ -8,9 +8,6 @@ body {
 	background: black;
 	font-family: comf;
 }
-#intro {
-    background: url(../img/intro_bg.png) no-repeat bottom center scroll;
-}
 
 #intro {
 	display: block;
@@ -20,7 +17,7 @@ body {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background-color: #000;
+    background-color: #333;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
