@@ -160,7 +160,7 @@ exports.signinEmployee = function(req, res) {
 };
 
 exports.sendSms = function(req, res){
-    console.log("Sending Sms");
+    console.log(req.body);
     var accountSid = 'ACa56a7bfb55a9ee865cac8a57c79168d8';
     var authToken = '280e62aa7905c466289d55eeeb7f7b18';
     var client = require('twilio')(accountSid, authToken);
