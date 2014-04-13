@@ -63,6 +63,7 @@ var DashViewModel = function(data, server) {
 			} else {
 				self.users.removeAll();
 				self.userOptions.removeAll();
+				transferArray(self.users, data.manager.users);
 				for(var i = 0; i < self.users().length; i ++) {
 					self.userOptions.push(self.users()[i].name);
 				}
