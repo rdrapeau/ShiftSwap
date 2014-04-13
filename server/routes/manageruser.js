@@ -172,7 +172,7 @@ exports.sendSms = function(phone, msg, callback){
  
 
     client.sms.messages.create({
-        body : ("Here is your ShiftSwap Login Info " + message),
+        body : ("Here is your ShiftSwap Login Info " + msg),
         to : phone,
         from : '+14423334553'
     }, function(err, message) {
