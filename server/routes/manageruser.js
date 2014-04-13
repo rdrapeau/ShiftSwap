@@ -152,34 +152,6 @@ exports.signinEmployee = function(req, res) {
         }
     });
 };
-<<<<<<< HEAD
-exports.Schadule = function(req, res){
-    signinEmployee(req, res);
-    var start = req.start
-    { $push:{
-        users: {
-            'start' = start
-            'assignments' : {
-                    '_id' = managerId;
-                    var UserNames = [] 
-                    for (i=0, i<manager.users.length; i++){
-                        queryUsers = Employee.find(users);
-                        UserNames[i]{
-                            $pull:{
-                                users:{
-                                    'name' = name;
-                                    'email' = email;
-                                }
-                            }
-                        }
-                    }                   
-
-                }
-            }
-        }
-    }}
-}
-=======
 
 
 
