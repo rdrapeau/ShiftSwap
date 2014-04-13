@@ -304,12 +304,8 @@ var showEmployeeSchedule = function() {
                 if (employeeData.employees[i].schedule[z].hasShift) {
                     for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
                         var shift = document.createElement("li");
-<<<<<<< HEAD
                         var button = document.createElement("a")
 
-=======
-                        var button = document.createElement("a");
->>>>>>> FETCH_HEAD
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
                         button.className = "ui-btn ui-icon-forward ui-btn-icon-right ui-shadow ui-corner-all";
                         button.appendChild(document.createTextNode(text));
