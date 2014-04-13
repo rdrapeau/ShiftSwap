@@ -47,9 +47,6 @@ app.all('*', function(req, res, next) {
   next();
  });
 
-// serve the home
-app.get('/', routes.index);
-
 // sign up a user
 app.post('/user/signup', managerUser.addEmployee);
 
@@ -63,19 +60,16 @@ app.post('/manager/signup', managerUser.signup);
 app.post('/manager/signin', managerUser.signin);
 
 // add a new schedule (group of assignments)
-//app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
+app.post('/manager/addschedule', middleware.requiresManager, managerUser.addSchedule);
 
-// generate a new schedule based on users of a manager
-//app.post('/manager/generateschedule', middleware.requiresManager, managerUser.generateSchedule);
+// gets all the schedules for a user
+app.get('/user/getmyschedule', middleware.requiresUser, managerUser.getMySchedule);
 
-// gets all the schedules for a particular user
-//app.get('/user/schedules', middleware.requiresUser, managerUser.getSchedules);
-
-// gets all the swap requests that are not this users
-//app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);
+// gets all the swap requests
+app.get('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 
 // Adds a swap request to this user's manager
-//app.post('/user/addswap', middleware.requiresUser, manageUser.user.addSwap);
+app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
 // gets all the swap requests that are not this users
 //app.get('/user/swaps', middleware.requiresUser, managerUser.user.getSwaps);

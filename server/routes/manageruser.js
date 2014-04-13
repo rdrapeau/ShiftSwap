@@ -84,21 +84,6 @@ exports.signin = function(req, res) {
     });
 };
 
-exports.pingManager = function(req, res) {
-    console.log(req.session);
-    if(typeof req.session.manager != 'undefined') {
-        res.json({
-            'response': 'OK',
-            'manager': req.session.manager
-        });
-    } else {
-        res.json({
-                'response': 'FAIL',
-                'errors': ['Not logged in!']
-            });        
-    }
-};
-
 
 
 /*
@@ -114,7 +99,7 @@ exports.pingManager = function(req, res) {
  */
 exports.addEmployee = function(req, res){
     //add phone user here
-    var managerId = req.body.managerId;
+    var managerId = req.session.manager._id;
     var name = req.body.name;
     var email = req.body.email;
     //var phone = req.body.phone;
@@ -146,7 +131,7 @@ exports.signinEmployee = function(req, res) {
     //authenticate phone user here
     var userId = req.body.userId;
     Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
-        if (!manager) {
+        if (!manager || err) {
             res.json({
                     'response': 'FAIL',
                     'errors': ['User not found']
@@ -158,7 +143,7 @@ exports.signinEmployee = function(req, res) {
                     myUser = manager.users[i];
                 }
             }
-            req.session.user = manager;
+            req.session.user = myUser;
             res.json({
                 'response': 'OK',
                 'manager': manager,
@@ -167,6 +152,7 @@ exports.signinEmployee = function(req, res) {
         }
     });
 };
+<<<<<<< HEAD
 exports.Schadule = function(req, res){
     signinEmployee(req, res);
     var start = req.start
@@ -193,3 +179,121 @@ exports.Schadule = function(req, res){
         }
     }}
 }
+=======
+
+
+
+exports.addSchedule = function(req, res){
+    //add phone user here
+    var managerId = req.session.manager._id;
+    var startTime = req.body.startTime;
+    var assignments = req.body.assignments;
+    //var phone = req.body.phone;
+    Manager.update(
+        {'_id': managerId},
+        { $push: { 
+            schedules: {
+                'startTime' : startTime,
+                'assignments': assignments
+            } 
+        } }, 
+        function(err) {
+            if (err) console.log(err);
+
+        Manager.findOne({'_id': managerId}, function(err, manager) {
+            res.json({
+                'response': 'OK',
+                'manager': manager
+            });
+        });
+    });
+};
+
+exports.getMySchedule = function(req, res){
+    //add phone user here
+    var userId = req.session.user._id;
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        if (!manager || err) {
+            console.log(manager);
+            console.log(err);
+            res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+        } else {
+            var schedules = [];
+            for(var i = 0; i < manager.schedules.length; i++) {
+                for(var j = 0; j < manager.schedules[i].assignments.length; j++) {
+                    if(manager.schedules[i].assignments[j].users.indexOf(userId) != -1) {
+                        schedules.push(manager.schedules[i]);
+                    }
+                }
+            }
+            res.json({
+                'response': 'OK',
+                'schedules': schedules,
+                'myUser' : req.session.user
+            });
+        }
+    });
+};
+
+exports.getSwaps = function(req, res){
+    var userId = req.session.user._id;
+    Manager.findOne({users: {$elemMatch: {'_id' : ObjectId(userId)}}}, function(err, manager) {
+        if (!manager || err) {
+            res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+        } else {
+            res.json({
+                'response': 'OK',
+                'swaps': manager.swaps,
+                'myUser' : req.session.user
+            });
+        }
+    });
+};
+
+
+exports.addSwap = function(req, res){
+    var fromId = req.session.user._id;
+    var toId = req.body.toId;
+    var assignmentFrom = req.body.assignmentFrom;
+    var assignmentTo = req.body.assignmentTo;
+    Manager.update(
+       {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
+       {
+        $push: { 
+            swaps: {
+                'fromId': fromId,
+                'toId': toId,
+                'assignmentFrom' : assignmentFrom,
+                'assignmentTo' : assignmentTo
+            }
+        } 
+       }, function(err) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    'response': 'FAIL',
+                    'errors': ['User not found']
+                });
+            } else {
+                res.json({
+                    'response': 'OK',
+                    'swaps': manager.swaps,
+                    'myUser' : req.session.user
+                });
+            }
+        });
+};
+
+/*exports.acceptSwap = function(req, res){
+    var fromId = req.session.user._id;
+    var toId = req.body.toId;
+    var assignmentFrom = req.body.assignmentFrom;
+    var assignmentTo = req.body.assignmentTo;
+};*/
+>>>>>>> a13b459dbb0ab0c92763fa2558cc5d7f18488ab5

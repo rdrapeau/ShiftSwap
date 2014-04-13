@@ -24,3 +24,306 @@ Running locally
 ==================
 
 ## API End Points
+
+#### Sign up a Manager
+
+`POST /manager/signup`
+
+Request with:
+
+    email: login email
+    password: login password
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "email": "test@test.com",
+	        "_id": "53487dae343685a71ca1d12d",
+	        "users": [],
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
+
+
+#### Log in a Manager
+
+`POST /manager/signin`
+
+Request with:
+
+    email: login email
+    password: login password
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "email": "test@test.com",
+	        "_id": "53487dae343685a71ca1d12d",
+	        "users": [],
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
+
+
+#### Add a Employee (User)
+
+`POST /user/signup`
+
+Request with:
+
+	managerId: Manager unique id
+    name: employee name
+    email: employee email
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response (sends email to email provided with user _id):
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "_id": "53487dae343685a71ca1d12d",
+	        "email": "test@test.com",
+	        "users": [
+	            {
+	                "email": "test@test.com",
+	                "name": "testing",
+	                "_id": "53487e5f343685a71ca1d12e"
+	            }
+	        ],
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
+
+#### Login a Employee (User login with app)
+
+`POST /user/signin`
+
+Request with:
+
+	userId: User unique id
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "_id": "53487dae343685a71ca1d12d",
+	        "email": "test@test.com",
+	        "users": [
+	            {
+	                "email": "test@test.com",
+	                "name": "testing",
+	                "_id": "53487e5f343685a71ca1d12e"
+	            }
+	        ],
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    },
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
+
+#### Add a schedule (for a week)
+
+`POST /manager/addschedule`
+
+Request with:
+
+	 startTime: timestamp of week start date
+	 assignments: json array of assignments (see reponse)
+
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "manager": {
+	        "__v": 0,
+	        "_id": "53487dae343685a71ca1d12d",
+	        "email": "test@test.com",
+	        "users": [
+	            {
+	                "email": "test@test.com",
+	                "name": "testing",
+	                "_id": "53487e5f343685a71ca1d12e"
+	            }
+	        ],
+	        "schedules" : [
+	        	{
+	        		"startTime" : 34934234,
+	        		"assignments" : [
+						{
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						}
+	        		]
+	        	}
+	        ]
+	        "created_at": "2014-04-11T23:41:34.575Z"
+	    }
+	}
+
+#### Get my assignments (only schedule records with myself included)
+
+`GET /user/getmyschedule`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "schedules": [
+	    		{
+	        		"startTime" : 34934234,
+	        		"assignments" : [
+						{
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						}
+	        		]
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
+
+#### Get swap requests
+
+`GET /user/getswaps`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "swaps": [
+	    		{
+	        		"assignmentFrom" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"from" : "53487e5f343685a71ca1d12e",			
+	        		"assignmentTo" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"to" : "53487e5f343685a71ca1d12e"
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}
+
+#### Add swap request
+
+`GET /user/getswaps`
+
+Request with:
+
+	 Nothing needed
+
+In case of an error:
+
+    {
+        "response": "FAIL"
+    }
+
+Response:
+
+	{
+	    "response": "OK",
+	    "swaps": [
+	    		{
+	        		"assignmentFrom" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"from" : "53487e5f343685a71ca1d12e",			
+	        		"assignmentTo" : {
+							'users' : ['list', 'of', 'unique_codes'],
+							'day' : 0,
+							'start-minute' : 15,
+							'end-minute' : 15
+						},
+					"to" : "53487e5f343685a71ca1d12e"
+	        	}
+	        ]
+	    "myUser": {
+	        "_id": "53487e5f343685a71ca1d12e",
+	        "name": "testing",
+	        "email": "test@test.com"
+	    }
+	}

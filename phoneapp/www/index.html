@@ -17,10 +17,8 @@
         </div>
 
         <div id="login-page">
-            <img src="aaron.gif" alt="logo" id="loginlogo"/>
+            <img src="img/logo.png" alt="logo" id="loginlogo"/>
             <div data-role="fieldcontain" id="login">
-<!--             <img src="img/logo.png" alt="logo" id="loginlogo"/>
-            <div data-role="fieldcontain" id="login"> -->
                 <div>
                     <label for="name" id="enter-key">Enter Key:</label>
                 </div>
@@ -97,16 +95,26 @@
         </div>
 
         <div id="settings-page">
-            <h4 class="settingtitle">display name</h4>
-                <div id="settingbox1">
-                    <div class="ui-grid-b">
-                        <div><strong>Karolina Pyszkiewicz</strong></div>
-                    </div>
+            <h4 class="settingtitle">Name</h4>
+            <div class="settingbox1">
+                <div class="ui-grid-b">
+                    <div><strong id="username"></strong></div>
                 </div>
+            </div>
 
-            <h4 class="settingtitle">Manager</h4>
-            <p id="employeeID"></p>
-            <p id="company">Company</p>
+            <h4 class="settingtitle">Email</h4>
+            <div class="settingbox1">
+                <div class="ui-grid-b">
+                    <div><strong id="useremail"></strong></div>
+                </div>
+            </div>
+
+            <h4 class="settingtitle">ID</h4>
+            <div class="settingbox1">
+                <div class="ui-grid-b">
+                    <div><strong id="employeeID"></strong></div>
+                </div>
+            </div>
             <button id="settingbox2">Disconnect</button>
        </div>
 
@@ -117,9 +125,10 @@
 
                     <li><a id="swap-link-button" href="#swap-page" class="swap-link ui-btn-icon-top" data-icon="refresh"></a></li>
 
-                    <li><a id="employees-link-button" href="#employees-page" class="employees-link ui-icon-edit ui-btn-icon-top" data-icon="search"></a></li>
+                    <li><a id="employees-link-button" href="#employees-page" class="employees-link ui-btn ui-shadow ui-corner-all ui-btn-icon-top ui-icon-user"></a></li>
 
                     <li><a id="settings-link-button" href="#settings-page" class="settings-link ui-state-edit ui-btn-icon-top" data-icon="gear"></a></li>
+
                 </ul>
             </div>
         </div>
