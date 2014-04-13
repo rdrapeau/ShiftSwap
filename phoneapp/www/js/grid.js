@@ -256,9 +256,7 @@ var showEmployeeSchedule = function() {
                     day.appendChild(document.createTextNode(date));
                     day.className = "ui-li-divider ui-bar-inherit";
                     day.setAttribute("data-role", "list-divider");
-                    console.log(head.children.length);
                     head.appendChild(day);
-                    console.log(head.children.length);
                 }
 
                 for (var a = 0; a < days.length; a++) {
@@ -295,6 +293,7 @@ var showEmployeeSchedule = function() {
 var loadSwapPage = function(time, date, partner) {
     $("#partner-name").text(partner);
     $("#partner-choice-text").text(date + ": " + time);
+    $("#users-choices").empty();
     $.post(BASE_URL + "/user/getmyschedule", {userId: window.localStorage.getItem('token')}, function(data) {
         if (data.response == 'OK') {
             var schedules = data.schedules;
@@ -309,7 +308,8 @@ var loadSwapPage = function(time, date, partner) {
                     for (var a = 0; a < days.length; a++) {
                         var startTime = get12HourTime(days[a].start_minute);
                         var endTime = get12HourTime(days[a].end_minute);
-                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+                        var x = Math.random() * 100000;
+                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + '-' + a + '-' + x + "' /><label class='userShifts' for='shift-" + i + "-" + k + '-' + a + '-' + x + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
                         window.localStorage.setItem('json', JSON.stringify(days[a]));
                     }
                 }
