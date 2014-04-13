@@ -123,9 +123,10 @@ h1 {
 
 .arrows{
     position:absolute;
-    bottom:-40px;
+    bottom:-80px;
     margin-left:20%;
     margin-right:20%;
+    overflow:scroll;
 }
 
 #previous-day{
@@ -143,11 +144,7 @@ h1 {
 .ui-grid-b{
     min-width:250px;
     color:#FFE524;
-    margin-top:0px;
-}
-
-#useremail{
-    margin-top:200px;
+    margin-bottom:50px;
 }
 
 #daily-times{
@@ -166,6 +163,9 @@ h1 {
     min-width:250px;
     height:330px;
     position:relative;
+    left:10px;
+    right:10px;
+    top:20px;
     color:white;
 }
 
@@ -184,8 +184,7 @@ p{
 }
 
 .daycontent{
-    margin-left:10px;
-}
+    margin-left:10px;}
 
 #daily-times:empty{
     border:none;
@@ -228,10 +227,6 @@ hr{
     min-width:100px;
 }
 
-#employeeID{
-    margin-top:50px;
-}
-
 #inputsubmit{
     color:#ACFA58;
 }
@@ -262,6 +257,11 @@ hr{
     border: 1px solid rgb(200,200,200);
     border-radius:5px;
     margin-top:-10px;
+    overflow:scroll;
+}
+
+#send-swap{
+    margin-top:20px;
 }
 
 
@@ -338,6 +338,7 @@ hr{
 .settingtitle{
     color:white;
     margin-left:10%;
+    overflow:scroll;
 }
 
 .ui-btn-active{
