@@ -196,6 +196,7 @@ p{
     height:50px;
     margin-top:-0.8px;
     border-bottom: 3px solid #FFE524;
+    text-align:center;
 }
 
 #headtitle2{
@@ -203,14 +204,9 @@ p{
 }
 
 #head-title-text{
-    /*font-weight:bold;
-    font-size:21px;
-    color:#222222;*/
     width:120px;
     height:40px;
     margin-top:2px;
-    margin-left:30%;
-    margin-right:30%;
 }
 
 hr{
@@ -251,6 +247,7 @@ hr{
 }
 
 #login-page{
+    display:block;
     text-align:center;
 }
 
