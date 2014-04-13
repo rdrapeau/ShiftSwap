@@ -19,10 +19,13 @@ $(document).ready(function() {
     checkLogin(); // Check if the user is registered
 });
 
+var BASE_URL = "http://ec2-54-187-51-202.us-west-2.compute.amazonaws.com:3000";
+
 var checkLogin = function() {
     if (!window.localStorage.getItem("token")) { // User is not registered
         showLoginPage();
     } else {
+        login();
         $("#footing").show();
         $("#headtitle").show();
         showGridPage();
@@ -31,10 +34,23 @@ var checkLogin = function() {
 
 var login = function() {
     var token = $("#name").val();
-    window.localStorage.setItem("token", token);
-    // Send to server
-
-    checkLogin();
+    if (window.localStorage.getItem("token")) {
+        token = window.localStorage.getItem("token");
+    }
+    $.post(BASE_URL + "/user/signin", {userId: token}, function (data) {
+        if (data.response == "OK") {
+            window.localStorage.setItem('token', data.myUser._id);
+            window.localStorage.setItem('name', data.myUser.name);
+            window.localStorage.setItem('email', data.myUser.email);
+            $("#footing").show();
+            $("#headtitle").show();
+            showGridPage();
+        }
+        $("#inputsubmit").parent().removeClass("ui-disabled");
+    }).fail(function() { // Failed
+        $("#inputsubmit").parent().removeClass("ui-disabled");
+    });
+    $("#inputsubmit").parent().addClass("ui-disabled");
 }
 
 var dailyIndex = 0;
@@ -114,6 +130,9 @@ var loginPage = function() {
 
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
+            $.get(BASE_URL + "/user/getmyschedule", function(data) {
+            console.log(data.response);
+        });
     goToPage("grid-page");
     showDailyGrid();
 }
@@ -174,6 +193,13 @@ var sendSwap = function() {
 var showSettingsPage = function() {
     $("#head-title-text").text("ShiftSwap");
     $("#employeeID").text(window.localStorage.getItem("token"));
+    $("#username").text(window.localStorage.getItem("name"));
+    $("#useremail").text(window.localStorage.getItem("email"));
+    $("#settingbox2").click(function () {
+        window.localStorage.clear();
+        $("#name").val('');
+        checkLogin();
+    });
     goToPage("settings-page");
 
 }
@@ -278,8 +304,12 @@ var showEmployeeSchedule = function() {
                 if (employeeData.employees[i].schedule[z].hasShift) {
                     for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
                         var shift = document.createElement("li");
+<<<<<<< HEAD
                         var button = document.createElement("a")
 
+=======
+                        var button = document.createElement("a");
+>>>>>>> FETCH_HEAD
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
                         button.className = "ui-btn ui-icon-forward ui-btn-icon-right ui-shadow ui-corner-all";
                         button.appendChild(document.createTextNode(text));

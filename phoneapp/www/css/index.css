@@ -224,10 +224,11 @@ hr{
     text-align:center;
 }
 
-#settingbox1{
+.settingbox1{
     background-color:rgb(200,200,200);
     margin-left:15%;
     margin-right:15%;
+    margin-bottom: 10%;
     margin-top:20%;
     min-width:200px;
     height:20px;
@@ -273,13 +274,6 @@ hr{
     border-radius: 1em;
     width:300px;
     height:100px;
-}
-
-
-#company, #employeeID{
-    color:#A9D0F5;
-    font-size:20px;
-    text-align:center;
 }
 
 #swapaccept{
