@@ -109,7 +109,7 @@ var employeeData = {"employees":[
 ]};
 
 var loginPage = function() {
-    toToPage("login-page")
+    goToPage("login-page")
 }
 
 var showGridPage = function() {
@@ -279,9 +279,10 @@ var showEmployeeSchedule = function() {
                     for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
                         var shift = document.createElement("li");
                         var button = document.createElement("a")
+
                         var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
+                        button.className = "ui-btn ui-icon-forward ui-btn-icon-right ui-shadow ui-corner-all";
                         button.appendChild(document.createTextNode(text));
-                        button.className = "ui-btn ui-btn-up-c";
                         button.value = employeeData.employees[i].schedule[z].date;
                         button.onclick = swap;
 

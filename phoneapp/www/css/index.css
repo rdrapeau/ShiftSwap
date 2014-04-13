@@ -329,3 +329,12 @@ hr{
     color:#14FFB1;
 }
 
+.ui-icon-forward{
+    background-color:green;
+}
+
+
+.ui-btn.ui-icon-forward.ui-btn-icon-left.ui-shadow.ui-corner-all{
+    margin-right;0;
+}
+}
