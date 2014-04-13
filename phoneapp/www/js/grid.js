@@ -26,14 +26,16 @@ var checkLogin = function() {
     if (!window.localStorage.getItem("token")) { // User is not registered
         showLoginPage();
     } else {
-        login();
-        $("#footing").show();
-        $("#headtitle").show();
-        showGridPage();
+        login(function() {
+            $("#footing").show();
+            $("#headtitle").show();
+            showGridPage();
+        });
+
     }
 }
 
-var login = function() {
+var login = function(callback) {
     var token = $("#name").val();
     if (window.localStorage.getItem("token")) {
         token = window.localStorage.getItem("token");
@@ -43,9 +45,7 @@ var login = function() {
             window.localStorage.setItem('token', data.myUser._id);
             window.localStorage.setItem('name', data.myUser.name);
             window.localStorage.setItem('email', data.myUser.email);
-            $("#footing").show();
-            $("#headtitle").show();
-            showGridPage();
+            callback();
         }
         $("#inputsubmit").parent().removeClass("ui-disabled");
     }).fail(function() { // Failed
@@ -131,7 +131,7 @@ var loginPage = function() {
 
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    $.get(BASE_URL + "/user/getmyschedule", function(data) {
+    $.post(BASE_URL + "/user/getmyschedule", {userId: "5349f92d72088bf96304ecfa"}, function(data) {
         console.log(data.response);
     });
     goToPage("grid-page");
@@ -146,7 +146,6 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    console.log($("#users-choices").children().length);
     if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
         $("#swap-view").css("border", "none");
     else
