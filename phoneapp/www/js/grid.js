@@ -87,11 +87,10 @@ var showEmployeePage = function() {
 
 var showSwapPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
+    if ($("#users-choices").children().length > 0)
         $("#swap-view").css("border", "none");
     else
         $("#swap-view").css("border", "4px solid #444444");
-    // Load Swaps HERE
     goToPage("swap-page");
 }
 
