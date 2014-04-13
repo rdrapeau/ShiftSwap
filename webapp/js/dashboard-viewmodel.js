@@ -57,7 +57,7 @@ var DashViewModel = function(data, server) {
 	}
 
 	self.addEmployee = function() {
-		$.post(server + '/user/signup', {'name' : self.employeeName(), 'email' : self.employeeEmail()}, function(data) {
+		$.post(server + '/user/signup', {'name' : self.employeeName(), 'email' : self.employeeEmail(), 'phone' : self.employeePhone()}, function(data) {
 			if(data.response == 'FAIL') {
 				alert("Something went wrong!");
 			} else {

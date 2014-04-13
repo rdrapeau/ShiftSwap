@@ -15,7 +15,13 @@ var init = function() {
     $("#send-swap").click(sendSwap);
     $("#send-swap-div").hide();
 
-    $("#inputsubmit").click(login);
+    $("#inputsubmit").click(function() {
+        login(function() {
+            $("#footing").show();
+            $("#headtitle").show();
+            showGridPage();
+        });
+    });
 
     checkLogin(); // Check if the user is registered
 }
@@ -35,7 +41,6 @@ var checkLogin = function() {
             $("#headtitle").show();
             showGridPage();
         });
-
     }
 }
 
@@ -60,84 +65,16 @@ var login = function(callback) {
 
 var dailyIndex = 0;
 
-var scheduleData = {"schedule":[
-    {
-        "date": "4/12/2014",
-        "hasShift": true,
-        "shifts":[
-            {
-                "startTime": 0,
-                "endTime": 120
-            },
-            {
-                "startTime": 600,
-                "endTime": 660
-            }
-        ],
-        "notes": null
-    },
-    {
-        "date": "4/13/2014",
-        "hasShift": false,
-        "shifts":[],
-        "notes": null
-    },
-    {
-        "date": "4/14/2014",
-        "hasShift": true,
-        "shifts":[
-            {
-                "startTime": 328,
-                "endTime": 984
-            }
-        ],
-        "notes": null
-    },
-    {
-        "date": "4/15/2014",
-        "hasShift": true,
-        "shifts":[
-            {
-                "startTime": 142,
-                "endTime": 438
-            },
-            {
-                "startTime": 579,
-                "endTime": 800
-            }
-        ],
-        "notes": null
-    }
-]};
-
-var employeeData = {"employees":[
-    {
-        "name": "Aaron",
-        "schedule": scheduleData.schedule
-    },
-    {
-        "name": "Karolina",
-        "schedule": scheduleData.schedule
-    },
-    {
-        "name": "Setareh",
-        "schedule": scheduleData.schedule
-    },
-    {
-        "name": "Ryan",
-        "schedule": scheduleData.schedule
-    }
-]};
-
-var loginPage = function() {
-    goToPage("login-page")
+var getData = function(callback) {
+    $.post(BASE_URL + "/user/signin", {userId: window.localStorage.getItem('token')}, function (data) {
+        if (data.response == "OK") {
+            callback(data);
+        }
+    });
 }
 
 var showGridPage = function() {
     $("#head-title-text").text("ShiftSwap");
-    $.post(BASE_URL + "/user/getmyschedule", {userId: "5349f92d72088bf96304ecfa"}, function(data) {
-        console.log(data.response);
-    });
     goToPage("grid-page");
     showDailyGrid();
 }
@@ -164,27 +101,6 @@ var showLoginPage = function() {
     $("#headtitle").hide();
 }
 
-var loadSwapPage = function(time, date, partner) {
-    scheduleData = getScheduleData();
-    $("#partner-name").text(partner);
-    $("#partner-choice-text").text(date + ": " + time);
-
-    var head = document.getElementById("users-choices");
-    for (var i = 0; i < scheduleData.schedule.length; i++) {
-        if (scheduleData.schedule[i].hasShift) {
-            for (var j = 0; j < scheduleData.schedule[i].shifts.length; j++) {
-                var date = scheduleData.schedule[i].date;
-                var startTime = get12HourTime(scheduleData.schedule[i].shifts[j].startTime);
-                var endTime = get12HourTime(scheduleData.schedule[i].shifts[j].endTime);
-                $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + j + "' /><label date='" + date + "' startTime='" + startTime + "' endTime='" + endTime + "' class='userShifts' for='shift-" + i + "-" + j + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
-            }
-        }
-    }
-
-    $("#send-swap-div").show();
-    showSwapPage();
-}
-
 var sendSwap = function() {
     if ($(".ui-radio-on.userShifts").exists()) {
         console.log($(".ui-radio-on.userShifts").attr("date"));
@@ -209,6 +125,7 @@ var showSettingsPage = function() {
     $("#useremail").text(window.localStorage.getItem("email"));
     $("#settingbox2").click(function () {
         window.localStorage.clear();
+        $("#inputsubmit").parent().removeClass("ui-disabled");
         $("#name").val('');
         checkLogin();
     });
@@ -216,23 +133,13 @@ var showSettingsPage = function() {
 
 }
 
-var getEmployeeData = function() {
-    return employeeData;
-}
-
-var getScheduleData = function() {
-    return scheduleData;
-}
-
 var nextDay = function() {
-    scheduleData = getScheduleData();
-
-    if (dailyIndex < scheduleData.schedule.length - 1) {
+    if (dailyIndex < 6) {
         dailyIndex++;
         $("#previous-day").removeClass("ui-disabled");
     }
 
-    if (dailyIndex == scheduleData.schedule.length - 1)
+    if (dailyIndex == 6)
         $("#next-day").addClass("ui-disabled");
 
     showDailyGrid();
@@ -272,137 +179,197 @@ var goToPage = function(page) {
 }
 
 var showEmployeeList = function() {
-    $("#employee-list").empty();
-    $("#employee-list-view").show();
-    $("#employee-schedule-view").hide();
-    var head = document.getElementById("employee-list");
+    getData(function(data) {
+        $("#employee-list").empty();
+        $("#employee-list-view").show();
+        $("#employee-schedule-view").hide();
+        var head = document.getElementById("employee-list");
 
-    employeeData = getEmployeeData();
+        var users = data.manager.users;
 
-    for (var i = 0; i < employeeData.employees.length; i++) {
-        var employee = document.createElement("li");
-        var button = document.createElement("a");
+        for (var i = 0; i < users.length; i++) {
+            var employee = document.createElement("li");
+            var button = document.createElement("a");
 
-        button.className = "employee ui-btn ui-btn-icon-right ui-icon-carat-r";
-        button.appendChild(document.createTextNode(employeeData.employees[i].name));
-
-        employee.appendChild(button);
-        head.appendChild(employee);
-    }
-    $(".employee").click(showEmployeeSchedule);
+            button.className = "employee ui-btn ui-btn-icon-right ui-icon-carat-r";
+            button.appendChild(document.createTextNode(users[i].name));
+            employee.appendChild(button);
+            head.appendChild(employee);
+        }
+        $(".employee").click(showEmployeeSchedule);
+    });
 }
 
 var showEmployeeSchedule = function() {
-    employeeData = getEmployeeData();
-    scheduleData = getScheduleData();
-    $("#head-title-text").text(this.text);
+    var self = $(this);
+    getData(function(data) {
+        var users = data.manager.users;
+        var schedules = data.manager.schedules;
 
-    for (var i = 0; i < employeeData.employees.length; i++) {
-        if (employeeData.employees[i].name.toLowerCase() == this.text.toLowerCase()) {
-            $("#employee-schedule").empty();
-            $("#employee-list-view").hide();
-            $("#employee-schedule-view").show();
+        $("#head-title-text").text(self.text());
+        $("#employee-schedule").empty();
+        $("#employee-list-view").hide();
+        $("#employee-schedule-view").show();
 
-            var head = document.getElementById("employee-schedule");
+        var head = document.getElementById("employee-schedule");
 
-            for (var z = 0; z < employeeData.employees[i].schedule.length; z++) {
-                var day = document.createElement("li");
-                var date = getDateString(employeeData.employees[i].schedule[z].date);
-                day.appendChild(document.createTextNode(date));
-                day.className = "ui-li-divider ui-bar-inherit";
-                day.setAttribute("data-role", "list-divider");
-                head.appendChild(day);
+        for (var i = 0; i < schedules.length; i++) {
+            for (var k = 0; k < 7; k++) {
 
-                if (employeeData.employees[i].schedule[z].hasShift) {
-                    for (var j = 0; j < employeeData.employees[i].schedule[z].shifts.length; j++) {
-                        var shift = document.createElement("li");
-                        var button = document.createElement("a")
+                var days = $.grep(schedules[i].assignments, function(item) {
+                    return item.day == k;
+                });
 
-                        var text = get12HourTime(employeeData.employees[i].schedule[z].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[z].shifts[j].endTime);
-                        button.className = "ui-btn ui-icon-forward ui-btn-icon-right ui-shadow ui-corner-all";
-                        button.appendChild(document.createTextNode(text));
-                        button.value = employeeData.employees[i].schedule[z].date;
-                        button.onclick = swap;
+                if (days.length > 0) {
+                    var day = document.createElement("li");
+                    var date = getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k);
+                    day.appendChild(document.createTextNode(date));
+                    day.className = "ui-li-divider ui-bar-inherit";
+                    day.setAttribute("data-role", "list-divider");
+                    head.appendChild(day);
+                }
 
-                        shift.appendChild(button);
-                        head.appendChild(shift);
+                for (var a = 0; a < days.length; a++) {
+
+                    var assignment = days[a];
+                    var users = assignment.users;
+                    var start = assignment.start_minute;
+                    var end = assignment.end_minute;
+
+                    var found = false;
+                    for (var l = 0; l < users.length; l++) {
+                        if (users[l].toLowerCase() == self.text().toLowerCase()) {
+                            found = true;
+                            var shift = document.createElement("li");
+                            var button = document.createElement("a");
+
+                            var text = get12HourTime(start) + " - " + get12HourTime(end);
+                            button.className = "ui-btn ui-icon-forward ui-btn-icon-right ui-shadow ui-corner-all";
+                            button.appendChild(document.createTextNode(text));
+                            button.onclick = swap;
+                            button.value = parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * assignment.day;
+
+                            shift.appendChild(button);
+                            head.appendChild(shift);
+                        }
                     }
-                } else {
-                    var shift = document.createElement("li");
-                    shift.appendChild(document.createTextNode("Nothing"));
-                    shift.className = "ui-li-static ui-body-inherit";
-                    head.appendChild(shift);
+                    if (!found) {
+                        $(day).remove();
+                    }
                 }
             }
-            break;
         }
-    }
+    });
+}
+
+var loadSwapPage = function(time, date, partner) {
+    $("#partner-name").text(partner);
+    $("#partner-choice-text").text(date + ": " + time);
+    $.post(BASE_URL + "/user/getmyschedule", {userId: window.localStorage.getItem('token')}, function(data) {
+        if (data.response == 'OK') {
+            var schedules = data.schedules;
+            for (var i = 0; i < schedules.length; i++) {
+                for (var k = 0; k < 7; k++) {
+                    var z = k;
+                    var days = $.grep(schedules[i].assignments, function(item) {
+                        return item.day == z;
+                    });
+
+                    var date = getAbrevDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k);
+                    for (var a = 0; a < days.length; a++) {
+                        var startTime = get12HourTime(days[a].start_minute);
+                        var endTime = get12HourTime(days[a].end_minute);
+                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label date='" + date + "' startTime='" + startTime + "' endTime='" + endTime + "' class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+                    }
+                }
+            }
+            $("#send-swap-div").show();
+            showSwapPage();
+        }
+    });
 }
 
 var swap = function() {
-    var time = this.text;
-    var date = this.value;
+    var time = $(this).text();
+    var date = getAbrevDateString(this.value);
     var partner = $("#head-title-text").text();
-
     loadSwapPage(time, date, partner);
 }
 
 var showDailyGrid = function () {
-    $("#week-view").hide();
-    $("#day-view").show();
-    $("#daily-times").empty();
-    $("#daily-view-button").addClass("ui-btn-active ui-state-persist");
-    $("#weekly-view-button").removeClass("ui-btn-active ui-state-persist");
+    $.post(BASE_URL + "/user/getmyschedule", {userId: window.localStorage.getItem('token')}, function(data) {
+        if (data.response == 'OK') {
+            $("#week-view").hide();
+            $("#day-view").show();
+            $("#daily-times").empty();
+            $("#daily-view-button").addClass("ui-btn-active ui-state-persist");
+            $("#weekly-view-button").removeClass("ui-btn-active ui-state-persist");
 
-    scheduleData = getScheduleData();
+            var head = document.getElementById("daily-times");
 
-    var currentDay = scheduleData.schedule[dailyIndex];
-    $("#daily-title").text(getDateString(currentDay.date));
+            schedules = data.schedules;
+            for (var i = 0; i < schedules.length; i++) {
+                for (var k = dailyIndex; k < dailyIndex + 1; k++) {
+                    var z = k;
+                    var days = $.grep(schedules[i].assignments, function(item) {
+                        return item.day == z;
+                    });
 
-    var head = document.getElementById("daily-times");
+                    $("#daily-title").text(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k));
 
-    for (var i = 0; i < currentDay.shifts.length; i++) {
-        var shift = document.createElement("li");
-        shift.className = "ui-li-static ui-body-inherit";
-        var text = get12HourTime(currentDay.shifts[i].startTime) + " - " + get12HourTime(currentDay.shifts[i].endTime);
-        shift.appendChild(document.createTextNode(text));
-
-        head.appendChild(shift);
-    }
-
-    $("#daily-notes").text(currentDay.notes ? currentDay.notes : "None");
+                    for (var a = 0; a < days.length; a++) {
+                        var shift = document.createElement("li");
+                        shift.className = "ui-li-static ui-body-inherit";
+                        var text = get12HourTime(days[a].start_minute) + " - " + get12HourTime(days[a].end_minute);
+                        shift.appendChild(document.createTextNode(text));
+                        head.appendChild(shift);
+                    }
+                }
+            }
+        }
+    });
 }
 
 var showWeeklyGrid = function() {
-    $("#day-view").hide();
-    $("#week-view").show();
-    $("#schedule-list").empty();
-    var head = document.getElementById("schedule-list");
+    $.post(BASE_URL + "/user/getmyschedule", {userId: window.localStorage.getItem('token')}, function(data) {
+        if (data.response == 'OK') {
+            $("#day-view").hide();
+            $("#week-view").show();
+            $("#schedule-list").empty();
+            var head = document.getElementById("schedule-list");
 
-    scheduleData = getScheduleData();
+            schedules = data.schedules;
+            for (var i = 0; i < schedules.length; i++) {
+                for (var k = 0; k < 7; k++) {
+                    var z = k;
+                    var days = $.grep(schedules[i].assignments, function(item) {
+                        return item.day == z;
+                    });
 
-    for (var i = 0; i < scheduleData.schedule.length; i++) {
-        var day = document.createElement("li");
-        day.appendChild(document.createTextNode(getDateString(scheduleData.schedule[i].date)));
-        day.className = "ui-li-divider ui-bar-inherit";
-        day.setAttribute("data-role", "list-divider");
-        head.appendChild(day);
+                    if (days.length > 0) {
+                        var day = document.createElement("li");
+                        day.appendChild(document.createTextNode(getDateString(parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * k)));
+                        day.className = "ui-li-divider ui-bar-inherit";
+                        day.setAttribute("data-role", "list-divider");
+                        head.appendChild(day);
+                    }
 
-        if (scheduleData.schedule[i].hasShift) {
-            for (var j = 0; j < scheduleData.schedule[i].shifts.length; j++) {
-                var shift = document.createElement("li");
-                var text = get12HourTime(scheduleData.schedule[i].shifts[j].startTime) + " - " + get12HourTime(scheduleData.schedule[i].shifts[j].endTime);
-                shift.appendChild(document.createTextNode(text));
-                shift.className = "ui-li-static ui-body-inherit";
-                head.appendChild(shift);
+                    for (var a = 0; a < days.length; a++) {
+                        var shift = document.createElement("li");
+                        var text = get12HourTime(days[a].start_minute) + " - " + get12HourTime(days[a].end_minute);
+                        shift.appendChild(document.createTextNode(text));
+                        shift.className = "ui-li-static ui-body-inherit";
+                        head.appendChild(shift);
+                    }
+                }
             }
-        } else {
-                var shift = document.createElement("li");
-                shift.appendChild(document.createTextNode("Nothing"));
-                shift.className = "ui-li-static ui-body-inherit";
-                head.appendChild(shift);
         }
-    }
+    });
+}
+
+var getAbrevDateString = function(dateString) {
+    var date = new Date(dateString);
+    return date.toLocaleDateString("en-US");
 }
 
 var getDateString = function(dateString) {
