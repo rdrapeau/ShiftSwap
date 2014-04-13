@@ -140,9 +140,6 @@ h1 {
     border-radius:2.5px;
 }
 
-div.#daily-times.empty{
-    border: none;
-}
 
 #day-view{
     background-color:#14FFB1;
@@ -260,7 +257,11 @@ hr{
     margin-top:10%;
     margin-left:5%;
     margin-right:5%;
-    height:300px;
+    text-align:center;
+}
+
+div.#swap-view.empty{
+    border: none;
 }
 
 .swaptitle{
@@ -305,6 +306,10 @@ hr{
     float:right;
 }
 
+#swap-page{
+    overflow:scroll;
+}
+
 .settingtitle{
     color:white;
     margin-left:10%;
@@ -327,8 +332,8 @@ hr{
     background-color:green;
 }
 
+.ui-controlgroup.ui-controlgroup-vertical.ui-corner-all{
+    overflow:scroll;
+}
 
-.ui-btn.ui-icon-forward.ui-btn-icon-left.ui-shadow.ui-corner-all{
-    margin-right;0;
-}
-}
+
