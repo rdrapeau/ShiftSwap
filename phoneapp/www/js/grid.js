@@ -189,6 +189,9 @@ var sendSwap = function() {
     } else {
         console.log("Select an element");
     }
+
+    if ($("#pending-swaps").children().length == 0)
+        $("#swap-view").css("border", "none");
 }
 
 var showSettingsPage = function() {
