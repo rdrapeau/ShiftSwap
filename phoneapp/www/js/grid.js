@@ -181,11 +181,19 @@ var previousDay = function() {
 var goToPage = function(page) {
     var pages = ["grid-page", "swap-page", "employees-page", "settings-page", "login-page"];
     var domPages = [$("#grid-page"), $("#swap-page"), $("#employees-page"), $("#settings-page"), $("#login-page")];
+    var buttons = [$("#grid-link-button"), $("#swap-link-button"), $("#employees-link-button"), $("#settings-link-button"), null];
 
     var index = null;
     for (var i = 0; i < pages.length; i++) {
         if (pages[i] == page) {
             index = i;
+            if (i != 4) {
+                buttons[i].addClass("ui-btn-active");
+                buttons[i].addClass("ui-state-persist");
+            }
+        } else if (i != 4) {
+            buttons[i].removeClass("ui-btn-active");
+            buttons[i].removeClass("ui-state-persist");
         }
     }
 
