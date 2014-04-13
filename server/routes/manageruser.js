@@ -379,8 +379,8 @@ exports.hasCounterPart = function(swap, callback) {
 exports.addSwap = function(req, res){
     console.log(req.body);
     var fromId = null;
-    if(typeof req.body.userId != 'undefined') {
-        fromId = req.body.userId;
+    if(typeof req.body.fromId != 'undefined') {
+        fromId = req.body.fromId;
     } else {
         fromId = req.session.user._id;
     }
@@ -397,7 +397,7 @@ exports.addSwap = function(req, res){
     exports.hasCounterPart(swap, function(status) {
         if(!status) {
             Manager.update(
-               {users: {$elemMatch: {'_id' : ObjectId(userId)}}},
+               {users: {$elemMatch: {'_id' : ObjectId(fromId)}}},
                {
                 $push: { 
                     swaps: swap
@@ -412,18 +412,14 @@ exports.addSwap = function(req, res){
                     } else {
                         res.json({
                             'response': 'OK',
-                            'swapHappened' : false,
-                            'swaps': manager.swaps,
-                            'myUser' : req.session.user
+                            'swapHappened' : false
                         });
                     }
                 });
         } else {
             res.json({
                 'response': 'OK',
-                'swapHappened' : true,
-                'swaps': manager.swaps,
-                'myUser' : req.session.user
+                'swapHappened' : true
             });        
         }
     });

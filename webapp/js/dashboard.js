@@ -6,7 +6,6 @@
 
     $(document).ready(function() {
         $("#alreadyRegistered").click(alreadyRegistered);
-        $("#remember").hide();
         $("#register").click(register);
         $("#login").click(login);
 
@@ -16,8 +15,7 @@
     function alreadyRegistered() {
         $("#alreadyRegistered").fadeOut("fast");
         $("#registerForm").slideUp("slow", function() {
-        $("#loginForm").slideDown("slow");
-        $("#remember").show();    
+            $("#loginForm").slideDown("slow");
         });
     }
     //sendgrid function sending data
