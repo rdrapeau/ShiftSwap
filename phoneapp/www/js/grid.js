@@ -103,19 +103,40 @@ var showLoginPage = function() {
 
 var sendSwap = function() {
     if ($(".ui-radio-on.userShifts").exists()) {
-        console.log($(".ui-radio-on.userShifts").attr("date"));
-        console.log($(".ui-radio-on.userShifts").attr("startTime"));
-        console.log($(".ui-radio-on.userShifts").attr("endTime"));
+        getData(function(data) {
+            var from = JSON.stringify(window.localStorage.getItem('json'));
+            var to = JSON.stringify($("#json-button").attr("data-json"));
+            var myID = window.localStorage.getItem('token');
+            var toID = null;
 
-        // SEND TO SERVER
+            var partnerName = $("#partner-name").text();
+            var users = data.manager.users;
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].name == partnerName) {
+                    toID = users[i]._id;
+                }
+            }
+            $.post(BASE_URL + "/user/addswap", {"toId": toID, "assignmentFrom": from, "assignmentTo": to, "fromId": myID}, function(data) {
+                console.log(data.response);
+            });
+        });
         $("#send-swap-div").hide();
         $("#users-choices").empty();
-    } else {
-        console.log("Select an element");
     }
 
     if ($("#pending-swaps").children().length == 0 && $("#users-choices").children().length == 0)
         $("#swap-view").css("border", "none");
+}
+
+var getIDForName = function(name) {
+    getData(function(data) {
+        var users = data.manager.users;
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].name == name) {
+                window.localStorage.setItem("partner", users[i]._id);
+            }
+        }
+    });
 }
 
 var showSettingsPage = function() {
@@ -130,7 +151,6 @@ var showSettingsPage = function() {
         checkLogin();
     });
     goToPage("settings-page");
-
 }
 
 var nextDay = function() {
@@ -248,7 +268,8 @@ var showEmployeeSchedule = function() {
                             button.appendChild(document.createTextNode(text));
                             button.onclick = swap;
                             button.value = parseInt(schedules[i].startTime) + 1000 * 60 * 60 * 24 * assignment.day;
-
+                            button.setAttribute("data-json", assignment);
+                            button.id = "json-button";
                             shift.appendChild(button);
                             head.appendChild(shift);
                         }
@@ -279,7 +300,8 @@ var loadSwapPage = function(time, date, partner) {
                     for (var a = 0; a < days.length; a++) {
                         var startTime = get12HourTime(days[a].start_minute);
                         var endTime = get12HourTime(days[a].end_minute);
-                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label date='" + date + "' startTime='" + startTime + "' endTime='" + endTime + "' class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+                        $("#users-choices").append("<div class='ui-radio'><input type='radio' name='shift' id='shift-" + i + "-" + k + "' /><label class='userShifts' for='shift-" + i + "-" + k + "'>" + date + ": " + startTime + " - " + endTime + "</label></div>").trigger("create");
+                        window.localStorage.setItem('json', days[a]);
                     }
                 }
             }
