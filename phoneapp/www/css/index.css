@@ -125,12 +125,12 @@ h1 {
     position:absolute;
     bottom:10px;
     margin-left:10%;
-    margin-right:5%;
-    min-width:204px;
+    margin-right:10%;
+    min-width:200%;
 }
 
 .ui-grid-b{
-    min-width:200px;
+    min-width:250px;
 }
 
 #daily-times{
@@ -151,7 +151,7 @@ div.#daily-times.empty{
     margin-left:15%;
     margin-right:15%;
     margin-top:10%;
-    min-width:200px;
+    min-width:250px;
     height:300px;
     position:relative;
 }
