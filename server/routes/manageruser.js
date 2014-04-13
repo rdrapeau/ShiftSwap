@@ -122,14 +122,15 @@ exports.addEmployee = function(req, res){
 
         Manager.findOne({'_id': managerId}, function(err, manager) {
             exports.sendSms(phone, userId, function(error, message) {
-            exports.sendEmail(name, email, userId, function(error, message))    
+            exports.sendEmail(name, email, userId, function(error, message)  {  
                 res.json({
                     'response': 'OK',
                     'manager': manager,
                     'text_message' : message,
                     'text_errors' : error
+                    });
                 });
-            });
+             });
         });
     });
 };
