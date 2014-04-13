@@ -65,7 +65,12 @@ app.post('/user/getswaps', middleware.requiresUser, managerUser.getSwaps);
 // Adds a swap request to this user's manager
 app.post('/user/addswap', middleware.requiresUser, managerUser.addSwap);
 
+
 //sending twillio sms
+<<<<<<< HEAD
+=======
+app.post('/manager/sendsms',managerUser.sendSms);
+>>>>>>> 966f886ccf89d4312f280d51c6ed7138ce7d774c
 
 // Start the server
 http.createServer(app).listen(app.get('port'), function(){
