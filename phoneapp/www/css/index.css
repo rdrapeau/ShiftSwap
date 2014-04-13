@@ -123,14 +123,31 @@ h1 {
 
 .arrows{
     position:absolute;
-    bottom:10px;
-    margin-left:10%;
-    margin-right:10%;
-    min-width:200%;
+    bottom:-40px;
+    margin-left:20%;
+    margin-right:20%;
+}
+
+#previous-day{
+    width:35px;
+    font-size:10px;
+    margin-right:2px;
+}
+
+#next-day{
+    width:35px;
+    font-size:10px;
+    margin-left:2px;
 }
 
 .ui-grid-b{
     min-width:250px;
+    color:#FFE524;
+    margin-top:0px;
+}
+
+#useremail{
+    margin-top:200px;
 }
 
 #daily-times{
@@ -138,24 +155,27 @@ h1 {
     margin-right:10px;
     border: 2px solid transparent;
     border-radius:2.5px;
+    background-color:#FFE524;
 }
 
 
 #day-view{
-    background-color:#14FFB1;
-    border:5px solid:#14FFB1;
-    box-shadow:10px 10px 10px #222222;
     margin-left:10%;
     margin-right:10%;
     margin-top:10%;
     min-width:250px;
-    height:300px;
+    height:330px;
     position:relative;
+    color:white;
 }
 
 li.ui-li-static.ui-body-inherit{
-    border-bottom: 1px solid rgb(200,200,200);
-    border-radius:2px;
+    border-bottom: 2px solid #FFE524;
+    border-radius:3px;
+}
+
+p{
+    color:white;
 }
 
 #daytitle{
@@ -165,6 +185,10 @@ li.ui-li-static.ui-body-inherit{
 
 .daycontent{
     margin-left:10px;
+}
+
+#daily-times:empty{
+    border:none;
 }
 
 #headtitle{
@@ -177,7 +201,8 @@ li.ui-li-static.ui-body-inherit{
 
 #head-title-text{
     font-weight:bold;
-    font-size:18px;
+    font-size:21px;
+    color:#222222;
 }
 
 hr{
@@ -201,6 +226,10 @@ hr{
 #enter-key{
     color:#14FFB1;
     min-width:100px;
+}
+
+#employeeID{
+    margin-top:50px;
 }
 
 #inputsubmit{
@@ -258,10 +287,6 @@ hr{
     margin-left:5%;
     margin-right:5%;
     text-align:center;
-}
-
-div.#swap-view.empty{
-    border: none;
 }
 
 .swaptitle{
@@ -324,12 +349,8 @@ div.#swap-view.empty{
 }
 
 .ui-shadow{
-    background-color:#14FFB1;
+    background-color:#333333;
     color:#14FFB1;
-}
-
-.ui-icon-forward{
-    background-color:green;
 }
 
 .ui-controlgroup.ui-controlgroup-vertical.ui-corner-all{
