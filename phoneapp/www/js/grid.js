@@ -103,8 +103,8 @@ var showLoginPage = function() {
 var sendSwap = function() {
     if ($(".ui-radio-on.userShifts").exists()) {
         getData(function(data) {
-            var from = window.localStorage.getItem('json');
-            var to = $("#json-button").attr("data-json");
+            var to = window.localStorage.getItem('json');
+            var from = $("#json-button").attr("data-json");
 
             var myID = window.localStorage.getItem('token');
             var toID = null;
